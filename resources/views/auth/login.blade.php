@@ -8,8 +8,7 @@
     <link rel="icon" type="image/png" href="{{ asset('storage/imgsistema/logo.png') }}">
     @vite([
         'resources/css/demo/styles.css',
-        'resources/js/app.js',
-
+        'resources/js/applogin.js'
     ])
 </head>
 <body class="bg-light">
