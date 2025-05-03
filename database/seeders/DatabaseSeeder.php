@@ -13,11 +13,11 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
-
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+        //Aqui se llama a los sender, para que se registres por defecto en la BD
+        $this->call([
+//            UbigeoSeeder::class,
+//            IndependienteSeeder::class,
+            logicabdSeeder::class
         ]);
     }
 }
