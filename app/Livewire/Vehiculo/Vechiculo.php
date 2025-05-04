@@ -15,7 +15,7 @@ class Vechiculo extends Component
         $modelovecino = new Vehiculo();
         $data = $modelovecino->mostravehiculo();
         return view('livewire.vehiculo.vechiculo', [
-            'data' => $data["data"]
+            'data' => $data["data"] == null ? [] : $data["data"]
         ]);
     }
 }
