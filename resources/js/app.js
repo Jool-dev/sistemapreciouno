@@ -1,5 +1,7 @@
 import './bootstrap';
+import './appglobal.js';
 import './demo/scripts.js'
+import './intranet/appvehiculo.js'
 import './demo/datatables-simple-demo.js';
 import './demo/chart-area-demo.js';
 import './demo/chart-bar-demo.js';

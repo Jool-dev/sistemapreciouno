@@ -3,9 +3,6 @@ create view v_vehiculo
 as
 select * from vehiculos;
 
---crear vista conductores
-
-
 --crear vista productos
 create view v_producto
 as
@@ -15,3 +12,4 @@ select * from productos;
 create view v_guias_remision
 as
 select * from guias_remision;
+
