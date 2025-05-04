@@ -21,7 +21,7 @@ return new class extends Migration
         Schema::create('conductores', function (Blueprint $table) {
             $table->id('idconductor');
             $table->string('nombre', 50);
-            $table->integer('dni');
+            $table->string('dni', 8);
             $table->timestamps();
         });
 
@@ -29,7 +29,7 @@ return new class extends Migration
         Schema::create('productos', function (Blueprint $table) {
             $table->id('idproducto');
             $table->string('nombre', 50);
-            $table->integer('codigo');
+            $table->string('sku', 15);
             $table->string('estado', 50);
             $table->dateTime('fecharegistro');
             $table->timestamps();
@@ -38,8 +38,8 @@ return new class extends Migration
         // Tabla GuiaRemision
         Schema::create('guias_remision', function (Blueprint $table) {
             $table->id('idguia');
-            $table->integer('tim');
-            $table->dateTime('fechaemision');
+            $table->string('tim', 15);
+            $table->date('fechaemision');
             $table->time('horaemision');
             $table->string('motivotraslado', 50);
             $table->string('origen', 50);
