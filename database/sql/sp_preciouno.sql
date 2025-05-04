@@ -1,4 +1,4 @@
---Procedimiento almacenado para insertar vehiculos
+-- Procedimiento almacenado para insertar vehiculos
 CREATE PROCEDURE `sp_vehiculoinsertar`(
     spplaca varchar(50),
     spmarca varchar(50),
@@ -22,7 +22,7 @@ else
 end if;
 END;
 
---Procedimiento almacenado para insertar conductores
+-- Procedimiento almacenado para insertar conductores
 CREATE PROCEDURE `sp_conductoresinsertar`(
     spnombre varchar(50),
     spdni varchar(8),
@@ -45,7 +45,7 @@ else
 end if;
 END;
 
---Procedimiento almacenado para insertar productos
+-- Procedimiento almacenado para insertar productos
 CREATE PROCEDURE `sp_productosinsertar`(
     spnombre varchar(50),
     spsku varchar(15),
@@ -70,7 +70,7 @@ else
 end if;
 END;
 
-----Procedimiento almacenado para insertar guia de revision
+-- Procedimiento almacenado para insertar guia de revision
 CREATE PROCEDURE sp_guiasremision(
     sptim varchar(15),
     spfechaemision date,
@@ -99,4 +99,4 @@ else
 		set success = 0;
         set message = "NO SE REGISTRO LA GUIA DE REMISION";
 end if;
-END
+END;
