@@ -2,7 +2,9 @@
 
 namespace App\Models;
 
+use App\Models\Global\GlobalModel;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Guiasderemision extends Model
 {
@@ -23,7 +25,7 @@ class Guiasderemision extends Model
     ];
 
     public function mostrarguiasderemision(array $parametros = []): array {
-        $query = DB::table('v_');
+        $query = DB::table('v_guias_remision');
 
         // Filtros condicionales
         if (isset($parametros['idguia'])) {
@@ -65,21 +67,21 @@ class Guiasderemision extends Model
         // Verificar si se pide paginación
         if (isset($parametros['paginado']) && $parametros['paginado'] === true) {
             $porPagina = $parametros['porPagina'] ?? 10;
-            $vehiculo = $query->orderByDesc('idguia')->paginate($porPagina);
+            $guiasderemision = $query->orderByDesc('idguia')->paginate($porPagina);
 
             return GlobalModel::returnArray(
-                $vehiculo->count() > 0,
-                $vehiculo->count() === 0 ? "No hay Candidatos registrados" : "OK",
-                $vehiculo // Retorna el paginador
+                $guiasderemision->count() > 0,
+                $guiasderemision->count() === 0 ? "No hay guias de remision registradas" : "OK",
+                $guiasderemision // Retorna el paginador
             );
         }
 
         // Si no hay paginado, obtener todo
-        $vehiculo = $query->get()->map(fn($item) => (array) $item)->toArray();
+        $guiasderemision = $query->get()->map(fn($item) => (array) $item)->toArray();
         return GlobalModel::returnArray(
-            !empty($vehiculo),
-            empty($vehiculo) ? "No hay Candidatos registrados" : "OK",
-            $vehiculo
+            !empty($guiasderemision),
+            empty($guiasderemision) ? "No hay guias de remision registradas" : "OK",
+            $guiasderemision
         );
     }
 
@@ -90,10 +92,15 @@ class Guiasderemision extends Model
         DB::statement("SET @message = '';");
 
         // Llamar al SP con parámetros IN + OUT
-        DB::statement("CALL sp_vehiculoinsertar(?, ?, ?, @idguia, @success, @message)", [
-            isset($data['placa']) ? $data['placa'] : null,
+        DB::statement("CALL sp_guiasderemisioninsertar(?, ?, ?, @idguia, @success, @message)", [
             isset($data['tim']) ? $data['tim'] : null,
-            isset($data['fechaemision']) ? $data['fechaemision'] : null
+            isset($data['fechaemision']) ? $data['fechaemision'] : null,
+            isset($data['fechaemision']) ? $data['fechaemision'] : null,
+            isset($data['motivotraslado']) ? $data['motivotraslado'] : null,
+            isset($data['origen']) ? $data['origen'] : null,
+            isset($data['destino']) ? $data['destino'] : null,
+            isset($data['estado']) ? $data['estado'] : null,
+            isset($data['cantidadenviada']) ? $data['cantidadenviada'] : null
         ]);
 
 
