@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\Global\GlobalModel;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
 
 class Vehiculo extends Model {
     protected $table = 'vehiculos'; // Especifica el nombre exacto de la tabla
@@ -20,6 +21,7 @@ class Vehiculo extends Model {
 
     public function mostravehiculo(array $parametros = []): array {
         $query = DB::table('v_vehiculo');
+//        $query = DB::table('v_vehiculo')->where('estado', '!=', 'Eliminado');
 
         // Filtros condicionales
         if (isset($parametros['idvehiculo'])) {
@@ -79,6 +81,38 @@ class Vehiculo extends Model {
                     "idvehiculo" => $result[0]->idvehiculo
                 ]
             ]
+        );
+    }
+
+    public function editarvehiculo(array $datos): array {
+        if (!isset($datos['idvehiculo'])) {
+            return GlobalModel::returnArray(false, 'idvehiculo es obligatorio');
+        }
+
+        $id = $datos['idvehiculo'];
+        unset($datos['idvehiculo']); // No queremos actualizar la PK
+
+        if (empty($datos)) {
+            return GlobalModel::returnArray(false, 'No hay datos para actualizar');
+        }
+
+        $vehiculo = self::find($id);
+        if (!$vehiculo) {
+            return GlobalModel::returnArray(false, 'Vehiculo no encontrado');
+        }
+
+        // Llenamos solo los campos que existan
+        foreach ($datos as $key => $value) {
+            if (Schema::hasColumn('vehiculos', $key) && !is_null($value)) {
+                $vehiculo->$key = $value;
+            }
+        }
+
+        $vehiculo->save();
+        return GlobalModel::returnArray(
+            true,
+            'Vehiculo Editado correctamente',
+            $vehiculo
         );
     }
 }
