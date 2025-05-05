@@ -48,7 +48,7 @@ class Vehiculo extends Model {
             );
         }
 
-        // Si no hay paginado, obtener todo
+//        Si no hay paginado, obtenertodo
         $vehiculo = $query->get()->map(fn($item) => (array) $item)->toArray();
         return GlobalModel::returnArray(
             !empty($vehiculo),

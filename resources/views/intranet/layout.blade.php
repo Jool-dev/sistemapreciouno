@@ -14,6 +14,8 @@
     @vite([
         'resources/css/demo/styles.css',
         //'resources/js/app.js',
+        'resources/js/intranet/appproducto.js',
+        'resources/js/intranet/appvehiculo.js',
         'resources/js/appglobal.js',
         'resources/js/applogin.js',
         'resources/js/bootstrap.js',

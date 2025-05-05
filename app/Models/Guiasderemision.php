@@ -92,7 +92,7 @@ class Guiasderemision extends Model
         DB::statement("SET @message = '';");
 
         // Llamar al SP con parámetros IN + OUT
-        DB::statement("CALL sp_guiasderemisioninsertar(?, ?, ?, @idguia, @success, @message)", [
+        DB::statement("CALL sp_guiasderemisioninsertar(?, ?, ?, ?, ?, ?, ?, ?, @idguia, @success, @message)", [
             isset($data['tim']) ? $data['tim'] : null,
             isset($data['fechaemision']) ? $data['fechaemision'] : null,
             isset($data['fechaemision']) ? $data['fechaemision'] : null,
