@@ -1,3 +1,28 @@
+-- Procedimiento almacenado para insertar usuarios
+CREATE PROCEDURE `sp_usuarioinsertar`(
+    spname varchar(255),
+    spemail varchar(255),
+    sppassword varchar(255),
+    spidrol int,
+    OUT id INT,
+    OUT success bit,
+    out message varchar(100)
+)
+BEGIN
+INSERT INTO users(name, email, password, idrol)
+values(spname, spemail, sppassword, spidrol);
+
+if Row_count() > 0 then
+		SET id = LAST_INSERT_ID();
+		set success = 1;
+        set message = "Usuario Registrado Correctente";
+else
+		SET id = 0;
+		set success = 0;
+        set message = "NO SE REGISTRO EL USUARIO";
+end if;
+END;
+
 -- Procedimiento almacenado para insertar vehiculos
 CREATE PROCEDURE `sp_vehiculoinsertar`(
     spplaca varchar(50),
@@ -8,13 +33,13 @@ CREATE PROCEDURE `sp_vehiculoinsertar`(
     out message varchar(100)
 )
 BEGIN
-INSERT INTO vehiculos(placa, marca, tipo)
-values(spplaca, spmarca, sptipo);
+INSERT INTO vehiculos(placa, marca, tipo, estado)
+values(spplaca, spmarca, sptipo, "Activo");
 
 if Row_count() > 0 then
 		SET idvehiculo = LAST_INSERT_ID();
 		set success = 1;
-        set message = "OK";
+        set message = "Vehiculo Registrado Correctente";
 else
 		SET idvehiculo = 0;
 		set success = 0;
