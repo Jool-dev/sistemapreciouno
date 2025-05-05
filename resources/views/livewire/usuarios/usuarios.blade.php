@@ -40,10 +40,10 @@
     <table class="table table-bordered">
         <thead class="table-dark">
             <tr>
-                <th>ID</th>
-                <th>Nombre</th>
-                <th>Email</th>
-                <th>Acciones</th>
+                <th class="text-center align-middle">#</th>
+                <th class="text-center align-middle">Nombre</th>
+                <th class="text-center align-middle">Email</th>
+                <th class="text-center align-middle">Acciones</th>
             </tr>
         </thead>
         <tbody>
@@ -59,6 +59,18 @@
                     </td>
                 </tr>
             @endforeach
+
+{{--            @forelse($data as $usuarios)--}}
+{{--                <tr>--}}
+{{--                    <td><strong>{{ $usuarios['id'] }}</strong></td>--}}
+{{--                    <td><strong>{{ $usuarios['name'] }}</strong></td>--}}
+{{--                    <td><strong>{{ $usuarios['email'] }}</strong></td>--}}
+{{--                    <td>--}}
+{{--                        <a href="#" class="btn btn-sm btn-warning"><i class="bi bi-pencil-square"></i> Editar</a>--}}
+{{--                        <a href="#" class="btn btn-sm btn-danger"><i class="bi bi-trash"></i> Eliminar</a>--}}
+{{--                    </td>--}}
+{{--                </tr>--}}
+{{--            @empty--}}
         </tbody>
     </table>
 </div>

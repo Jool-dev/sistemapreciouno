@@ -95,7 +95,7 @@ class Guiasderemision extends Model
         DB::statement("CALL sp_guiasderemisioninsertar(?, ?, ?, ?, ?, ?, ?, ?, @idguia, @success, @message)", [
             isset($data['tim']) ? $data['tim'] : null,
             isset($data['fechaemision']) ? $data['fechaemision'] : null,
-            isset($data['fechaemision']) ? $data['fechaemision'] : null,
+            isset($data['horaemision']) ? $data['horaemision'] : null,
             isset($data['motivotraslado']) ? $data['motivotraslado'] : null,
             isset($data['origen']) ? $data['origen'] : null,
             isset($data['destino']) ? $data['destino'] : null,

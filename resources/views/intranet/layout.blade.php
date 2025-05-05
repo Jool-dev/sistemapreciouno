@@ -88,9 +88,14 @@
                             Producto
                         </a>
 
-                        <a class="nav-link">
+                        <a class="nav-link" href="{{route("vistaguiasderemision")}}">
                             <div class="sb-nav-link-icon"><i class="fa-solid fa-tag"></i></div>
                             Guías de Remisión
+                        </a>
+
+                        <a class="nav-link" href="{{route("vistarevisionguias")}}">
+                            <div class="sb-nav-link-icon"><i class="fa-solid fa-tag"></i></div>
+                            Revisión de Guías
                         </a>
 
                     </div>

@@ -7,36 +7,6 @@ use Exception;
 
 class GuiasRemisionController extends Controller
 {
-    // public function mostrarGuiasRemision(Request $request)
-    // {
-    //     try {
-    //         $validated = $request->validate([
-    //             'idguia' => 'nullable|integer',
-    //             'tim' => 'nullable|string',
-    //             'fechaemision' => 'nullable|date',
-    //             'horaemision' => 'nullable|string',
-    //             'motivotraslado' => 'nullable|string',
-    //             'origen' => 'nullable|string',
-    //             'destino' => 'nullable|string',
-    //             'estado' => 'nullable|string'
-    //         ]);
-
-    //         $modeloguiaremision = new Guiasderemision();
-    //         $guiasremision = $modeloguiaremision->mostrarguiasderemision($validated);
-
-    //         return response()->json([
-    //             'success' => true,
-    //             'data' => $guiasremision
-    //         ]);
-    //     } catch (\Exception $ex) {
-    //         return response()->json([
-    //             'success' => false,
-    //             'message' => 'Error al mostrar las guías de remisión: '.$ex->getMessage(),
-    //             'error_details' => env('APP_DEBUG') ? $ex->getTrace() : null
-    //         ], 500);
-    //     }
-    // }
-
     public function registrarGuiaRemision(Request $request)
     {
         try {
