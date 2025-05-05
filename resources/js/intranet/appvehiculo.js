@@ -127,42 +127,53 @@ $(document).ready(function() {
 
     $(document).on('click', '.btn-eliminarvehiculo', async function(e) {
         e.preventDefault();
-        // Obtener datos del TR actual (no del botón)
+
+        // const id = $(this).data('id'); // Obtener ID directamente del data-attribute
         const $tr = $(this).closest('tr');
         const id = $tr.find('td:eq(0)').text().trim();
+        const csrfToken = $('meta[name="csrf-token"]').attr('content');
 
-        const result = await window.SweetAlertpreguntarSI_NO("¿Estás seguro de eliminar?");
-        if (result.isConfirmed) {
+        // Verificación adicional
+        if (!csrfToken) {
+            console.log('Token CSRF no encontrado');
+            return;
+        }
 
-            // Enviar datos al servidor (AJAX)
-            $.ajax({
-                url: "/estadovehiculo", // Ruta en Laravel
+        const pregunta = await window.SweetAlertpreguntarSI_NO("¿Estás seguro de eliminar?");
+
+        if (!pregunta) return;
+
+        try {
+            const response = await $.ajax({
+                url: "/estadovehiculo",
                 type: "POST",
-                contentType: "application/json",
-                data: JSON.stringify({
-                    idvehiculo: id
-                }),
+                data: {
+                    idvehiculo: id,
+                    _token: $('meta[name="csrf-token"]').attr('content')
+                },
                 headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                    'Accept': 'application/json'
                 },
-                success: function(response) {
-                    if (!response.success) {
-                        console.log('Estructura de respuesta inválida');
-                        // throw new Error();
-                    }
+                dataType: 'json'
+            });
 
-                    // Actualizar Livewire
-                    Livewire.dispatch("listarvehiculoDesdeJS");
-                    Swal.fire({
-                        icon: 'success',
-                        title: response.message,
-                        timer: 1500,
-                        showConfirmButton: false
-                    });
-                },
-                error: function(error) {
-                    // alert("Error: " + xhr.responseJSON.message);
-                }
+            if (response.success) {
+                Livewire.dispatch("listarvehiculoDesdeJS");
+                Swal.fire({
+                    icon: 'success',
+                    title: response.message,
+                    timer: 1500,
+                    showConfirmButton: false
+                });
+            } else {
+                throw new Error(response.message || 'Error en la operación');
+            }
+        } catch (error) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: error.responseJSON?.message || 'No se pudo completar la eliminación'
             });
         }
     });
