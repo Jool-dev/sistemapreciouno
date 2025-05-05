@@ -1,27 +1,25 @@
 <?php
 
-namespace App\Models;
+namespace App\Livewire\Usuarios;
 
-use App\Models\Global\GlobalModel;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\DB;
+use Livewire\Component;
 
-class Productos extends Model
+class Gestionusuario extends Component
 {
-    protected $table = 'productos'; // Especifica el nombre exacto de la tabla
-    protected $primaryKey = 'idproducto'; // Si tu clave primaria no se llama "id"
+    protected $table = 'users'; // Especifica el nombre exacto de la tabla
+    protected $primaryKey = 'id'; // Si tu clave primaria no se llama "id"
     public $timestamps = false; // Desactiva timestamps si tu tabla no tiene created_at / updated_at
 
     // Opcional: si quieres proteger o permitir ciertas columnas
     protected $fillable = [
-        'nombre',
+        'name',
         'sku',
         'estado',
         'fecharegistro'
     ];
 
     public function mostraproducto(array $parametros = []): array {
-        $query = DB::table('v_producto');
+        $query = DB::table('productos');
 
         // Filtros condicionales
         if (isset($parametros['idproducto'])) {

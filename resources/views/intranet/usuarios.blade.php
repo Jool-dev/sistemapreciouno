@@ -1,11 +1,11 @@
-@extends('intranet/layout')
-@section('title', 'Productos')
+@extends('intranet.layout')
+@section('title', 'Usuarios')
 
 @section('content')
     <div class="container-fluid py-2">
         <!-- Título -->
         <div class="d-flex justify-content-between align-items-center mb-4">
-            <h3 class="fw-bold">Productos</h3>
+            <h3 class="fw-bold">Usuarios</h3>
             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#idmodalProductos">
                 <i class="fa-solid fa-plus-minus"></i>
                 Agregar Nuevo
@@ -19,8 +19,8 @@
             </div>
         </div>
 
-        <!-- Tabla -->
-        @livewire('producto.productoslive')
+        <!-- Componente Livewire -->
+{{--        @livewire('usuarios.usuarios')--}}
     </div>
 
     <!-- Modal -->
@@ -47,15 +47,20 @@
                         <div class="mb-3">
                             <label for="estado" class="form-label">Estado</label>
                             <select class="form-select" id="idselectestado" name="estado" required>
-                                <option value="">Seleccione un estado para el producto</option>
-                                <option value="Excelente">Sin daño</option>
-                                <option value="Malogrado">Con daño</option>
-{{--                                <option value="Cantidad no concuerda">Incompleto</option>--}}
+                                <option value="">Seleccione un estado</option>
+                                <option value="malogrado">Sin daño</option>
+                                <option value="excelente">Con daño</option>
                             </select>
                         </div>
+
+                        {{--                        <div class="mb-3">--}}
+                        {{--                            <label for="fecharegistro" class="form-label">Fecha de registro</label>--}}
+                        {{--                            <input type="text" class="form-control" id="idtxtfecharegistro" name="fecharegistro" required>--}}
+                        {{--                        </div>--}}
+
                         <div class="text-end">
                             <button type="submit" class="btn btn-primary">Guardar</button>
-                            <button type="reset" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                            <button type="reset" class="btn btn-secondary">Cancelar</button>
                         </div>
                     </form>
                 </div>
@@ -63,3 +68,13 @@
         </div>
     </div>
 @endsection
+{{--revisar que hace--}}
+{{--@push('scripts')--}}
+{{--    <script>--}}
+{{--        document.addEventListener('livewire:load', function () {--}}
+{{--            window.livewire.on('closeModal', () => {--}}
+{{--                // Aquí puedes agregar lógica para cerrar modales si usas alguno--}}
+{{--            });--}}
+{{--        });--}}
+{{--    </script>--}}
+{{--@endpush--}}

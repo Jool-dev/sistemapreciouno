@@ -66,7 +66,7 @@ return new class extends Migration
             $table->string('rutapdf', 50);
             $table->string('rutaxcel', 50);
             $table->string('observaciones', 100);
-            $table->string('estado', 50);$table->string('estado', 50);
+            $table->string('estado', 50);
             $table->foreignId('idusuario')->constrained('users');
             $table->foreignId('idguia')->constrained('guias_remision', 'idguia');
         });
