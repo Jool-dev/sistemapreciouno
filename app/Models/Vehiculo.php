@@ -20,8 +20,8 @@ class Vehiculo extends Model {
     ];
 
     public function mostravehiculo(array $parametros = []): array {
-        $query = DB::table('v_vehiculo');
-//        $query = DB::table('v_vehiculo')->where('estado', '!=', 'Eliminado');
+//        $query = DB::table('v_vehiculo');
+        $query = DB::table('v_vehiculo')->where('estado', '!=', 'Eliminado');
 
         // Filtros condicionales
         if (isset($parametros['idvehiculo'])) {

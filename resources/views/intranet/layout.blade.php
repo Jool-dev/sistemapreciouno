@@ -8,6 +8,7 @@
     <meta name="author" content="" />
     <title>@yield('title')</title>
     <link rel="icon" type="image/png" href="{{ asset('storage/imgsistema/logo.png') }}">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     @livewireStyles
     @vite([
         'resources/css/demo/styles.css',
