@@ -1,5 +1,5 @@
-import Swal from "sweetalert2";
 import $ from 'jquery';
+import Swal from "sweetalert2";
 
 // Verificar si jQuery está disponible
 if (typeof $ === 'undefined') {
@@ -10,38 +10,110 @@ $(document).ready(function() {
     $("#formulariologin").submit(function(e) {
         e.preventDefault();
 
-        // Opción 1: Serializar todos los campos
-        const datos = $(this).serialize();
+        // Desactivar inputs y botón
+        // $("#idformvechiculo :input").prop("disabled", true);
 
-        // Opción 2: Crear un objeto manualmente (útil si necesitas agregar más datos)
-        const datosManual = {
-            nombre: $("#username").val(),
-            email: $("#password").val(),
-            _token: $('input[name="_token"]').val() // Token CSRF
+        const $form = $(this);
+        $form.find(":input").prop("disabled", true);
+
+        const datos = {
+            email: $("#username").val(),
+            password: $("#password").val(),
+            _token: $('input[name="_token"]').val()
         };
 
-        // Redirigir a una ruta relativa
-        window.location.href = "/dashboard";
-
         // Enviar datos al servidor (AJAX)
-        // $.ajax({
-        //     url: "/guardar-datos", // Ruta en Laravel
-        //     method: "POST",
-        //     data: datos, // o datosManual
-        //     success: function(respuesta) {
-        //         alert("Datos guardados: " + respuesta.mensaje);
-        //     },
-        //     error: function(xhr) {
-        //         alert("Error: " + xhr.responseJSON.message);
-        //     }
-        // });
-    });
-    // Mostrar shimmer y ocultar contenido al inicio
-    // $('#idshimmerpersonero').show();
-    // $('#idcontenidopersonero').hide();
+        $.ajax({
+            url: "/iniciarsesion", // Ruta en Laravel
+            type: "POST",
+            contentType: "application/json",
+            data: JSON.stringify(datos),
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            success: function(response) {
+                $form[0].reset();
+                $form.find(":input").prop("disabled", false);
+                if (!response.success) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: response.message,
+                        timer: 1500,
+                        showConfirmButton: false
+                    });
+                    // throw new Error();
+                } else if(response.idrol === 1) {
+                    window.location.replace('/dashboard');
+                } else if(response.idrol === 2){
+                    window.location.replace('/prevencionista');
+                }
 
-    // Llamar a la función
-    // $('#btn-agregar').click(agregarVoto);
-    // $('#btn-eliminar').click(eliminarVoto);
-    // $('#btn-confirmar').click(confirmVotacion);
+                // Actualizar Livewire
+                // Livewire.dispatch("listarvehiculoDesdeJS");
+
+                // Swal.fire({
+                //     icon: 'success',
+                //     title: response.message,
+                //     timer: 1500,
+                //     showConfirmButton: false
+                // });
+
+                // Resetear y cerrar modal
+
+                // bootstrap.Modal.getInstance($('#idmodalvehiculo')[0]).hide();
+
+            },
+            error: function(error) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: error.responseJSON?.message || 'No se pudo completar la eliminación'
+                });
+                // alert("Error: " + xhr.responseJSON.message);
+            }
+        });
+    });
+
+    $(document).on('click', '#btncerrarsesion', async function(e) {
+        e.preventDefault();
+
+        const csrfToken = $('meta[name="csrf-token"]').attr('content');
+
+        // Verificación adicional
+        if (!csrfToken) {
+            console.log('Token CSRF no encontrado');
+            return;
+        }
+
+        const pregunta = await window.SweetAlertpreguntarSI_NO("¿Estás seguro de cerrar sesión?");
+
+        if (!pregunta) return;
+
+        try {
+            const response = await $.ajax({
+                url: "/logout",
+                type: "POST",
+                data: {
+                    _token: $('meta[name="csrf-token"]').attr('content')
+                },
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                    'Accept': 'application/json'
+                },
+                dataType: 'json'
+            });
+
+            if (response.success) {
+                window.location.replace('/login');
+            }
+        } catch (error) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: error.responseJSON?.message || 'No se pudo completar el cerrar sesión'
+            });
+        }
+    });
 });
+
+
