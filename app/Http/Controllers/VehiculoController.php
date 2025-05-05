@@ -7,20 +7,31 @@ use Illuminate\Http\Request;
 use Exception;
 
 class VehiculoController extends Controller {
-    public function registrarVehiculo(Request $request) {
+    public function mantenimientovehiculo(Request $request) {
         try{
             $validated = $request->validate([
+                "idvehiculo" => "nullable",
                 'placa' => 'required',
                 'marca' => 'required',
                 'tipo' => 'required'
             ]);
 
             $modelovehiculo = new Vehiculo();
-            $vehiculo = $modelovehiculo->insertarvehiculos([
-                "placa" => $validated['placa'],
-                "marca" => $validated['marca'],
-                "tipo" => $validated['tipo']
-            ]);
+            if($validated['idvehiculo'] === null){
+                $vehiculo = $modelovehiculo->insertarvehiculos([
+                    "placa" => $validated['placa'],
+                    "marca" => $validated['marca'],
+                    "tipo" => $validated['tipo']
+                ]);
+            }
+            else{
+                $vehiculo = $modelovehiculo->editarvehiculo([
+                    "idvehiculo" => $validated['idvehiculo'],
+                    "placa" => $validated['placa'],
+                    "marca" => $validated['marca'],
+                    "tipo" => $validated['tipo']
+                ]);
+            }
 
             if(!$vehiculo["success"]){
                throw new Exception($vehiculo["message"]);
@@ -30,10 +41,41 @@ class VehiculoController extends Controller {
                 'success' => true,
                 'message' => $vehiculo["message"],
             ]);
-        }catch (\Exception $ex){
+        }
+        catch (\Exception $ex){
             return response()->json([
                 'success' => false,
-                'message' => 'Error al registrar los votos: '.$ex->getMessage(),
+                'message' => 'Error al guardar los votos: '.$ex->getMessage(),
+                'error_details' => env('APP_DEBUG') ? $ex->getTrace() : null
+            ], 500);
+        }
+    }
+
+    public function eliminarvehiculo(Request $request) {
+        try {
+            $validated = $request->validate([
+                "idvehiculo" => "nullable",
+            ]);
+
+            $modelovehiculo = new Vehiculo();
+            $vehiculo = $modelovehiculo->editarvehiculo([
+                "idvehiculo" => $validated['idvehiculo'],
+                "estado" => "Eliminado"
+            ]);
+
+            if(!$vehiculo["success"]){
+                throw new Exception($vehiculo["message"]);
+            }
+
+            return response()->json([
+                'success' => true,
+                'message' => "Eliminado correctamente",
+            ]);
+        }
+        catch (\Exception $ex){
+            return response()->json([
+                'success' => false,
+                'message' => 'Error al Eliminar los votos: '.$ex->getMessage(),
                 'error_details' => env('APP_DEBUG') ? $ex->getTrace() : null
             ], 500);
         }

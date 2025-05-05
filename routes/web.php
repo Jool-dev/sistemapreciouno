@@ -12,4 +12,5 @@ Route::get('/', function () {
 Route::get('/login', [VistasIntranetController::class, 'vistalogin'])->name('vistalogin');
 Route::get('/dashboard', [VistasIntranetController::class, 'vistadashboard'])->name('vistadashboard');
 Route::get('/vehiculo', [VistasIntranetController::class, 'vistavehiculo'])->name('vistavehiculo');
-Route::post('/registrarvehiculo', [VehiculoController::class, 'registrarVehiculo'])->name('api.registrarVehiculo');
+Route::post('/mantenimientovehiculo', [VehiculoController::class, 'mantenimientovehiculo'])->name('api.mantenimientovehiculo');
+Route::post('/estadovehiculo', [VehiculoController::class, 'eliminarvehiculo'])->name('api.eliminarvehiculo');

@@ -10,21 +10,26 @@
         </tr>
         </thead>
         <tbody>
-            @forelse($data as $vehiculos)
-                <tr>
-                    <td><strong>{{ $vehiculos['idvehiculo'] }}</strong></td>
-                    <td><strong>{{ $vehiculos['placa'] }}</strong></td>
-                    <td><strong>{{ $vehiculos['marca'] }}</strong></td>
-                    <td><strong>{{ $vehiculos['tipo'] }}</strong></td>
+            @forelse($vehiculos as $vehiculo)
+                <tr wire:key="vehiculo-{{ $vehiculo['idvehiculo'] }}-{{ now()->timestamp }}">
+                    <td><strong>{{ $vehiculo['idvehiculo'] }}</strong></td>
+                    <td><strong class="placa">{{ $vehiculo['placa'] }}</strong></td>
+                    <td><strong class="marca">{{ $vehiculo['marca'] }}</strong></td>
+                    <td><strong class="tipo">{{ $vehiculo['tipo'] }}</strong></td>
                     <td>
-                        <a href="#" class="btn btn-sm btn-warning"><i class="bi bi-pencil-square"></i> Editar</a>
-                        <a href="#" class="btn btn-sm btn-danger"><i class="bi bi-trash"></i> Eliminar</a>
+                        <button type="button" class="btn btn-sm btn-warning btn-editarvehiculo">
+                            <i class="bi bi-pencil-square"></i> Editar
+                        </button>
+                        <button type="button" class="btn btn-sm btn-danger btn-eliminarvehiculo"
+                                data-id="{{ $vehiculo['idvehiculo'] }}">
+                            <i class="bi bi-trash"></i> Eliminar
+                        </button>
                     </td>
                 </tr>
             @empty
                 <tr>
                     <td colspan="7" class="text-center text-muted py-4">
-                        No hay Vehiculo registrados.
+                        No hay Vehículos registrados.
                     </td>
                 </tr>
             @endforelse

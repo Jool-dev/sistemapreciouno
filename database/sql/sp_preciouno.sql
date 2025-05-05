@@ -14,7 +14,7 @@ values(spplaca, spmarca, sptipo);
 if Row_count() > 0 then
 		SET idvehiculo = LAST_INSERT_ID();
 		set success = 1;
-        set message = "OK";
+        set message = "Vehiculo Registrado Correctente";
 else
 		SET idvehiculo = 0;
 		set success = 0;
