@@ -11,12 +11,10 @@ class DatabaseSeeder extends Seeder
     /**
      * Seed the application's database.
      */
-    public function run(): void
+    public function run()
     {
-        //Aqui se llama a los sender, para que se registres por defecto en la BD
         $this->call([
-//            UbigeoSeeder::class,
-//            IndependienteSeeder::class,
+            RolesTableSeeder::class,
             logicabdSeeder::class
         ]);
     }

@@ -18,6 +18,8 @@ Route::get('/dashboard', [VistasIntranetController::class, 'vistadashboard'])->n
 Route::get('/usuarios', [VistasIntranetController::class, 'vistausuarios'])->name('vistausuarios');
 //vehiculo
 Route::get('/vehiculo', [VistasIntranetController::class, 'vistavehiculo'])->name('vistavehiculo');
+
+Route::get('/usuarios', [VistasIntranetController::class, 'vistausuarios'])->name('vistausuarios');
 Route::post('/mantenimientovehiculo', [VehiculoController::class, 'mantenimientovehiculo'])->name('api.mantenimientovehiculo');
 Route::post('/estadovehiculo', [VehiculoController::class, 'eliminarvehiculo'])->name('api.eliminarvehiculo');
 //productos

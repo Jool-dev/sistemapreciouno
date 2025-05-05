@@ -14,7 +14,7 @@ return new class extends Migration
             $table->string('placa', 50);
             $table->string('marca', 50);
             $table->string('tipo', 50);
-            $table->string('estado', 50);
+            $table->string('estado', 50)->nullable();
         });
 
         // Tabla Conductores
