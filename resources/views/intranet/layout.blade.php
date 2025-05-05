@@ -81,11 +81,6 @@
                             Vehiculo
                         </a>
 
-                        <a class="nav-link" href="{{route("vistausuarios")}}">
-                            <div class="sb-nav-link-icon"><i class="fa-solid fa-user"></i></div>
-                            Usuarios
-                        </a>
-
                         <a class="nav-link" href="{{route("vistaproducto")}}">
                             <div class="sb-nav-link-icon"><i class="fa-solid fa-bag-shopping"></i></div>
                             Producto
