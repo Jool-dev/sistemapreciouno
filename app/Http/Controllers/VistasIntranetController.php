@@ -47,20 +47,20 @@ class VistasIntranetController extends Controller
         if (!Auth::check()) {
             return redirect()->route('vistalogin');
         }
-        return view('intranet.guiasremision');
+        return view('intranet.prevencionistas.guiasremision');
     }
 
     public function vistarevisionguias(){
         if (!Auth::check()) {
             return redirect()->route('vistalogin');
         }
-        return view('intranet.revisionguias');
+        return view('intranet.prevencionistas.revisionguias');
     }
 
     public function vistaprevencionista(){
         if (!Auth::check()) {
             return redirect()->route('vistalogin');
         }
-        return view('intranet.prevencionista');
+        return view('intranet.prevencionistas.prevencionista');
     }
 }

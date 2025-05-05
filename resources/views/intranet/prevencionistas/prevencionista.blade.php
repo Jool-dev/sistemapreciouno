@@ -13,17 +13,9 @@
     @livewireStyles
     @vite([
         'resources/css/demo/styles.css',
-        //'resources/js/app.js',
-        'resources/js/intranet/appproducto.js',
-        'resources/js/intranet/appvehiculo.js',
         'resources/js/appglobal.js',
         'resources/js/applogin.js',
         'resources/js/bootstrap.js',
-        'resources/js/demo/chart-area-demo.js',
-        'resources/js/demo/chart-bar-demo.js',
-        //'resources/js/demo/chart-pie-demo.js',
-        //'resources/js/demo/datatables-demo.js',
-        'resources/js/demo/datatables-simple-demo.js' ,
         'resources/js/demo/scripts.js',
     ])
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
@@ -31,7 +23,7 @@
 <body class="sb-nav-fixed">
     <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
         <!-- Navbar Brand-->
-               <a class="navbar-brand ps-3" href="{{route("vistadashboard")}}">Bienvenido Usuario</a>
+        <a class="navbar-brand ps-3" href="{{route("vistaguiasderemision")}}">Prevencionista</a>
         <!-- Sidebar Toggle-->
         <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i
                 class="fas fa-bars"></i></button>
@@ -39,7 +31,7 @@
         <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
             <div class="input-group">
                 <input class="form-control" type="text" placeholder="Ingrese su busqueda..." aria-label="Ingrese su busqueda..."
-                    aria-describedby="btnNavbarSearch" />
+                       aria-describedby="btnNavbarSearch" />
                 <button class="btn btn-primary" id="btnNavbarSearch" type="button"><i
                         class="fas fa-search"></i></button>
             </div>
@@ -48,7 +40,7 @@
         <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown"
-                    aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
+                   aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                     <li><a class="dropdown-item" href="#!">Settings</a></li>
                     <li><a class="dropdown-item" href="#!">Activity Log</a></li>
@@ -66,34 +58,14 @@
             <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
                 <div class="sb-sidenav-menu">
                     <div class="nav">
-                        @if (session('usuariologeado')["data"][0]['idrol'] == 1)
-                            <a class="nav-link" href="{{route('vistadashboard')}}">
-                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                                Dashboard
-                            </a>
-
-                            <a class="nav-link" href="{{route('vistavehiculo')}}">
-                                <div class="sb-nav-link-icon"><i class="fa-solid fa-truck"></i></div>
-                                Vehiculo
-                            </a>
-                            <a class="nav-link" href="{{route('vistaproducto')}}">
-                                <div class="sb-nav-link-icon"><i class="fa-solid fa-bag-shopping"></i></div>
-                                Producto
-                            </a>
-                            <a class="nav-link" href="{{route('vistausuarios')}}">
-                                <div class="sb-nav-link-icon"><i class="fa-solid fa-user"></i></div>
-                                Usuarios
-                            </a>
-                        @else
-                            <a class="nav-link" href="{{route('vistaguiasderemision')}}">
-                                <div class="sb-nav-link-icon"><i class="fa-solid fa-tag"></i></div>
-                                Guías de Remisión
-                            </a>
-                            <a class="nav-link" href="{{route("vistarevisionguias")}}">
-                                <div class="sb-nav-link-icon"><i class="fa-solid fa-tag"></i></div>
-                                Revisión de Guías
-                            </a>
-                        @endif
+                        <a class="nav-link" href="{{route('vistaguiasderemision')}}">
+                            <div class="sb-nav-link-icon"><i class="fa-solid fa-tag"></i></div>
+                            Guías de Remisión
+                        </a>
+                        <a class="nav-link" href="{{route("vistarevisionguias")}}">
+                            <div class="sb-nav-link-icon"><i class="fa-solid fa-tag"></i></div>
+                            Revisión de Guías
+                        </a>
                     </div>
                 </div>
             </nav>
