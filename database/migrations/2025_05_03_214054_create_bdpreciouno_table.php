@@ -14,7 +14,7 @@ return new class extends Migration
             $table->string('placa', 50);
             $table->string('marca', 50);
             $table->string('tipo', 50);
-            $table->timestamps();
+            $table->string('estado', 50)->nullable();
         });
 
         // Tabla Conductores
@@ -22,7 +22,7 @@ return new class extends Migration
             $table->id('idconductor');
             $table->string('nombre', 50);
             $table->string('dni', 8);
-            $table->timestamps();
+            $table->string('estado', 50);
         });
 
         // Tabla Productos
@@ -32,7 +32,6 @@ return new class extends Migration
             $table->string('sku', 15);
             $table->string('estado', 50);
             $table->dateTime('fecharegistro');
-            $table->timestamps();
         });
 
         // Tabla GuiaRemision
@@ -48,7 +47,6 @@ return new class extends Migration
             $table->integer('cantidadenviada');
             $table->foreignId('idvehiculo')->constrained('vehiculos', 'idvehiculo');
             $table->foreignId('idconductor')->constrained('conductores', 'idconductor');
-            $table->timestamps();
         });
 
         // Tabla DetalleGuia
@@ -58,7 +56,7 @@ return new class extends Migration
             $table->string('estadorevision', 50);
             $table->foreignId('idguia')->constrained('guias_remision', 'idguia');
             $table->foreignId('idproducto')->constrained('productos', 'idproducto');
-            $table->timestamps();
+            $table->string('estado', 50);
         });
 
         // Tabla RevisionGuia
@@ -68,9 +66,9 @@ return new class extends Migration
             $table->string('rutapdf', 50);
             $table->string('rutaxcel', 50);
             $table->string('observaciones', 100);
+            $table->string('estado', 50);
             $table->foreignId('idusuario')->constrained('users');
             $table->foreignId('idguia')->constrained('guias_remision', 'idguia');
-            $table->timestamps();
         });
     }
 

@@ -8,13 +8,13 @@ CREATE PROCEDURE `sp_vehiculoinsertar`(
     out message varchar(100)
 )
 BEGIN
-INSERT INTO vehiculos(placa, marca, tipo)
-values(spplaca, spmarca, sptipo);
+INSERT INTO vehiculos(placa, marca, tipo, estado)
+values(spplaca, spmarca, sptipo, "Activo");
 
 if Row_count() > 0 then
 		SET idvehiculo = LAST_INSERT_ID();
 		set success = 1;
-        set message = "OK";
+        set message = "Vehiculo Registrado Correctente";
 else
 		SET idvehiculo = 0;
 		set success = 0;

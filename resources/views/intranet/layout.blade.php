@@ -9,6 +9,7 @@
     <meta name="author" content="" />
     <title>@yield('title')</title>
     <link rel="icon" type="image/png" href="{{ asset('storage/imgsistema/logo.png') }}">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     @livewireStyles
     @vite([
         'resources/css/demo/styles.css',
@@ -56,7 +57,7 @@
             <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
                 <div class="sb-sidenav-menu">
                     <div class="nav">
-                        <div class="sb-sidenav-menu-heading">Core</div>
+{{--                        <div class="sb-sidenav-menu-heading">Core</div>--}}
                         <a class="nav-link" href="{{route("vistadashboard")}}">
                             <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                             Dashboard
@@ -66,9 +67,15 @@
                             <div class="sb-nav-link-icon"><i class="fa-solid fa-truck"></i></div>
                             Vehiculo
                         </a>
+
                         <a class="nav-link" href="{{route("vistausuarios")}}">
                             <div class="sb-nav-link-icon"><i class="fa-solid fa-user"></i></div>
                             Usuarios
+                        </a>
+
+                        <a class="nav-link" href="{{route("vistaproducto")}}">
+                            <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                            Producto
                         </a>
                     </div>
                 </div>

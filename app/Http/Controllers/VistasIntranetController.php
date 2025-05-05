@@ -21,8 +21,14 @@ class VistasIntranetController extends Controller
         return view('intranet.vehiculo');
     }
 
+
     public function vistausuarios()
     {
         return view('intranet.usuarios');
+    }
+
+    public function vistaproducto(){
+        return view('intranet.productos');
+
     }
 }
