@@ -13,7 +13,7 @@
         <tbody>
         @forelse($data as $productos)
             <tr>
-                <td><strong>{{ $productos['idvehiculo'] }}</strong></td>
+                <td><strong>{{ $productos['idproducto'] }}</strong></td>
                 <td><strong>{{ $productos['nombre'] }}</strong></td>
                 <td><strong>{{ $productos['sku'] }}</strong></td>
                 <td><strong>{{ $productos['estado'] }}</strong></td>

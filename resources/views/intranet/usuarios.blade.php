@@ -1,5 +1,4 @@
 @extends('intranet.layout')
-
 @section('title', 'Usuarios')
 
 @section('content')
@@ -8,7 +7,6 @@
         <div class="d-flex justify-content-between align-items-center mb-4">
             <h3 class="fw-bold">Usuarios</h3>
         </div>
-
         <!-- Componente Livewire -->
         @livewire('usuarios.usuarios')
     </div>

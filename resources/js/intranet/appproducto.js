@@ -27,7 +27,7 @@ $(document).ready(function() {
             nombre: $("#idtxtnombre").val(),
             sku: $("#idtxtsku").val(),
             estado: $("#idselectestado").val(),
-            fechaderegistro: fechaLocal,
+            fecharegistro: fechaLocal,
             _token: $('input[name="_token"]').val() // Token CSRF
         };
 

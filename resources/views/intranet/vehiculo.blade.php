@@ -7,6 +7,7 @@
         <div class="d-flex justify-content-between align-items-center mb-4">
             <h3 class="fw-bold">Vehiculos</h3>
             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#idmodalvehiculo" id="btnnuevovehiculo">
+                <i class="fa-solid fa-plus-minus"></i>
                 Agregar Nuevo
             </button>
         </div>
@@ -53,8 +54,8 @@
                             </select>
                         </div>
                         <div class="text-end">
-                            <button type="reset" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                             <button type="submit" class="btn btn-primary ">Guardar</button>
+                            <button type="reset" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                         </div>
                     </form>
                 </div>
