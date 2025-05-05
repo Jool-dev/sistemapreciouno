@@ -18,12 +18,13 @@ class ProductoController extends Controller
             ]);
 
             $modeloproducto = new Productos();
-            $producto = $modeloproducto->insertarproductos([
-                "nombre" => $validated['nombre'],
-                "sku" => $validated['sku'],
-                "estado" => $validated['estado'],
-                "fecharegistro" => $validated['fecharegistro']
-            ]);
+            $producto = $modeloproducto->insertarproductos($validated);
+//            [
+//                "nombre" => $validated['nombre'],
+//                "sku" => $validated['sku'],
+//                "estado" => $validated['estado'],
+//                "fecharegistro" => $validated['fecharegistro']
+//            ]);
 
             if(!$producto["success"]){
                 throw new Exception($producto["message"]);
@@ -32,6 +33,7 @@ class ProductoController extends Controller
             return response()->json([
                 'success' => true,
                 'message' => $producto["message"],
+                'data' => $producto["data"]
             ]);
         }catch (\Exception $ex){
             return response()->json([

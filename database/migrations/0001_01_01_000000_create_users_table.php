@@ -15,19 +15,16 @@ return new class extends Migration {
             $table->id('idrol');
             $table->string('nombre', 50);
             $table->timestamps();
-            $table->enum('role', ['admin', 'prevencionista'])->default('prevencionista');
         });
 
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->foreignId("idrol")
-                ->constrained('roles', 'idrol')
-                ->default(2);
             $table->string('name')->nullable();
-            $table->string('email')->nullable();
+            $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
-            $table->string('password', 255);
+            $table->string('password');
             $table->rememberToken();
+            $table->foreignId('idrol')->constrained('roles', 'idrol')->onDelete('cascade');
             $table->timestamps();
         });
 
