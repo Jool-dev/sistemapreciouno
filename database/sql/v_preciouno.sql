@@ -13,3 +13,7 @@ create view v_guias_remision
 as
 select * from guias_remision;
 
+-- crear vista revisiondeguias
+create view v_detalle_guias
+as
+select * from detalle_guias;

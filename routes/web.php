@@ -23,3 +23,8 @@ Route::post('/estadovehiculo', [VehiculoController::class, 'eliminarvehiculo'])-
 //productos
 Route::get('/producto', [VistasIntranetController::class, 'vistaproducto'])->name('vistaproducto');
 Route::post('/registrarproducto', [ProductoController::class, 'registrarProducto'])->name('api.registrarProducto');
+Route::post('/eliminarproducto', [ProductoController::class, 'eliminarProducto'])->name('api.eliminarProducto');
+//guias
+Route::get('/guiasremision', [VistasIntranetController::class, 'vistaguiasderemision'])->name('vistaguiasderemision');
+//Route::get('/registrarguiasremision', [VistasIntranetController::class, 'vistaguiasderemision'])->name('vistaguiasderemision')
+Route::get('/revisionguias', [VistasIntranetController::class, 'vistarevisionguias'])->name('vistarevisionguias');

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\Guiasderemision;
+namespace App\Livewire\GuiasRemision;
 
 use App\Models\Guiasderemision;
 use Livewire\Component;
@@ -15,10 +15,9 @@ class GuiasRemision extends Component
     public function render() {
         $modeloguiaremision = new Guiasderemision();
         $data = $modeloguiaremision->mostrarguiasderemision();
-        $this->emit('listarGuiasRemisionDesdeJS', [
+        return view('livewire.guias-remision.guias-remision', [
             'data' => $data["data"] == null ? [] : $data["data"]
         ]);
-        return view('livewire.guias-remision.guias-remision');
     }
-    
+
 }

@@ -1,13 +1,13 @@
 <div class="table-responsive">
-    <table class="table table-striped table-hover align-middle">
+    <table class="table table-bordered">
         <thead class="table-dark">
         <tr>
-            <th>#</th>
-            <th>Nombre</th>
-            <th>SKU</th>
-            <th>Estado</th>
-            <th>Fecha de registro</th>
-            <th>Acciones</th>
+            <th class="text-center align-middle">#</th>
+            <th class="text-center align-middle">Nombre</th>
+            <th class="text-center align-middle">SKU</th>
+            <th class="text-center align-middle">Estado</th>
+            <th class="text-center align-middle">Fecha de registro</th>
+            <th class="text-center align-middle">Acciones</th>
         </tr>
         </thead>
         <tbody>
@@ -19,8 +19,9 @@
                 <td><strong>{{ $productos['estado'] }}</strong></td>
                 <td><strong>{{ $productos['fecharegistro'] }}</strong></td>
                 <td>
-                    <a href="#" class="btn btn-sm btn-warning"><i class="bi bi-pencil-square"></i> Editar</a>
-                    <a href="#" class="btn btn-sm btn-danger"><i class="bi bi-trash"></i> Eliminar</a>
+                    <button wire:click="edit({{ $productos['idproducto'] }})" class="btn btn-warning btn-sm">Editar</button>
+                    <button wire:click="delete({{ $productos['idproducto'] }})" class="btn btn-danger btn-sm"
+                            onclick="return confirm('¿Estás seguro de eliminar este usuario?')">Eliminar</button>
                 </td>
             </tr>
         @empty

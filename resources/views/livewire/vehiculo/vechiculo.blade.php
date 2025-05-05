@@ -1,12 +1,12 @@
 <div class="table-responsive">
-    <table class="table table-striped table-hover align-middle">
+    <table class="table table-bordered">
         <thead class="table-dark">
         <tr>
-            <th>#</th>
-            <th>Placa</th>
-            <th>Marca</th>
-            <th>Tipo</th>
-            <th>Acciones</th>
+            <th class="text-center align-middle">#</th>
+            <th class="text-center align-middle">Placa</th>
+            <th class="text-center align-middle">Marca</th>
+            <th class="text-center align-middle">Tipo</th>
+            <th class="text-center align-middle">Acciones</th>
         </tr>
         </thead>
         <tbody>
