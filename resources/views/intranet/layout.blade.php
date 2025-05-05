@@ -1,3 +1,6 @@
+@php
+    $rol = Auth::user()->idrol;
+@endphp
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -56,7 +59,7 @@
                     <li>
                         <hr class="dropdown-divider" />
                     </li>
-                    <li><a class="dropdown-item" href="#!">Logout</a></li>
+                    <li><a class="dropdown-item" href="#!" id="btncerrarsesion">Logout</a></li>
                 </ul>
             </li>
         </ul>
@@ -67,38 +70,82 @@
             <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
                 <div class="sb-sidenav-menu">
                     <div class="nav">
-{{--                        <div class="sb-sidenav-menu-heading">Core</div>--}}
-                        <a class="nav-link" href="{{route("vistadashboard")}}">
+
+                        @if ($rol == 1) {{-- Administrador --}}
+                        <a class="nav-link" href="{{route('vistadashboard')}}">
                             <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                             Dashboard
                         </a>
-
-                        <a class="nav-link" href="{{route("vistausuarios")}}">
+                        <a class="nav-link" href="{{route('vistausuarios')}}">
                             <div class="sb-nav-link-icon"><i class="fa-solid fa-user"></i></div>
                             Usuarios
                         </a>
-
-                        <a class="nav-link" href="{{route("vistavehiculo")}}">
+                        <a class="nav-link" href="{{route('vistavehiculo')}}">
                             <div class="sb-nav-link-icon"><i class="fa-solid fa-truck"></i></div>
                             Vehiculo
                         </a>
-
-                        <a class="nav-link" href="{{route("vistaproducto")}}">
+                        <a class="nav-link" href="{{route('vistaproducto')}}">
                             <div class="sb-nav-link-icon"><i class="fa-solid fa-bag-shopping"></i></div>
                             Producto
                         </a>
-
-                        <a class="nav-link" href="{{route("vistaguiasderemision")}}">
+                        <a class="nav-link" href="{{route('vistaguiasderemision')}}">
                             <div class="sb-nav-link-icon"><i class="fa-solid fa-tag"></i></div>
                             Guías de Remisión
                         </a>
-
                         <a class="nav-link" href="{{route("vistarevisionguias")}}">
                             <div class="sb-nav-link-icon"><i class="fa-solid fa-tag"></i></div>
                             Revisión de Guías
                         </a>
-
+                        @elseif ($rol == 2) {{-- Usuario normal --}}
+                        <a class="nav-link" href="{{route('vistavehiculo')}}">
+                            <div class="sb-nav-link-icon"><i class="fa-solid fa-truck"></i></div>
+                            Vehiculo
+                        </a>
+                        <a class="nav-link" href="{{route('vistaproducto')}}">
+                            <div class="sb-nav-link-icon"><i class="fa-solid fa-bag-shopping"></i></div>
+                            Producto
+                        </a><a class="nav-link" href="{{route('vistaguiasderemision')}}">
+                            <div class="sb-nav-link-icon"><i class="fa-solid fa-tag"></i></div>
+                            Guías de Remisión
+                        </a>
+                        @endif
                     </div>
+
+                    {{--                --}}
+{{--                    <div class="nav">--}}
+{{--                        <div class="sb-sidenav-menu-heading">Core</div>--}}
+{{--                        <a class="nav-link" href="{{route("vistadashboard")}}">--}}
+{{--                            <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>--}}
+{{--                            Dashboard--}}
+{{--                        </a>--}}
+
+{{--                        <a class="nav-link" href="{{route("vistausuarios")}}">--}}
+{{--                            <div class="sb-nav-link-icon"><i class="fa-solid fa-user"></i></div>--}}
+{{--                            Usuarios--}}
+{{--                        </a>--}}
+
+{{--                        <a class="nav-link" href="{{route("vistavehiculo")}}">--}}
+{{--                            <div class="sb-nav-link-icon"><i class="fa-solid fa-truck"></i></div>--}}
+{{--                            Vehiculo--}}
+{{--                        </a>--}}
+
+{{--                        <a class="nav-link" href="{{route("vistaproducto")}}">--}}
+{{--                            <div class="sb-nav-link-icon"><i class="fa-solid fa-bag-shopping"></i></div>--}}
+{{--                            Producto--}}
+{{--                        </a>--}}
+
+{{--                        <a class="nav-link" href="{{route("vistaguiasderemision")}}">--}}
+{{--                            <div class="sb-nav-link-icon"><i class="fa-solid fa-tag"></i></div>--}}
+{{--                            Guías de Remisión--}}
+{{--                        </a>--}}
+
+{{--                        <a class="nav-link" href="{{route("vistarevisionguias")}}">--}}
+{{--                            <div class="sb-nav-link-icon"><i class="fa-solid fa-tag"></i></div>--}}
+{{--                            Revisión de Guías--}}
+{{--                        </a>--}}
+
+{{--                    </div>--}}
+{{--                --}}
                 </div>
             </nav>
         </div>

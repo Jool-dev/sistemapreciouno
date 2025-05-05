@@ -17,3 +17,7 @@ select * from guias_remision;
 create view v_detalle_guias
 as
 select * from detalle_guias;
+
+-- crear vusuario
+create view v_usuario as
+select u.id as idusuario, u.name, u.email, u.password, u.idrol, r.nombre as rol from users as u left join roles as r on u.idrol = r.idrol
