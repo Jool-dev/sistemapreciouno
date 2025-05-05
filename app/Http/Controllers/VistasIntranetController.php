@@ -21,7 +21,6 @@ class VistasIntranetController extends Controller
         return view('intranet.vehiculo');
     }
 
-
     public function vistausuarios()
     {
         return view('intranet.usuarios');
@@ -30,9 +29,5 @@ class VistasIntranetController extends Controller
     public function vistaproducto(){
         return view('intranet.productos');
 
-    }
-
-    public function vistausuarios(){
-        return view('intranet.usuarios');
     }
 }
