@@ -2,7 +2,9 @@
 
 namespace App\Models;
 
+use App\Models\Global\GlobalModel;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Productos extends Model
 {
@@ -19,7 +21,7 @@ class Productos extends Model
     ];
 
     public function mostraproducto(array $parametros = []): array {
-        $query = DB::table('v_productos');
+        $query = DB::table('productos');
 
         // Filtros condicionales
         if (isset($parametros['idproducto'])) {
@@ -70,11 +72,11 @@ class Productos extends Model
         DB::statement("SET @message = '';");
 
         // Llamar al SP con parámetros IN + OUT
-        DB::statement("CALL sp_productosinsertar(?, ?, ?, @idproducto, @success, @message)", [
-            isset($data['placa']) ? $data['nombre'] : null,
-            isset($data['marca']) ? $data['sku'] : null,
-            isset($data['tipo']) ? $data['estado'] : null,
-            isset($data['tipo']) ? $data['fecharegistro'] : null
+        DB::statement("CALL sp_productosinsertar(?, ?, ?, ?, @idproducto, @success, @message)", [
+            isset($data['nombre']) ? $data['nombre'] : null,
+            isset($data['sku']) ? $data['sku'] : null,
+            isset($data['estado']) ? $data['estado'] : null,
+            isset($data['fecharegistro']) ? $data['fecharegistro'] : null
         ]);
 
 

@@ -48,7 +48,7 @@
             <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
                 <div class="sb-sidenav-menu">
                     <div class="nav">
-                        <div class="sb-sidenav-menu-heading">Core</div>
+{{--                        <div class="sb-sidenav-menu-heading">Core</div>--}}
                         <a class="nav-link" href="{{route("vistadashboard")}}">
                             <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                             Dashboard
@@ -57,6 +57,11 @@
                         <a class="nav-link" href="{{route("vistavehiculo")}}">
                             <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                             Vehiculo
+                        </a>
+
+                        <a class="nav-link" href="{{route("vistaproducto")}}">
+                            <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                            Producto
                         </a>
                     </div>
                 </div>

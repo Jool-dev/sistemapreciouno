@@ -17,4 +17,8 @@ class VistasIntranetController extends Controller
     public function vistavehiculo(){
         return view('intranet.vehiculo');
     }
+
+    public function vistaproducto(){
+        return view('intranet.productos');
+    }
 }
