@@ -38,7 +38,7 @@ class Guiasderemision extends Model {
     }
 
     public function mostrarguiasderemision(array $parametros = []): array {
-        $query = DB::table('v_guias_remision');
+        $query = DB::table('v_guiaremision');
 
         // Filtros condicionales
         if (isset($parametros['idguia'])) {

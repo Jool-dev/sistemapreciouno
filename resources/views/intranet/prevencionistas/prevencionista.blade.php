@@ -22,62 +22,50 @@
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
 </head>
 <body class="sb-nav-fixed">
-    <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-        <!-- Navbar Brand-->
-        <a class="navbar-brand ps-3" href="{{route("vistaguiasderemision")}}">Prevencionista</a>
-        <!-- Sidebar Toggle-->
-        <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i
-                class="fas fa-bars"></i></button>
-        <!-- Navbar Search-->
-        <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
-            <div class="input-group">
-                <input class="form-control" type="text" placeholder="Ingrese su busqueda..." aria-label="Ingrese su busqueda..."
-                       aria-describedby="btnNavbarSearch" />
-                <button class="btn btn-primary" id="btnNavbarSearch" type="button"><i
-                        class="fas fa-search"></i></button>
-            </div>
-        </form>
-        <!-- Navbar-->
-        <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown"
-                   aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
-                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                    <li><a class="dropdown-item" href="#!">Settings</a></li>
-                    <li><a class="dropdown-item" href="#!">Activity Log</a></li>
-                    <li>
-                        <hr class="dropdown-divider" />
-                    </li>
-                    <li><a class="dropdown-item" href="#!" id="btncerrarsesion">Logout</a></li>
-                </ul>
-            </li>
-        </ul>
+    <<nav class="sb-topnav navbar navbar-expand-lg navbar-dark bg-dark">
+        <!-- Navbar Brand -->
+        <a class="navbar-brand ps-3" href="{{route('vistaguiasderemision')}}">Prevencionista</a>
+
+        <!-- Navbar Toggle (hamburguesa) -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive"
+            aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Navbar content collapsible -->
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <!-- Navigation links -->
+            <ul class="navbar-nav me-auto ms-3">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{route('vistaguiasderemision')}}">Inicio</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{route('vistarevisionguias')}}">Reportes</a>
+                </li>
+            </ul>
+
+            <!-- User dropdown -->
+            <ul class="navbar-nav ms-auto me-3 me-lg-4">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fas fa-user fa-fw"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="#!">Settings</a></li>
+                        <li><a class="dropdown-item" href="#!">Activity Log</a></li>
+                        <li><hr class="dropdown-divider" /></li>
+                        <li><a class="dropdown-item" href="#!" id="btncerrarsesion">Logout</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
     </nav>
 
-    <div id="layoutSidenav">
-        <div id="layoutSidenav_nav">
-            <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
-                <div class="sb-sidenav-menu">
-                    <div class="nav">
-                        <a class="nav-link" href="{{route('vistaguiasderemision')}}">
-                            <div class="sb-nav-link-icon"><i class="fa-solid fa-tag"></i></div>
-                            Guías de Remisión
-                        </a>
-                        <a class="nav-link" href="{{route("vistarevisionguias")}}">
-                            <div class="sb-nav-link-icon"><i class="fa-solid fa-tag"></i></div>
-                            Revisión de Guías
-                        </a>
-                    </div>
-                </div>
-            </nav>
-        </div>
-
-        <div id="layoutSidenav_content">
-            <main>
-                @yield('content')
-            </main>
-        </div>
-    </div>
+    <!-- Main content -->
+    <main class="container-fluid mt-4">
+        @yield('content')
+    </main>
 
     @livewireScripts
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>

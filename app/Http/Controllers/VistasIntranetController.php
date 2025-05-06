@@ -55,11 +55,13 @@ class VistasIntranetController extends Controller
         // Convertir arrays a objetos stdClass
         $vehiculos = array_map(function($item) {
             return (object)$item;
-        }, $data["data"]);
+        }, $data["data"] == null ? [] : $data["data"]);
 
         $conductores = array_map(function($item) {
             return (object)$item;
-        }, $data2["data"]);
+        }, $data2["data"] == null ? [] : $data2["data"]);
+
+
         return view('intranet.prevencionistas.guiasremision', compact('vehiculos', 'conductores'));
     }
 
@@ -77,11 +79,11 @@ class VistasIntranetController extends Controller
         // Convertir arrays a objetos stdClass
         $vehiculos = array_map(function($item) {
             return (object)$item;
-        }, $data["data"]);
+        }, $data["data"] == null ? [] : $data["data"]);
 
         $conductores = array_map(function($item) {
             return (object)$item;
-        }, $data2["data"]);
+        }, $data2["data"] == null ? [] : $data2["data"]);
 
         return view('intranet.prevencionistas.addguiasremision', compact('vehiculos', 'conductores'));
     }
