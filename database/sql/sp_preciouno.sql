@@ -51,13 +51,15 @@ END;
 CREATE PROCEDURE `sp_conductoresinsertar`(
     spnombre varchar(50),
     spdni varchar(8),
+    spidtransportista int,
+    spidvehiculo int,
     OUT idconductor INT,
     OUT success bit,
     out message varchar(100)
 )
 BEGIN
-INSERT INTO conductores(nombre, dni)
-values(spnombre, spdni);
+INSERT INTO conductores(nombre, dni, estado, idtransportistas, idvehiculo)
+values(spnombre, spdni, 'Activo', spidtransportista, spidvehiculo);
 
 if Row_count() > 0 then
 		SET idconductor = LAST_INSERT_ID();
@@ -72,17 +74,18 @@ END;
 
 -- Procedimiento almacenado para insertar productos
 CREATE PROCEDURE `sp_productosinsertar`(
+    spcodigoproducto varchar(20),
     spnombre varchar(50),
-    spsku varchar(15),
-    spestado varchar(50),
+    sptipocodproducto varchar(50),
+    sptipoinventario varchar(50),
     spfecharegistro datetime,
     OUT idproducto INT,
     OUT success bit,
     out message varchar(100)
 )
 BEGIN
-INSERT INTO productos(nombre, sku, estado, fecharegistro)
-values(spnombre, spsku, spestado, spfecharegistro);
+INSERT INTO productos(codigoproducto, nombre, tipocodproducto, tipoinventario, spfecharegistro)
+values(spcodigoproducto, spnombre, sptipocodproducto, sptipoinventario, fecharegistro);
 
 if Row_count() > 0 then
 		SET idproducto = LAST_INSERT_ID();
@@ -96,24 +99,26 @@ end if;
 END;
 
 -- Procedimiento almacenado para insertar guia de revision
-CREATE PROCEDURE sp_guiasremision(
-    sptim varchar(15),
+CREATE PROCEDURE sp_guiaremision(
+    spcodigoguia varchar(20),
     spfechaemision date,
     sphoraemision time,
-    spmotivotraslado varchar(50),
-    sporigen varchar(50),
-    spdestino varchar(50),
-    spestado varchar(50),
-    spcantidadenviada integer,
-    spidvehiculo INT,
+    sprazonsocialguia varchar(100),
+    spnumerotrasladotim varchar(20),
+    spmotivotraslado varchar(100),
+    sppesobrutototal decimal(10,2),
+    spvolumenproducto decimal(10,2),
+    spnumerobultopallet int,
+    spobservaciones varchar(255),
     spidconductor INT,
+    spidtipoempresa INT,
     OUT idguia INT,
     OUT success bit,
     out message varchar(100)
 )
 BEGIN
-INSERT INTO guias_remision(tim ,fechaemision ,horaemision ,motivotraslado ,origen ,destino ,estado ,cantidadenviada, idvehiculo, idconductor)
-values(sptim ,spfechaemision ,sphoraemision ,spmotivotraslado ,sporigen ,spdestino ,spestado ,spcantidadenviada, spidvehiculo, spidconductor);
+INSERT INTO guias_remision(codigoguia ,fechaemision ,horaemision ,razonsocialguia ,numerotrasladotim ,motivotraslado ,pesobrutototal ,volumenproducto, numerobultopallet, observaciones, idconductor, idtipoempresa)
+values(spcodigoguia ,spfechaemision ,sphoraemision ,sprazonsocialguia ,spnumerotrasladotim ,spmotivotraslado ,sppesobrutototal ,spvolumenproducto, spnumerobultopallet, spobservaciones, spidconductor, spidtipoempresa);
 
 if Row_count() > 0 then
 		SET idguia = LAST_INSERT_ID();
