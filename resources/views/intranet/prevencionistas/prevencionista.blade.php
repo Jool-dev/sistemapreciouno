@@ -15,6 +15,7 @@
         'resources/css/demo/styles.css',
         'resources/js/appglobal.js',
         'resources/js/applogin.js',
+        'resources/js/intranet/appguiasremision.js',
         'resources/js/bootstrap.js',
         'resources/js/demo/scripts.js',
     ])

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\GuiasRemisionController;
 use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\UsuariosController;
 use App\Http\Controllers\VehiculoController;
@@ -36,6 +37,9 @@ Route::middleware(['auth', 'role:prevencionista'])->group(function () {
     Route::get('/prevencionista', [VistasIntranetController::class, 'vistaprevencionista'])->name('vistaprevencionista');
     Route::get('/guiasremision', [VistasIntranetController::class, 'vistaguiasderemision'])->name('vistaguiasderemision');
     Route::get('/revisionguias', [VistasIntranetController::class, 'vistarevisionguias'])->name('vistarevisionguias');
+
+    Route::get('/guiasremision/{id}/detalle', [VistasIntranetController::class, 'vistadetalleguia'])->name('guias.detalle');
+    Route::post('/registrarguiaremision', [GuiasRemisionController::class, 'registrarGuiaRemision'])->name('registrarGuiaRemision');
 });
 
 Route::post('/iniciarsesion', [UsuariosController::class, 'validarLogin'])->name('api.validarLogin');

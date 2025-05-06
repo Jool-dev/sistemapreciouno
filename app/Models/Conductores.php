@@ -2,7 +2,9 @@
 
 namespace App\Models;
 
+use App\Models\Global\GlobalModel;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Conductores extends Model
 {
@@ -16,8 +18,8 @@ class Conductores extends Model
         "dni",
     ];
 
-    public function mostravehiculo(array $parametros = []): array {
-        $query = DB::table('v_vehiculo');
+    public function mostraconductores(array $parametros = []): array {
+        $query = DB::table('v_conductores');
 
         // Filtros condicionales
         if (isset($parametros['idconductor'])) {
@@ -35,21 +37,21 @@ class Conductores extends Model
         // Verificar si se pide paginación
         if (isset($parametros['paginado']) && $parametros['paginado'] === true) {
             $porPagina = $parametros['porPagina'] ?? 10;
-            $vehiculo = $query->orderByDesc('idconductor')->paginate($porPagina);
+            $conductor = $query->orderByDesc('idconductor')->paginate($porPagina);
 
             return GlobalModel::returnArray(
-                $vehiculo->count() > 0,
-                $vehiculo->count() === 0 ? "No hay Conductores registrados" : "OK",
-                $vehiculo // Retorna el paginador
+                $conductor->count() > 0,
+                $conductor->count() === 0 ? "No hay Conductores registrados" : "OK",
+                $conductor // Retorna el paginador
             );
         }
 
         // Si no hay paginado, obtener todo
-        $vehiculo = $query->get()->map(fn($item) => (array) $item)->toArray();
+        $conductor = $query->get()->map(fn($item) => (array) $item)->toArray();
         return GlobalModel::returnArray(
-            !empty($vehiculo),
-            empty($vehiculo) ? "No hay Conductores registrados" : "OK",
-            $vehiculo
+            !empty($conductor),
+            empty($conductor) ? "No hay Conductores registrados" : "OK",
+            $conductor
         );
     }
 
@@ -60,8 +62,7 @@ class Conductores extends Model
         DB::statement("SET @message = '';");
 
         // Llamar al SP con parámetros IN + OUT
-        DB::statement("CALL sp_conductoresinsertar(?, ?, ?, @idconductor, @success, @message)", [
-            isset($data['placa']) ? $data['placa'] : null,
+        DB::statement("CALL sp_conductoresinsertar(?, ?, @idconductor, @success, @message)", [
             isset($data['nombre']) ? $data['nombre'] : null,
             isset($data['dni']) ? $data['dni'] : null
         ]);
