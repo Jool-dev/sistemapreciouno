@@ -58,7 +58,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach($guias as $guia)
+                        {{--  @foreach($guias as $guia)
                             <tr>
                                 <td>{{ $guia->numero_guia }}</td>
                                 <td>{{ $guia->fecha_emision }}</td>
@@ -208,7 +208,7 @@
                 </div>
             </div>
         </div>
-    @endforeach
+    @endforeach  --}}
 
     <!-- Modales para acciones masivas -->
 {{--    @include('guias.modales-aprobar-rechazar-todo')--}}

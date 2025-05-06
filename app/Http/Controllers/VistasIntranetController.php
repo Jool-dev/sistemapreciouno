@@ -63,6 +63,29 @@ class VistasIntranetController extends Controller
         return view('intranet.prevencionistas.guiasremision', compact('vehiculos', 'conductores'));
     }
 
+    public function vistaaddguiaremision(){
+        if (!Auth::check()) {
+            return redirect()->route('vistalogin');
+        }
+        //ESTO JALA LOS DATOS FORANEOS
+        $modelovehiculos = new Vehiculo();
+        $modelConductores = new Conductores();
+
+        $data = $modelovehiculos->mostravehiculo();
+        $data2 = $modelConductores->mostraconductores();
+
+        // Convertir arrays a objetos stdClass
+        $vehiculos = array_map(function($item) {
+            return (object)$item;
+        }, $data["data"]);
+
+        $conductores = array_map(function($item) {
+            return (object)$item;
+        }, $data2["data"]);
+
+        return view('intranet.prevencionistas.addguiasremision', compact('vehiculos', 'conductores'));
+    }
+
     public function vistarevisionguias(){
         if (!Auth::check()) {
             return redirect()->route('vistalogin');
