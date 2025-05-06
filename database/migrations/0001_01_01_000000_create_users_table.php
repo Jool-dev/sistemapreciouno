@@ -10,6 +10,13 @@ return new class extends Migration {
      */
     public function up(): void
     {
+        // Tabla Tipocondicion (debe ir primero por dependencias)
+        Schema::create('tipocondicion', function (Blueprint $table) {
+            $table->id('idtipocondicion');
+            $table->string('nombretipocondicion');
+            $table->timestamps();
+        });
+
         // Tabla Roles (necesaria para la relación con usuarios)
         Schema::create('roles', function (Blueprint $table) {
             $table->id('idrol');
@@ -49,6 +56,7 @@ return new class extends Migration {
      */
     public function down(): void
     {
+        Schema::dropIfExists('tipocondicion');
         Schema::dropIfExists('roles');
         Schema::dropIfExists('users');
         Schema::dropIfExists('password_reset_tokens');

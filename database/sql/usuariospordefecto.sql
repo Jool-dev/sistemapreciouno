@@ -26,12 +26,12 @@ INSERT INTO users(name, email, password, idrol, email_verified_at, remember_toke
                                                                                                                    NOW()
                                                                                                                );
 
-insert into conductores(nombre,dni,estado)values('pedro', '12345678', "Activo");
-insert into conductores(nombre,dni,estado)values('Rodrigo', '36573921', "Activo");
-insert into conductores(nombre,dni,estado)values('Joustin', '95724124', "Activo");
-
-insert into vehiculos(placa, marca, tipo, estado)values("1234", "Honda", "Excelente", "Activo");
-insert into vehiculos(placa, marca, tipo, estado)values("$9u43", "Mavila", "Excelente", "Activo");
-insert into vehiculos(placa, marca, tipo, estado)values("#gyt4", "Zonshen", "Excelente", "Activo");
-insert into vehiculos(placa, marca, tipo, estado)values("4h3h3", "Xtz", "Excelente", "Activo");
-insert into vehiculos(placa, marca, tipo, estado)values("00=ne", "Escarabajo", "Excelente", "Activo");
+-- insert into conductores(nombre,dni,estado)values('pedro', '12345678', "Activo");
+-- insert into conductores(nombre,dni,estado)values('Rodrigo', '36573921', "Activo");
+-- insert into conductores(nombre,dni,estado)values('Joustin', '95724124', "Activo");
+--
+-- insert into vehiculos(placa, marca, tipo, estado)values("1234", "Honda", "Excelente", "Activo");
+-- insert into vehiculos(placa, marca, tipo, estado)values("$9u43", "Mavila", "Excelente", "Activo");
+-- insert into vehiculos(placa, marca, tipo, estado)values("#gyt4", "Zonshen", "Excelente", "Activo");
+-- insert into vehiculos(placa, marca, tipo, estado)values("4h3h3", "Xtz", "Excelente", "Activo");
+-- insert into vehiculos(placa, marca, tipo, estado)values("00=ne", "Escarabajo", "Excelente", "Activo");
