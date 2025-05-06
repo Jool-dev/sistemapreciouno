@@ -9,16 +9,16 @@ as
 select * from productos;
 
 -- crear vista guiasderemision
-create view v_guias_remision
+create view v_guiaremision
 as
-select * from guias_remision;
+select * from guiaremision;
 
 -- crear vista revisiondeguias
-create view v_detalle_guias
+create view v_detalleguia
 as
-select * from detalle_guias;
+select * from detalleguia;
 
--- crear vusuario
+-- crear vista usuario
 create view v_usuario as
 select u.id as idusuario, u.name, u.email, u.password, u.idrol, r.nombre as rol from users as u left join roles as r on u.idrol = r.idrol;
 
