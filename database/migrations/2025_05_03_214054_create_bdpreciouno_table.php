@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('placa', 10);
             $table->string('marca', 50);
             $table->string('tipo', 50);
+            $table->string('estado', 20);
             $table->timestamps();
         });
 
@@ -59,22 +60,23 @@ return new class extends Migration
             $table->string('tipocodproducto', 50);
             $table->string('tipoinventario', 50);
             $table->dateTime('fecharegistro');
+            $table->string('estado', 20);
             $table->timestamps();
         });
 
         // Tabla GuiaRemision
         Schema::create('guiaremision', function (Blueprint $table) {
             $table->id('idguia');
+            $table->string('codigoguia', 20);
             $table->date('fechaemision');
             $table->time('horaemision');
-            $table->date('fechafemision')->nullable();
             $table->string('razonsocialguia', 100);
             $table->string('numerotrasladotim', 20);
             $table->string('motivotraslado', 100);
             $table->decimal('pesobrutototal', 10, 2);
             $table->decimal('volumenproducto', 10, 2);
             $table->integer('numerobultopallet');
-            $table->text('observaciones')->nullable();
+            $table->string('observaciones');
             $table->foreignId('idconductor')->constrained('conductores', 'idconductor');
             $table->foreignId('idtipoempresa')->constrained('tipoempresa', 'idtipoempresa');
             $table->timestamps();
@@ -85,7 +87,7 @@ return new class extends Migration
             $table->id('iddetalleguia');
             $table->foreignId('idguia')->constrained('guiaremision', 'idguia');
             $table->foreignId('idproducto')->constrained('productos', 'idproducto');
-            $table->string('estado', 20);
+            $table->string('condicion', 20);
             $table->integer('cantrecibida');
             $table->timestamps();
         });

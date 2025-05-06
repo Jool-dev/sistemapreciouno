@@ -14,9 +14,10 @@ class Productos extends Model
 
     // Opcional: si quieres proteger o permitir ciertas columnas
     protected $fillable = [
+        'codigoproducto',
         'nombre',
-        'sku',
-        'estado',
+        'tipocodproducto',
+        'tipoinventario',
         'fecharegistro'
     ];
 
@@ -28,16 +29,20 @@ class Productos extends Model
             $query->where('idproducto', $parametros['idproducto']);
         }
 
+        if (isset($parametros['codigoproducto'])) {
+            $query->where('codigoproducto', $parametros['codigoproducto']);
+        }
+
         if (isset($parametros['nombre'])) {
             $query->where('nombre', $parametros['nombre']);
         }
 
-        if (isset($parametros['sku'])) {
-            $query->where('sku', $parametros['sku']);
+        if (isset($parametros['tipocodproducto'])) {
+            $query->where('tipocodproducto', $parametros['tipocodproducto']);
         }
 
-        if (isset($parametros['estado'])) {
-            $query->where('estado', $parametros['estado']);
+        if (isset($parametros['tipoinventario'])) {
+            $query->where('tipoinventario', $parametros['tipoinventario']);
         }
 
         if (isset($parametros['fecharegistro'])) {

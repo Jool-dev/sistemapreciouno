@@ -12,8 +12,10 @@ class ProductoController extends Controller
     public function registrarProducto(Request $request) {
         try{
             $validated = $request->validate([
+                'codigoproducto' => 'required',
                 'nombre' => 'required',
-                'sku' => 'required',
+                'tipocodproducto' => 'required',
+                'tipoinventario' => 'required',
                 'estado' => 'required',
                 'fecharegistro' => 'required'
             ]);
