@@ -20,7 +20,7 @@ if (typeof $ === 'undefined') {
 
 
 $(document).ready(function() {
-    $("#idformguiasremision").submit(function(e) {
+    $("#idformaddguiasremision").submit(function(e) {
         e.preventDefault();
 
         // Cerrar el modal
@@ -29,16 +29,19 @@ $(document).ready(function() {
         modalInstance.hide();
 
         const datos = {
-            tim: $("#idtxttim").val(),
+            idguia: $("#idguia").val(),
+            codigoguia: $("#idtxtcodigoguia").val(),
             fechaemision: fechaLocal,
             horaemision: horaLocal,
-            motivotraslado: $("#idtxtmotivotraslado").val(),
-            origen: $("#idtxtselectorigen").val(),
-            destino: $("#idtxtselectdestino").val(),
-            estado: $("#idselectestado").val(),
-            cantidadenviada: $("#idselectcantidadenviada").val(),
-            idvehiculo: $("#idselectvehiculo").val(),
-            idconductor: $("#idselectconductor").val(),
+            razonsocialguia: $("#idtxtrazonsocialguia").val(),
+            numerotrasladotim: $("#idtxttim").val(),
+            motivotraslado: $("#idselcetmotivotraslado").val(),
+            pesobrutototal: $("#idtxtpesobrutototal").val(),
+            volumenproducto: $("#idtxtvolumenproducto").val(),
+            numerobultopallet: $("#idselectnumerobultopallet").val(),
+            observaciones: $("#idtxtobservaciones").val(),
+            idconductor: $("#idselectidconductor").val(),
+            idtipoempresa: $("#idselectidtipoempresa").val(),
             _token: $('input[name="_token"]').val() // Token CSRF
         };
 
@@ -70,7 +73,7 @@ $(document).ready(function() {
                 });
 
                 // Limpiar el formulario (opcional)
-                $("#idformguiasremision")[0].reset();
+                $("#idformaddguiasremision")[0].reset();
             },
             error: function(error) {
                 // alert("Error: " + xhr.responseJSON.message);

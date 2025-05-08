@@ -7,36 +7,25 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
 class Guiasderemision extends Model {
-    protected $table = 'guias_remision'; // Especifica el horaemision exacto de la tabla
+    protected $table = 'guiaremision'; // Especifica el horaemision exacto de la tabla
     protected $primaryKey = 'idguia'; // Si tu clave primaria no se llama "id"
-    public $timestamps = false; // Desactiva timestamps si tu tabla no tiene created_at / updated_at
+    public $timestamps = false; // Desactiva codigoguiaestamps si tu tabla no tiene created_at / updated_at
 
     // Opcional: si quieres proteger o permitir ciertas columnas
     protected $fillable = [
-        'tim',
+        'codigoguia',
         'fechaemision',
         'horaemision',
+        'razonsocialguia',
+        'numerotrasladotim',
         'motivotraslado',
-        'origen',
-        'destino',
-        'estado',
-        'cantidadenviada',
-        'idvehiculo',
+        'pesobrutototal',
+        'volumenproducto',
+        'numerobultopallet',
+        'observaciones',
         'idconductor',
+        'idtipoempresa',
     ];
-
-    // Relación con Vehiculo
-    public function vehiculo()
-    {
-        return $this->belongsTo(Vehiculo::class, 'idvehiculo');
-    }
-
-    // Relación con Conductor
-    public function conductor()
-    {
-        return $this->belongsTo(Conductores::class, 'idconductor');
-    }
-
     public function mostrarguiasderemision(array $parametros = []): array {
         $query = DB::table('v_guiaremision');
 
@@ -45,8 +34,8 @@ class Guiasderemision extends Model {
             $query->where('idguia', $parametros['idguia']);
         }
 
-        if (isset($parametros['tim'])) {
-            $query->where('tim', $parametros['tim']);
+        if (isset($parametros['codigoguia'])) {
+            $query->where('codigoguia', $parametros['codigoguia']);
         }
 
         if (isset($parametros['fechaemision'])) {
@@ -57,32 +46,40 @@ class Guiasderemision extends Model {
             $query->where('horaemision', $parametros['horaemision']);
         }
 
+        if (isset($parametros['razonsocialguia'])) {
+            $query->where('razonsocialguia', $parametros['razonsocialguia']);
+        }
+
+        if (isset($parametros['numerotrasladotim'])) {
+            $query->where('numerotrasladotim', $parametros['numerotrasladotim']);
+        }
+
         if (isset($parametros['motivotraslado'])) {
             $query->where('motivotraslado', $parametros['motivotraslado']);
         }
 
-        if (isset($parametros['origen'])) {
-            $query->where('origen', $parametros['origen']);
+        if (isset($parametros['pesobrutototal'])) {
+            $query->where('pesobrutototal', $parametros['pesobrutototal']);
         }
 
-        if (isset($parametros['destino'])) {
-            $query->where('destino', $parametros['destino']);
+        if (isset($parametros['volumenproducto'])) {
+            $query->where('volumenproducto', $parametros['volumenproducto']);
         }
 
-        if (isset($parametros['estado'])) {
-            $query->where('estado', $parametros['estado']);
+        if (isset($parametros['numerobultopallet'])) {
+            $query->where('numerobultopallet', $parametros['numerobultopallet']);
         }
 
-        if (isset($parametros['cantidadenviada'])) {
-            $query->where('cantidadenviada', $parametros['cantidadenviada']);
-        }
-
-        if (isset($parametros['idvehiculo'])) {
-            $query->where('idvehiculo', $parametros['idvehiculo']);
+        if (isset($parametros['observaciones'])) {
+            $query->where('observaciones', $parametros['observaciones']);
         }
 
         if (isset($parametros['idconductor'])) {
             $query->where('idconductor', $parametros['idconductor']);
+        }
+
+        if (isset($parametros['idtipoempresa'])) {
+            $query->where('idtipoempresa', $parametros['idtipoempresa']);
         }
 
         // Verificar si se pide paginación
@@ -106,24 +103,26 @@ class Guiasderemision extends Model {
         );
     }
 
-    public function insertarGuiasRemision(array $data): array {
+    public function insertarguiaremision(array $data): array {
         // Definir variables de salida
         DB::statement("SET @idguia = 0;");
         DB::statement("SET @success = 0;");
         DB::statement("SET @message = '';");
 
         // Llamar al SP con parámetros IN + OUT
-        DB::statement("CALL sp_guiasremision(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, @idguia, @success, @message)", [
-            isset($data['tim']) ? $data['tim'] : null,
+        DB::statement("CALL sp_guiaremision(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, @idguia, @success, @message)", [
+            isset($data['codigoguia']) ? $data['codigoguia'] : null,
             isset($data['fechaemision']) ? $data['fechaemision'] : null,
             isset($data['horaemision']) ? $data['horaemision'] : null,
+            isset($data['razonsocialguia']) ? $data['razonsocialguia'] : null,
+            isset($data['numerotrasladotim']) ? $data['numerotrasladotim'] : null,
             isset($data['motivotraslado']) ? $data['motivotraslado'] : null,
-            isset($data['origen']) ? $data['origen'] : null,
-            isset($data['destino']) ? $data['destino'] : null,
-            isset($data['estado']) ? $data['estado'] : null,
-            isset($data['cantidadenviada']) ? $data['cantidadenviada'] : null,
-            isset($data['idvehiculo']) ? $data['idvehiculo'] : null,
-            isset($data['idconductor']) ? $data['idconductor'] : null
+            isset($data['pesobrutototal']) ? $data['pesobrutototal'] : null,
+            isset($data['volumenproducto']) ? $data['volumenproducto'] : null,
+            isset($data['numerobultopallet']) ? $data['numerobultopallet'] : null,
+            isset($data['observaciones']) ? $data['observaciones'] : null,
+            isset($data['idconductor']) ? $data['idconductor'] : null,
+            isset($data['idtipoempresa']) ? $data['idtipoempresa'] : null,
         ]);
 
 

@@ -24,9 +24,10 @@ $(document).ready(function() {
         modalInstance.hide();
 
         const datos = {
+            idproducto: $("#idproducto").val(),
+            codigoproducto: $("#idtxtcodigoproducto").val(),
             nombre: $("#idtxtnombre").val(),
-            sku: $("#idtxtsku").val(),
-            estado: $("#idselectestado").val(),
+            tipoinventario: $("#idselectinventario").val(),
             fecharegistro: fechaLocal,
             _token: $('input[name="_token"]').val() // Token CSRF
         };

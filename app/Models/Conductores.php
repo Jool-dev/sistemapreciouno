@@ -16,10 +16,13 @@ class Conductores extends Model
     protected $fillable = [
         'nombre',
         "dni",
+        'idtransportista',
+        'idvehiculo',
     ];
 
-    public function mostraconductores(array $parametros = []): array {
-        $query = DB::table('v_conductores');
+    public function mostrarconductores(array $parametros = []): array {
+//        $query = DB::table('v_conductores');
+        $query = DB::table('v_conductores')->where('estado', '!=', 'Eliminado');
 
         // Filtros condicionales
         if (isset($parametros['idconductor'])) {
@@ -32,6 +35,14 @@ class Conductores extends Model
 
         if (isset($parametros['dni'])) {
             $query->where('dni', $parametros['dni']);
+        }
+
+        if (isset($parametros['idtransportista'])) {
+            $query->where('idtransportista', $parametros['idtransportista']);
+        }
+
+        if (isset($parametros['idvehiculo'])) {
+            $query->where('idvehiculo', $parametros['idvehiculo']);
         }
 
         // Verificar si se pide paginación
@@ -55,16 +66,18 @@ class Conductores extends Model
         );
     }
 
-    public function insertarvehiculos(array $data): array {
+    public function insertarconductores(array $data): array {
         // Definir variables de salida
         DB::statement("SET @idconductor = 0;");
         DB::statement("SET @success = 0;");
         DB::statement("SET @message = '';");
 
         // Llamar al SP con parámetros IN + OUT
-        DB::statement("CALL sp_conductoresinsertar(?, ?, @idconductor, @success, @message)", [
+        DB::statement("CALL sp_conductoresinsertar(?, ?, ?, ?, @idconductor, @success, @message)", [
             isset($data['nombre']) ? $data['nombre'] : null,
-            isset($data['dni']) ? $data['dni'] : null
+            isset($data['dni']) ? $data['dni'] : null,
+            isset($data['idtransportista']) ? $data['idtransportista'] : null,
+            isset($data['idvehiculo']) ? $data['idvehiculo'] : null,
         ]);
 
 

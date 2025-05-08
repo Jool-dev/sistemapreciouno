@@ -25,13 +25,22 @@ INSERT INTO users(name, email, password, idrol, email_verified_at, remember_toke
                                                                                                                    NOW(),
                                                                                                                    NOW()
                                                                                                                );
-
+-- conductores
 -- insert into conductores(nombre,dni,estado)values('pedro', '12345678', "Activo");
 -- insert into conductores(nombre,dni,estado)values('Rodrigo', '36573921', "Activo");
 -- insert into conductores(nombre,dni,estado)values('Joustin', '95724124', "Activo");
---
+
+--vehiculos
 -- insert into vehiculos(placa, marca, tipo, estado)values("1234", "Honda", "Excelente", "Activo");
 -- insert into vehiculos(placa, marca, tipo, estado)values("$9u43", "Mavila", "Excelente", "Activo");
 -- insert into vehiculos(placa, marca, tipo, estado)values("#gyt4", "Zonshen", "Excelente", "Activo");
 -- insert into vehiculos(placa, marca, tipo, estado)values("4h3h3", "Xtz", "Excelente", "Activo");
 -- insert into vehiculos(placa, marca, tipo, estado)values("00=ne", "Escarabajo", "Excelente", "Activo");
+
+-- tipoempresa
+INSERT INTO tipoempresa (direccion, provincia, departamento, ubigeo, razonsocial, ruc, codigoestablecimiento, estado) VALUES
+                                                                                                                          ('Av. Centenario No. 2086', 'CORONEL PORTILLO', 'UCAYALI', '150118', 'HIPERMERCADOS TOTTUS ORIENTE S.A.C', '20393864886', '', 'ACTIVO');
+
+-- transporte
+INSERT INTO transporte (ruc_transportista, nombre_razonsocial, estado) VALUES
+                                                                           ('20604158657', 'AyS DISTRIBUCIONES E.I.R.L', 'Activo');

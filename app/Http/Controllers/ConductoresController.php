@@ -5,22 +5,49 @@ namespace App\Http\Controllers;
 use Exception;
 use Illuminate\Http\Request;
 use App\Models\Conductores;
+use Illuminate\Support\Facades\DB;
 
 class ConductoresController extends Controller
 {
     //Para registrar el conductor
-    public function registrarConductor(Request $request) {
+    public function mantenimientoconductor(Request $request) {
         try{
             $validated = $request->validate([
+                "idconductor" => "nullable",
                 'nombre' => 'required',
-                'sku' => 'required',
-                'estado' => 'required',
-                'fecharegistro' => 'required'
+                'dni' => 'required',
+                'idtransportista' => 'required',
+                'idvehiculo' => 'required'
             ]);
 
-            $modeloconductor = new Conductores();
-            $conductor = $modeloconductor->insertarconductores($validated);
+            // Verificar si el DNI ya existe
+            $existeConductor = DB::table('conductores')
+                ->where('dni', $validated['dni'])
+                ->exists();
 
+            if ($existeConductor) {
+                throw new \Exception('Ya existe un conductor con este DNI');
+            }
+
+            $modeloconductor = new Conductores();
+//            $conductor = $modeloconductor->insertarconductores($validated);
+            if($validated['idconductor'] === null){
+                $conductor = $modeloconductor->insertarconductores([
+                    "nombre" => $validated['nombre'],
+                    "dni" => $validated['dni'],
+                    "idtransportista" => $validated['idtransportista'],
+                    "idvehiculo" => $validated['idvehiculo']
+                ]);
+            }
+            else{
+                $conductor = $modeloconductor->editarconductores([
+                    "idconductor" => $validated['idconductor'],
+                    "nombre" => $validated['nombre'],
+                    "dni" => $validated['dni'],
+                    "idtransportista" => $validated['idtransportista'],
+                    "idvehiculo" => $validated['idvehiculo']
+                ]);
+            }
             if(!$conductor["success"]){
                 throw new Exception($conductor["message"]);
             }
@@ -43,7 +70,7 @@ class ConductoresController extends Controller
     {
         try {
             $modeloconductor = new Conductores();
-            $resultado = $modeloconductor->eliminarConductor($id);
+            $resultado = $modeloconductor->editarconductores($id);
 
             if(!$resultado["success"]){
                 throw new Exception($resultado["message"]);

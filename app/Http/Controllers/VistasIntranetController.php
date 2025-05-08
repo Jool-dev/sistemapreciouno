@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Conductores;
+use App\Models\TipoEmpresa;
 use App\Models\Vehiculo;
+use App\Models\Transporte;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -17,28 +19,56 @@ class VistasIntranetController extends Controller
         if (!Auth::check()) {
             return redirect()->route('vistalogin');
         }
-        return view('intranet.dashboard');
+        return view('intranet.administrador.dashboard');
     }
 
     public function vistavehiculo()  {
         if (!Auth::check()) {
             return redirect()->route('vistalogin');
         }
-        return view('intranet.vehiculo');
+        return view('intranet.administrador.vehiculo');
     }
 
     public function vistausuarios() {
         if (!Auth::check()) {
             return redirect()->route('vistalogin');
         }
-        return view('intranet.usuarios');
+        return view('intranet.administrador.usuarios');
     }
 
     public function vistaproducto(){
         if (!Auth::check()) {
             return redirect()->route('vistalogin');
         }
-        return view('intranet.productos');
+        return view('intranet.administrador.productos');
+    }
+
+    public function vistaconductor(){
+        if (!Auth::check()) {
+            return redirect()->route('vistalogin');
+        }
+//      Metodo directo usando eloquent
+        $vehiculos = \App\Models\Vehiculo::where('estado', 'activo')->get();
+        $transportes = \App\Models\Transporte::where('estado', 'activo')->get();
+
+//        // Instanciamos los modelos
+//        $modeloTransportes = new Transporte();
+//        $modelovehiculos = new Vehiculo();
+//
+//        // Obtenemos datos usando métodos personalizados
+//        $data1 = $modeloTransportes->mostrartransporte();
+//        $data2 = $modelovehiculos->mostravehiculo();
+//
+//        // Convertimos arrays a objetos stdClass
+//        $transportes = array_map(function($item) {
+//            return (object)$item;
+//        }, $data1["data"] == null ? [] : $data1["data"]);
+//
+//        $vehiculos = array_map(function($item) {
+//            return (object)$item;
+//        }, $data2["data"] == null ? [] : $data2["data"]);
+
+        return view('intranet.administrador.conductores', compact('transportes', 'vehiculos'));
     }
 
     public function vistaguiasderemision(){
@@ -50,7 +80,7 @@ class VistasIntranetController extends Controller
         $modelConductores = new Conductores();
 
         $data = $modelovehiculos->mostravehiculo();
-        $data2 = $modelConductores->mostraconductores();
+        $data2 = $modelConductores->mostrarconductores();
 
         // Convertir arrays a objetos stdClass
         $vehiculos = array_map(function($item) {
@@ -60,7 +90,6 @@ class VistasIntranetController extends Controller
         $conductores = array_map(function($item) {
             return (object)$item;
         }, $data2["data"] == null ? [] : $data2["data"]);
-
 
         return view('intranet.prevencionistas.guiasremision', compact('vehiculos', 'conductores'));
     }
@@ -70,22 +99,23 @@ class VistasIntranetController extends Controller
             return redirect()->route('vistalogin');
         }
         //ESTO JALA LOS DATOS FORANEOS
-        $modelovehiculos = new Vehiculo();
         $modelConductores = new Conductores();
+        $modelTipoEmpresa = new TipoEmpresa();
 
-        $data = $modelovehiculos->mostravehiculo();
-        $data2 = $modelConductores->mostraconductores();
+
+        $data = $modelConductores->mostrarconductores();
+        $data2 = $modelTipoEmpresa->mostrartipoempresa();
 
         // Convertir arrays a objetos stdClass
-        $vehiculos = array_map(function($item) {
+        $conductores = array_map(function($item) {
             return (object)$item;
         }, $data["data"] == null ? [] : $data["data"]);
 
-        $conductores = array_map(function($item) {
+        $tipoempresa = array_map(function($item) {
             return (object)$item;
         }, $data2["data"] == null ? [] : $data2["data"]);
 
-        return view('intranet.prevencionistas.addguiasremision', compact('vehiculos', 'conductores'));
+        return view('intranet.prevencionistas.addguiasremision', compact('conductores', 'tipoempresa'));
     }
 
     public function vistarevisionguias(){

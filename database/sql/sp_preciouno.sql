@@ -25,7 +25,7 @@ END;
 
 -- Procedimiento almacenado para insertar vehiculos
 CREATE PROCEDURE `sp_vehiculoinsertar`(
-    spplaca varchar(50),
+    spplaca varchar(10),
     spmarca varchar(50),
     sptipo varchar(50),
     OUT idvehiculo INT,
@@ -47,6 +47,29 @@ else
 end if;
 END;
 
+-- Procedimiento almacenado para insertar transportes
+CREATE PROCEDURE `sp_transporteinsertar`(
+    spruc_transportista varchar(10),
+    spnombre_razonsocial varchar(50),
+    OUT idtransportista INT,
+    OUT success bit,
+    out message varchar(100)
+)
+BEGIN
+INSERT INTO transporte(ruc_transportista, nombre_razonsocial, estado)
+values(spruc_transportista, spnombre_razonsocial, "Activo");
+
+if Row_count() > 0 then
+		SET idtransportista = LAST_INSERT_ID();
+		set success = 1;
+        set message = "Transporte Registrado Correctente";
+else
+		SET idtransportista = 0;
+		set success = 0;
+        set message = "NO SE REGISTRO EL TRANSPORTE";
+end if;
+END;
+
 -- Procedimiento almacenado para insertar conductores
 CREATE PROCEDURE `sp_conductoresinsertar`(
     spnombre varchar(50),
@@ -58,7 +81,7 @@ CREATE PROCEDURE `sp_conductoresinsertar`(
     out message varchar(100)
 )
 BEGIN
-INSERT INTO conductores(nombre, dni, estado, idtransportistas, idvehiculo)
+INSERT INTO conductores(nombre, dni, estado, idtransportista, idvehiculo)
 values(spnombre, spdni, 'Activo', spidtransportista, spidvehiculo);
 
 if Row_count() > 0 then
@@ -76,7 +99,6 @@ END;
 CREATE PROCEDURE `sp_productosinsertar`(
     spcodigoproducto varchar(20),
     spnombre varchar(50),
-    sptipocodproducto varchar(50),
     sptipoinventario varchar(50),
     spfecharegistro datetime,
     OUT idproducto INT,
@@ -84,8 +106,8 @@ CREATE PROCEDURE `sp_productosinsertar`(
     out message varchar(100)
 )
 BEGIN
-INSERT INTO productos(codigoproducto, nombre, tipocodproducto, tipoinventario, spfecharegistro)
-values(spcodigoproducto, spnombre, sptipocodproducto, sptipoinventario, fecharegistro);
+INSERT INTO productos(codigoproducto, nombre, tipocodproducto, tipoinventario, fecharegistro, estado)
+values(spcodigoproducto, spnombre, 'Fijo', sptipoinventario, spfecharegistro, 'Activo');
 
 if Row_count() > 0 then
 		SET idproducto = LAST_INSERT_ID();
@@ -117,7 +139,7 @@ CREATE PROCEDURE sp_guiaremision(
     out message varchar(100)
 )
 BEGIN
-INSERT INTO guias_remision(codigoguia ,fechaemision ,horaemision ,razonsocialguia ,numerotrasladotim ,motivotraslado ,pesobrutototal ,volumenproducto, numerobultopallet, observaciones, idconductor, idtipoempresa)
+INSERT INTO guiaremision(codigoguia ,fechaemision ,horaemision ,razonsocialguia ,numerotrasladotim ,motivotraslado ,pesobrutototal ,volumenproducto, numerobultopallet, observaciones, idconductor, idtipoempresa)
 values(spcodigoguia ,spfechaemision ,sphoraemision ,sprazonsocialguia ,spnumerotrasladotim ,spmotivotraslado ,sppesobrutototal ,spvolumenproducto, spnumerobultopallet, spobservaciones, spidconductor, spidtipoempresa);
 
 if Row_count() > 0 then

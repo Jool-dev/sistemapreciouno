@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\GuiasRemisionController;
 use App\Http\Controllers\ProductoController;
+use App\Http\Controllers\ConductoresController;
 use App\Http\Controllers\UsuariosController;
 use App\Http\Controllers\VehiculoController;
 use App\Http\Controllers\VistasIntranetController;
@@ -21,14 +22,20 @@ Route::middleware(['auth', 'role:administrador'])->group(function () {
     //usuarios
     Route::get('/usuarios', [VistasIntranetController::class, 'vistausuarios'])->name('vistausuarios');
 
+    //conductores
+    Route::get('/conductor', [VistasIntranetController::class, 'vistaconductor'])->name('vistaconductor');
+    Route::post('/mantenimientoconductor', [ConductoresController::class, 'mantenimientoconductor'])->name('api.mantenimientoconductor');
+    //transporte
+
+
     //vehiculo
     Route::get('/vehiculo', [VistasIntranetController::class, 'vistavehiculo'])->name('vistavehiculo');
     Route::post('/mantenimientovehiculo', [VehiculoController::class, 'mantenimientovehiculo'])->name('api.mantenimientovehiculo');
     Route::post('/estadovehiculo', [VehiculoController::class, 'eliminarvehiculo'])->name('api.eliminarvehiculo');
     //productos
     Route::get('/producto', [VistasIntranetController::class, 'vistaproducto'])->name('vistaproducto');
-    Route::post('/registrarproducto', [ProductoController::class, 'registrarProducto'])->name('api.registrarProducto');
-    Route::post('/eliminarproducto', [ProductoController::class, 'eliminarProducto'])->name('api.eliminarProducto');
+    Route::post('/registrarproducto', [ProductoController::class, 'registrarproducto'])->name('api.registrarproducto');
+    Route::post('/eliminarproducto', [ProductoController::class, 'eliminarproducto'])->name('api.eliminarproducto');
 });
 
 
@@ -40,8 +47,7 @@ Route::middleware(['auth', 'role:prevencionista'])->group(function () {
 
     Route::get('/guiasremision/{id}/detalle', [VistasIntranetController::class, 'vistadetalleguia'])->name('guias.detalle');
     Route::get('/crearguiaremision', [VistasIntranetController::class, 'vistaaddguiaremision'])->name('vistaaddguiaremision');
-    
-    Route::post('/registrarguiaremision', [GuiasRemisionController::class, 'registrarGuiaRemision'])->name('registrarGuiaRemision');
+    Route::post('/registrarguiaremision', [GuiasRemisionController::class, 'registrarguiaremision'])->name('api.registrarguiaremision');
 });
 
 Route::post('/iniciarsesion', [UsuariosController::class, 'validarLogin'])->name('api.validarLogin');

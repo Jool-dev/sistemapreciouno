@@ -3,8 +3,10 @@
         <thead class="table-dark">
         <tr>
             <th class="text-center align-middle">#</th>
-            <th class="text-center align-middle">Nombre</th>
-            <th class="text-center align-middle">SKU</th>
+            <th class="text-center align-middle">Codigo Producto</th>
+            <th class="text-center align-middle">Nombre Del Producto</th>
+            <th class="text-center align-middle">Tipo Cod Producto</th>
+            <th class="text-center align-middle">Tipo Inventario</th>
             <th class="text-center align-middle">Estado</th>
             <th class="text-center align-middle">Fecha de registro</th>
             <th class="text-center align-middle">Acciones</th>
@@ -13,15 +15,21 @@
         <tbody>
         @forelse($data as $productos)
             <tr>
-                <td><strong>{{ $productos['idproducto'] }}</strong></td>
-                <td><strong>{{ $productos['nombre'] }}</strong></td>
-                <td><strong>{{ $productos['sku'] }}</strong></td>
-                <td><strong>{{ $productos['estado'] }}</strong></td>
-                <td><strong>{{ $productos['fecharegistro'] }}</strong></td>
-                <td>
-                    <button wire:click="edit({{ $productos['idproducto'] }})" class="btn btn-warning btn-sm">Editar</button>
-                    <button wire:click="delete({{ $productos['idproducto'] }})" class="btn btn-danger btn-sm"
-                            onclick="return confirm('¿Estás seguro de eliminar este usuario?')">Eliminar</button>
+                <td class="text-center align-middle"><strong>{{ $productos['idproducto'] }}</strong></td>
+                <td class="text-center align-middle"><strong>{{ $productos['codigoproducto'] }}</strong></td>
+                <td class="text-center align-middle"><strong>{{ $productos['nombre'] }}</strong></td>
+                <td class="text-center align-middle"><strong>{{ $productos['tipocodproducto'] }}</strong></td>
+                <td class="text-center align-middle"><strong>{{ $productos['tipoinventario'] }}</strong></td>
+                <td class="text-center align-middle"><strong>{{ $productos['estado'] }}</strong></td>
+                <td class="text-center align-middle"><strong>{{ $productos['fecharegistro'] }}</strong></td>
+                <td class="text-center align-middle">
+                    <button type="button" class="btn btn-sm btn-warning btn-editarproducto">
+                        <i class="bi bi-pencil-square"></i> Editar
+                    </button>
+                    <button type="button" class="btn btn-sm btn-danger btn-eliminarproducto">
+{{--                            data-id="{{ $productos['idproducto'] }}">--}}
+                        <i class="bi bi-trash"></i> Eliminar
+                    </button>
                 </td>
             </tr>
         @empty
