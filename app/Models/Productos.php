@@ -16,9 +16,8 @@ class Productos extends Model
     protected $fillable = [
         'codigoproducto',
         'nombre',
-        'tipocodproducto',
         'tipoinventario',
-        'fecharegistro'
+        'fecharegistro',
     ];
 
     public function mostraproducto(array $parametros = []): array {
@@ -35,10 +34,6 @@ class Productos extends Model
 
         if (isset($parametros['nombre'])) {
             $query->where('nombre', $parametros['nombre']);
-        }
-
-        if (isset($parametros['tipocodproducto'])) {
-            $query->where('tipocodproducto', $parametros['tipocodproducto']);
         }
 
         if (isset($parametros['tipoinventario'])) {
@@ -78,10 +73,10 @@ class Productos extends Model
 
         // Llamar al SP con parámetros IN + OUT
         DB::statement("CALL sp_productosinsertar(?, ?, ?, ?, @idproducto, @success, @message)", [
+            isset($data['codigoproducto']) ? $data['codigoproducto'] : null,
             isset($data['nombre']) ? $data['nombre'] : null,
-            isset($data['sku']) ? $data['sku'] : null,
-            isset($data['estado']) ? $data['estado'] : null,
-            isset($data['fecharegistro']) ? $data['fecharegistro'] : null
+            isset($data['tipoinventario']) ? $data['tipoinventario'] : null,
+            isset($data['fecharegistro']) ? $data['fecharegistro'] : null,
         ]);
 
 

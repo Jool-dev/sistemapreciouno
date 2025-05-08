@@ -1,40 +1,46 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\Guiasderemision;
 use Illuminate\Http\Request;
 use Exception;
 
 class GuiasRemisionController extends Controller
 {
-    public function registrarGuiaRemision(Request $request)
+    public function registrarguiaremision(Request $request)
     {
         try {
             $validated = $request->validate([
-                'tim' => 'required',
+//                'idguia' => 'nullable',
+                'codigoguia' => 'required',
                 'fechaemision' => 'required',
                 'horaemision' => 'required',
+                'razonsocialguia' => 'required',
+                'numerotrasladocodigoguia'=> 'required',
                 'motivotraslado' => 'required',
-                'origen' => 'required',
-                'destino' => 'required',
-                'estado' => 'required',
-                'cantidadenviada' => 'required',
-                'idvehiculo' => 'required',
+                'pesobrutototal' => 'required',
+                'volumenproducto' => 'required',
+                'numerobultopallet' => 'required',
+                'observaciones' => 'required',
                 'idconductor' => 'required',
+                'idtipoempresa' => 'required',
             ]);
 
             $modeloguiaremision = new Guiasderemision();
-            $guiasremision = $modeloguiaremision->insertarGuiasRemision([
-                "tim" => $validated['tim'],
+            $guiasremision = $modeloguiaremision->insertarguiaremision([
+                "codigoguia" => $validated['codigoguia'],
                 "fechaemision" => $validated['fechaemision'],
                 "horaemision" => $validated['horaemision'],
+                "razonsocialguia" => $validated['razonsocialguia'],
+                "numerotrasladocodigoguia" => $validated['numerotrasladocodigoguia'],
                 "motivotraslado" => $validated['motivotraslado'],
-                "origen" => $validated['origen'],
-                "destino" => $validated['destino'],
-                "estado" => $validated['estado'],
-                "cantidadenviada" => $validated['cantidadenviada'],
-                "idvehiculo" => $validated['idvehiculo'],
-                "idconductor" => $validated['idconductor']
+                "pesobrutototal" => $validated['pesobrutototal'],
+                "volumenproducto" => $validated['volumenproducto'],
+                "numerobultopallet" => $validated['numerobultopallet'],
+                "observaciones" => $validated['observaciones'],
+                "idconductor" => $validated['idconductor'],
+                "idtipoempresa" => $validated['idtipoempresa'],
             ]);
             if (!$guiasremision["success"]) {
                 throw new Exception($guiasremision["message"]);
@@ -43,7 +49,8 @@ class GuiasRemisionController extends Controller
 
             return response()->json([
                 'success' => true,
-                'message' => $guiasremision["message"]
+                'message' => $guiasremision["message"],
+                'data' => $guiasremision["data"]
             ]);
         } catch (\Exception $ex) {
             return response()->json([

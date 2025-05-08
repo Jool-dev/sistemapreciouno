@@ -1,33 +1,26 @@
 import $ from 'jquery';
 import Swal from "sweetalert2";
 
-const fecha = new Date();
-const fechaLocal = fecha.getFullYear() + "-" +
-    ("0" + (fecha.getMonth() + 1)).slice(-2) + "-" +
-    ("0" + fecha.getDate()).slice(-2) + " " +
-    ("0" + fecha.getHours()).slice(-2) + ":" +
-    ("0" + fecha.getMinutes()).slice(-2) + ":" +
-    ("0" + fecha.getSeconds()).slice(-2);
-
 // Verificar si jQuery está disponible
 if (typeof $ === 'undefined') {
     throw new Error('jQuery no está cargado. Verifica tus imports.');
 }
 
 $(document).ready(function() {
-    $("#idformproducto").submit(function(e) {
+    $("#idformConductores").submit(function(e) {
         e.preventDefault();
 
         // Cerrar el modal
-        const modalElement = document.getElementById('idmodalProductos'); // Asegúrate que tu modal tenga este ID
+        const modalElement = document.getElementById('idmodalConductoress'); // Asegúrate que tu modal tenga este ID
         const modalInstance = bootstrap.Modal.getInstance(modalElement) || new bootstrap.Modal(modalElement);
         modalInstance.hide();
 
         const datos = {
+            idconductor: $("#idconductor").val(),
             nombre: $("#idtxtnombre").val(),
-            sku: $("#idtxtsku").val(),
-            estado: $("#idselectestado").val(),
-            fecharegistro: fechaLocal,
+            dni: $("#idtxtdni").val(),
+            idtransportista: $("#idselecttransporte").val(),
+            idvehiculo: $("#idselectvehiculo").val(),
             _token: $('input[name="_token"]').val() // Token CSRF
         };
 
@@ -35,7 +28,7 @@ $(document).ready(function() {
 
         // Enviar datos al servidor (AJAX)
         $.ajax({
-            url: "/registrarproducto", // Ruta en Laravel
+            url: "/mantenimientoconductor", // Ruta en Laravel
             type: "POST",
             contentType: "application/json",
             data: JSON.stringify(datos),
@@ -48,18 +41,18 @@ $(document).ready(function() {
                     // throw new Error();
                 }
 
-                Livewire.dispatch("listarproductoDesdeJS");
+                Livewire.dispatch("listarconductoresDesdeJS");
 
                 // Mensaje de éxito (opcional)
                 Swal.fire({
                     icon: 'success',
-                    title: 'Producto registrado correctamente',
+                    title: 'Conductor registrado correctamente',
                     showConfirmButton: false,
                     timer: 1500
                 });
 
                 // Limpiar el formulario (opcional)
-                $("#idformproducto")[0].reset();
+                $("#idformConductores")[0].reset();
             },
             error: function(error) {
                 // alert("Error: " + xhr.responseJSON.message);

@@ -16,6 +16,7 @@
         //'resources/js/app.js',
         'resources/js/intranet/appproducto.js',
         'resources/js/intranet/appvehiculo.js',
+        'resources/js/intranet/appconductores.js',
         'resources/js/appglobal.js',
         'resources/js/applogin.js',
         'resources/js/bootstrap.js',
@@ -71,7 +72,10 @@
                                 <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                                 Dashboard
                             </a>
-
+                            <a class="nav-link" href="{{route('vistaconductor')}}">
+                                <div class="sb-nav-link-icon"><i class="fa-solid fa-id-card"></i></div>
+                                Conductor
+                            </a>
                             <a class="nav-link" href="{{route('vistavehiculo')}}">
                                 <div class="sb-nav-link-icon"><i class="fa-solid fa-truck"></i></div>
                                 Vehiculo

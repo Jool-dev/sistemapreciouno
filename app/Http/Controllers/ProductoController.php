@@ -9,14 +9,13 @@ use Exception;
 class ProductoController extends Controller
 {
     //Para registrar el producto
-    public function registrarProducto(Request $request) {
+    public function registrarproducto(Request $request) {
         try{
             $validated = $request->validate([
+//                "idvehiculo" => "nullable",
                 'codigoproducto' => 'required',
                 'nombre' => 'required',
-                'tipocodproducto' => 'required',
                 'tipoinventario' => 'required',
-                'estado' => 'required',
                 'fecharegistro' => 'required'
             ]);
 
@@ -41,11 +40,11 @@ class ProductoController extends Controller
         }
     }
     //Para eliminar el producto
-    public function eliminarProducto($id)
+    public function eliminarproducto($id)
     {
         try {
             $modelo = new Productos();
-            $resultado = $modelo->eliminarProducto($id);
+            $resultado = $modelo->eliminarproducto($id);
 
             if(!$resultado["success"]){
                 throw new Exception($resultado["message"]);

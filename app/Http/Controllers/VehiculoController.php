@@ -45,7 +45,7 @@ class VehiculoController extends Controller {
         catch (\Exception $ex){
             return response()->json([
                 'success' => false,
-                'message' => 'Error al guardar los votos: '.$ex->getMessage(),
+                'message' => 'Error al registrar el vehiculo: '.$ex->getMessage(),
                 'error_details' => env('APP_DEBUG') ? $ex->getTrace() : null
             ], 500);
         }
