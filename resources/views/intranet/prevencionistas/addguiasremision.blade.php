@@ -137,14 +137,14 @@
                         </div>
 
                         <div class="col-md-4">
-                            <label for="idtxttim" class="form-label fw-bold">N° TIM</label>
-                            <input type="text" class="form-control" id="idtxttim" name="tim" required>
+                            <label for="idtxtnumerotrasladotim" class="form-label fw-bold">N° TIM</label>
+                            <input type="text" class="form-control" id="idtxtnumerotrasladotim" name="numerotrasladotim" required>
                             <div class="invalid-feedback">Campo obligatorio</div>
                         </div>
 
                         <div class="col-md-4">
                             <label for="idtxtrazonsocialguia" class="form-label fw-bold">Razón Social</label>
-                            <input type="text" class="form-control" id="idtxtrazonsocialguia" name="razonsocial" required>
+                            <input type="text" class="form-control" id="idtxtrazonsocialguia" name="razonsocialguia" required>
                             <div class="invalid-feedback">Campo obligatorio</div>
                         </div>
                     </div>
@@ -171,19 +171,19 @@
 
                         <div class="col-md-3">
                             <label for="idtxtpesobrutototal" class="form-label fw-bold">Peso Bruto (kg)</label>
-                            <input type="number" step="0.01" class="form-control" id="idtxtpesobrutototal" name="pesobruto" required>
+                            <input type="number" step="0.01" class="form-control" id="idtxtpesobrutototal" name="pesobrutototal" required>
                             <div class="invalid-feedback">Campo obligatorio</div>
                         </div>
 
                         <div class="col-md-3">
                             <label for="idtxtvolumenproducto" class="form-label fw-bold">Volumen (m³)</label>
-                            <input type="number" step="0.01" class="form-control" id="idtxtvolumenproducto" name="volumen" required>
+                            <input type="number" step="0.01" class="form-control" id="idtxtvolumenproducto" name="volumenproducto" required>
                             <div class="invalid-feedback">Campo obligatorio</div>
                         </div>
 
                         <div class="col-md-4">
                             <label for="idselectnumerobultopallet" class="form-label fw-bold">N° Bultos/Pallets</label>
-                            <input type="number" class="form-control" id="idselectnumerobultopallet" name="numerobultos" required>
+                            <input type="number" class="form-control" id="idselectnumerobultopallet" name="numerobultopallet" required>
                             <div class="invalid-feedback">Campo obligatorio</div>
                         </div>
                     </div>
@@ -198,7 +198,7 @@
                     <div class="row g-3">
                         <div class="col-md-6">
                             <label for="idselectidconductor" class="form-label fw-bold">Conductor</label>
-                            <select class="form-select" id="idselectidconductor" name="conductor" required>
+                            <select class="form-select" id="idselectidconductor" name="idconductor" required>
                                 <option value="">Seleccionar conductor...</option>
                                 @forelse($conductores as $conductor)
                                     <option value="{{ $conductor->idconductor }}">{{ $conductor->nombre }}</option>
@@ -211,7 +211,7 @@
 
                         <div class="col-md-6">
                             <label for="idselectidtipoempresa" class="form-label fw-bold">Tipo de Empresa</label>
-                            <select class="form-select" id="idselectidtipoempresa" name="tipoempresa" required>
+                            <select class="form-select" id="idselectidtipoempresa" name="idtipoempresa" required>
                                 <option value="">Seleccionar empresa...</option>
                                 @forelse($tipoempresa as $empresa)
                                     <option value="{{ $empresa->idtipoempresa }}">{{ $empresa->razonsocial }}</option>

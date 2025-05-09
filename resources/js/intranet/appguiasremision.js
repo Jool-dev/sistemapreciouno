@@ -34,7 +34,7 @@ $(document).ready(function() {
             fechaemision: fechaLocal,
             horaemision: horaLocal,
             razonsocialguia: $("#idtxtrazonsocialguia").val(),
-            numerotrasladotim: $("#idtxttim").val(),
+            numerotrasladotim: $("#idtxtnumerotrasladotim").val(),
             motivotraslado: $("#idselcetmotivotraslado").val(),
             pesobrutototal: $("#idtxtpesobrutototal").val(),
             volumenproducto: $("#idtxtvolumenproducto").val(),
@@ -75,8 +75,13 @@ $(document).ready(function() {
                 // Limpiar el formulario (opcional)
                 $("#idformaddguiasremision")[0].reset();
             },
-            error: function(error) {
-                // alert("Error: " + xhr.responseJSON.message);
+            error: function(xhr) {
+                console.error('Error:', xhr.responseJSON);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: xhr.responseJSON.message || 'Ocurrió un error al guardar'
+                });
             }
         });
     });
