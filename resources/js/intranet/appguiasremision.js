@@ -110,7 +110,7 @@ $(document).ready(function() {
         };
 
         console.log(JSON.stringify(datos));
-        const pregunta = await window.SweetAlertpreguntarSI_NO("¿Estás seguro de eliminar?");
+        const pregunta = await window.SweetAlertpreguntarSI_NO("¿Estás seguro de Registrar?");
 
         if(pregunta){
             // Enviar datos al servidor (AJAX)
@@ -184,6 +184,10 @@ function buscarproductocodigo(codigo) {
                 $('#idtxtcantidadproducto').focus();
             } else {
                 $codigoInput.addClass('border-danger').focus();
+                $('#idtxtnombreproducto').val('');
+                $('#idtxtcantidadproducto').val('');
+                $('#idproductocarritogiaremision').val('');
+                $('#idselectestadoproducto').val('Bueno');
             }
         },
         error: function(xhr) {

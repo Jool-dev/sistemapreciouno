@@ -131,7 +131,7 @@
             <br>
             <div class="card shadow-sm mb-3">
                 <div class="card-header bg-secondary bg-opacity-10 py-2 border-0">
-                    <h6 class="mb-0 text-secondary fw-bold"><i class="fas fa-boxes me-2"></i>Productos</h6>
+                    <h6 class="mb-0 text-secondary fw-bold"><i class="fas fa-boxes me-2"></i>Agrega los Productos al Carrito</h6>
                 </div>
                 <div class="card-body p-3">
                     <!-- Formulario para agregar productos -->
@@ -151,7 +151,7 @@
 
                         <!-- Nombre -->
                         <div class="col-md-4">
-                            <label for="idtxtnombreproducto" class="form-label small fw-bold">Nombre</label>
+                            <label for="idtxtnombreproducto" class="form-label small fw-bold">Nombre del Producto</label>
                             <input type="text" class="form-control form-control-sm" id="idtxtnombreproducto" readonly>
                         </div>
 
@@ -185,7 +185,7 @@
                             <thead class="table-light">
                             <tr>
                                 <th width="15%">Código</th>
-                                <th width="40%">Nombre</th>
+                                <th width="40%">Producto</th>
                                 <th width="15%">Cantidad</th>
                                 <th width="20%">Estado</th>
                                 <th width="10%">Acción</th>
