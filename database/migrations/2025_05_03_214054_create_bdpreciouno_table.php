@@ -79,6 +79,7 @@ return new class extends Migration
             $table->string('observaciones');
             $table->foreignId('idconductor')->constrained('conductores', 'idconductor');
             $table->foreignId('idtipoempresa')->constrained('tipoempresa', 'idtipoempresa');
+            $table->string('estado', 20);
             $table->timestamps();
         });
 

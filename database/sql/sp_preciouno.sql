@@ -139,8 +139,8 @@ CREATE PROCEDURE sp_guiaremision(
     out message varchar(100)
 )
 BEGIN
-INSERT INTO guiaremision(codigoguia ,fechaemision ,horaemision ,razonsocialguia ,numerotrasladotim ,motivotraslado ,pesobrutototal ,volumenproducto, numerobultopallet, observaciones, idconductor, idtipoempresa)
-values(spcodigoguia ,spfechaemision ,sphoraemision ,sprazonsocialguia ,spnumerotrasladotim ,spmotivotraslado ,sppesobrutototal ,spvolumenproducto, spnumerobultopallet, spobservaciones, spidconductor, spidtipoempresa);
+INSERT INTO guiaremision(codigoguia ,fechaemision ,horaemision ,razonsocialguia ,numerotrasladotim ,motivotraslado ,pesobrutototal ,volumenproducto, numerobultopallet, observaciones, idconductor, idtipoempresa, estado)
+values(spcodigoguia ,spfechaemision ,sphoraemision ,sprazonsocialguia ,spnumerotrasladotim ,spmotivotraslado ,sppesobrutototal ,spvolumenproducto, spnumerobultopallet, spobservaciones, spidconductor, spidtipoempresa, 'Activo');
 
 if Row_count() > 0 then
 		SET idguia = LAST_INSERT_ID();
