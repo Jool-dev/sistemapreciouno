@@ -32,20 +32,21 @@ $(document).ready(function() {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
             success: function(response) {
-                $form[0].reset();
                 $form.find(":input").prop("disabled", false);
-                if (!response.success) {
+                if (response.idrol === null) {
                     Swal.fire({
-                        icon: 'success',
-                        title: response.message,
+                        icon: 'warning',
+                        text: response.message,
                         timer: 1500,
                         showConfirmButton: false
                     });
                     // throw new Error();
                 } else if(response.idrol === 1) {
+                    $form[0].reset();
                     window.location.replace('/dashboard');
                 } else if(response.idrol === 2){
-                    window.location.replace('/prevencionista');
+                    $form[0].reset();
+                    window.location.replace('/guiasremision');
                 }
 
                 // Actualizar Livewire

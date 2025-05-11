@@ -120,7 +120,7 @@ class Guiasderemision extends Model {
             isset($data['pesobrutototal']) ? $data['pesobrutototal'] : null,
             isset($data['volumenproducto']) ? $data['volumenproducto'] : null,
             isset($data['numerobultopallet']) ? $data['numerobultopallet'] : null,
-            isset($data['observaciones']) ? $data['observaciones'] : null,
+            isset($data['observaciones']) ? $data['observaciones'] : "",
             isset($data['idconductor']) ? $data['idconductor'] : null,
             isset($data['idtipoempresa']) ? $data['idtipoempresa'] : null,
         ]);
@@ -134,6 +134,34 @@ class Guiasderemision extends Model {
             [
                 [
                     "idguia" => $result[0]->idguia
+                ]
+            ]
+        );
+    }
+
+    public function insertardetalleguiaremision(array $data): array {
+        // Definir variables de salida
+        DB::statement("SET @iddetalleguia = 0;");
+        DB::statement("SET @success = 0;");
+        DB::statement("SET @message = '';");
+
+        // Llamar al SP con parámetros IN + OUT
+        DB::statement("CALL sp_detaleguiaremisioninsertar(?, ?, ?, ?, @iddetalleguia, @success, @message)", [
+            isset($data['idguia']) ? $data['idguia'] : null,
+            isset($data['idproducto']) ? $data['idproducto'] : null,
+            isset($data['condicion']) ? $data['condicion'] : null,
+            isset($data['cant']) ? $data['cant'] : null,
+        ]);
+
+
+        // Obtener resultados de las variables OUT
+        $result = DB::select("SELECT @iddetalleguia as iddetalleguia, @success as success, @message as message");
+        return GlobalModel::returnArray(
+            $result[0]->success == 1,
+            $result[0]->message,
+            [
+                [
+                    "iddetalleguia" => $result[0]->iddetalleguia
                 ]
             ]
         );

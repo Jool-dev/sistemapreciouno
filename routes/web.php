@@ -41,13 +41,14 @@ Route::middleware(['auth', 'role:administrador'])->group(function () {
 
 //Vista para prevencionista
 Route::middleware(['auth', 'role:prevencionista'])->group(function () {
-    Route::get('/prevencionista', [VistasIntranetController::class, 'vistaprevencionista'])->name('vistaprevencionista');
     Route::get('/guiasremision', [VistasIntranetController::class, 'vistaguiasderemision'])->name('vistaguiasderemision');
     Route::get('/revisionguias', [VistasIntranetController::class, 'vistarevisionguias'])->name('vistarevisionguias');
 
     Route::get('/guiasremision/{id}/detalle', [VistasIntranetController::class, 'vistadetalleguia'])->name('guias.detalle');
     Route::get('/crearguiaremision', [VistasIntranetController::class, 'vistaaddguiaremision'])->name('vistaaddguiaremision');
     Route::post('/registrarguiaremision', [GuiasRemisionController::class, 'registrarguiaremision'])->name('api.registrarguiaremision');
+
+    Route::post("/buscarproductocodigo", [ProductoController::class, 'buscarproductocodigo'])->name('api.buscarproductocodigo');
 });
 
 Route::post('/iniciarsesion', [UsuariosController::class, 'validarLogin'])->name('api.validarLogin');

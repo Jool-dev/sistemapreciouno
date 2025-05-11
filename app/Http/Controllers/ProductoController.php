@@ -31,7 +31,8 @@ class ProductoController extends Controller
                 'message' => $producto["message"],
                 'data' => $producto["data"]
             ]);
-        }catch (\Exception $ex){
+        }
+        catch (\Exception $ex){
             return response()->json([
                 'success' => false,
                 'message' => 'Error al registrar el producto: '.$ex->getMessage(),
@@ -39,6 +40,7 @@ class ProductoController extends Controller
             ], 500);
         }
     }
+
     //Para eliminar el producto
     public function eliminarproducto($id)
     {
@@ -58,6 +60,39 @@ class ProductoController extends Controller
             return response()->json([
                 'success' => false,
                 'message' => 'Error al eliminar el producto: '.$ex->getMessage()
+            ], 500);
+        }
+    }
+
+    public function buscarproductocodigo(Request $request) {
+        try{
+            $validated = $request->validate([
+                'codigoproducto' => 'required',
+            ]);
+
+            $modeloproducto = new Productos();
+            $producto = $modeloproducto->mostraproducto([
+                "codigoproducto" => $validated["codigoproducto"]
+            ]);
+
+            if($producto["data"] === null){
+                return response()->json([
+                    'success' => true,
+                    "message" => "CodigoNo encontrado",
+                    "data" => null
+                ]);
+            }else{
+                return response()->json([
+                    'success' => true,
+                    'message' => $producto["message"],
+                    'data' => $producto["data"]
+                ]);
+            }
+        }catch (\Exception $ex){
+            return response()->json([
+                'success' => false,
+                'message' => 'Error al buscar por codigo el producto: '.$ex->getMessage(),
+                'error_details' => env('APP_DEBUG') ? $ex->getTrace() : null
             ], 500);
         }
     }
