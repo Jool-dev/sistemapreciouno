@@ -13,6 +13,7 @@ return new class extends Migration
             $table->id('idtransportista');
             $table->string('ruc_transportista', 11);
             $table->string('nombre_razonsocial', 100);
+            $table->string('modalidadtraslado', 100);
             $table->string('estado', 20);
             $table->timestamps();
         });
@@ -21,8 +22,7 @@ return new class extends Migration
         Schema::create('vehiculos', function (Blueprint $table) {
             $table->id('idvehiculo');
             $table->string('placa', 10);
-            $table->string('marca', 50);
-            $table->string('tipo', 50);
+            $table->string('placasecundaria', 50);
             $table->string('estado', 20);
             $table->timestamps();
         });

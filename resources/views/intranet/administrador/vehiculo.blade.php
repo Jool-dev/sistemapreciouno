@@ -41,18 +41,10 @@
                         </div>
 
                         <div class="mb-3">
-                            <label for="marca" class="form-label">Marca</label>
-                            <input type="text" class="form-control" id="idtxtmarca" name="marca" required>
+                            <label for="placasecundaria" class="form-label">Placa Secundaria</label>
+                            <input type="text" class="form-control" id="idtxtplacasecundaria" name="placasecundaria" required>
                         </div>
 
-                        <div class="mb-3">
-                            <label for="tipo" class="form-label">Tipo</label>
-                            <select class="form-select" id="idselecttipo" name="tipo" required>
-                                <option value="">Seleccione un Tipo</option>
-                                <option value="malogrado">Malogrado</option>
-                                <option value="excelente">Excelente</option>
-                            </select>
-                        </div>
                         <div class="text-end">
                             <button type="submit" class="btn btn-primary ">Guardar</button>
                             <button type="reset" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>

@@ -27,8 +27,7 @@ $(document).ready(function() {
         const datos = {
             idvehiculo: $("#idvehiculo").val(),
             placa: $("#idtxtplaca").val(),
-            marca: $("#idtxtmarca").val(),
-            tipo: $("#idselecttipo").val(),
+            placasecundaria: $("#idtxtplacasecundaria").val(),
             _token: $('input[name="_token"]').val()
         };
 
@@ -81,8 +80,13 @@ $(document).ready(function() {
                 // const modalInstance = bootstrap.Modal.getInstance(modalElement) || new bootstrap.Modal(modalElement);
                 // modalInstance.hide();
             },
-            error: function(error) {
-                // alert("Error: " + xhr.responseJSON.message);
+            error: function(xhr) {
+                console.error('Error:', xhr.responseJSON);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: xhr.responseJSON.message || 'Ocurrió un error al guardar'
+                });
             }
         });
     });
@@ -110,14 +114,13 @@ $(document).ready(function() {
         const $tr = $(this).closest('tr');
         const id = $tr.find('td:eq(0)').text().trim();
         const placa = $tr.find('td:eq(1)').text().trim();
-        const marca = $tr.find('td:eq(2)').text().trim();
+        const placasecundaria = $tr.find('td:eq(2)').text().trim();
         const tipo = $tr.find('td:eq(3)').text().trim();
 
         // Llenar el formulario
         $('#idvehiculo').val(id);
         $('#idtxtplaca').val(placa);
-        $('#idtxtmarca').val(marca);
-        $('#idselecttipo').val(tipo);
+        $('#idtxtplacasecundaria').val(placasecundaria);
         $('#idlabeltitlemodalvehiculo').text('Editar Vehículo');
 
         // Mostrar modal

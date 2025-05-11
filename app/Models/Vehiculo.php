@@ -15,8 +15,7 @@ class Vehiculo extends Model {
     // Opcional: si quieres proteger o permitir ciertas columnas
     protected $fillable = [
         'placa',
-        "marca",
-        'tipo'
+        "placasecundaria",
     ];
 
     public function mostravehiculo(array $parametros = []): array {
@@ -28,12 +27,8 @@ class Vehiculo extends Model {
             $query->where('idvehiculo', $parametros['idvehiculo']);
         }
 
-        if (isset($parametros['marca'])) {
-            $query->where('marca', $parametros['marca']);
-        }
-
-        if (isset($parametros['tipo'])) {
-            $query->where('tipo', $parametros['tipo']);
+        if (isset($parametros['placasecundaria'])) {
+            $query->where('placasecundaria', $parametros['placasecundaria']);
         }
 
         // Verificar si se pide paginación
@@ -64,10 +59,9 @@ class Vehiculo extends Model {
         DB::statement("SET @message = '';");
 
         // Llamar al SP con parámetros IN + OUT
-        DB::statement("CALL sp_vehiculoinsertar(?, ?, ?, @idvehiculo, @success, @message)", [
+        DB::statement("CALL sp_vehiculoinsertar(?, ?, @idvehiculo, @success, @message)", [
             isset($data['placa']) ? $data['placa'] : null,
-            isset($data['marca']) ? $data['marca'] : null,
-            isset($data['tipo']) ? $data['tipo'] : null
+            isset($data['placasecundaria']) ? $data['placasecundaria'] : null,
         ]);
 
 
