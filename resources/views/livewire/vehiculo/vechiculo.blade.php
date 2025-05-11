@@ -4,8 +4,7 @@
         <tr>
             <th class="text-center align-middle">#</th>
             <th class="text-center align-middle">Placa</th>
-            <th class="text-center align-middle">Marca</th>
-            <th class="text-center align-middle">Tipo</th>
+            <th class="text-center align-middle">Placa Secundaria</th>
             <th class="text-center align-middle">Acciones</th>
         </tr>
         </thead>
@@ -14,8 +13,7 @@
                 <tr wire:key="vehiculo-{{ $vehiculo['idvehiculo'] }}-{{ now()->timestamp }}">
                     <td><strong>{{ $vehiculo['idvehiculo'] }}</strong></td>
                     <td><strong class="placa">{{ $vehiculo['placa'] }}</strong></td>
-                    <td><strong class="marca">{{ $vehiculo['marca'] }}</strong></td>
-                    <td><strong class="tipo">{{ $vehiculo['tipo'] }}</strong></td>
+                    <td><strong class="placasecundaria">{{ $vehiculo['placasecundaria'] }}</strong></td>
                     <td>
                         <button type="button" class="btn btn-sm btn-warning btn-editarvehiculo">
                             <i class="bi bi-pencil-square"></i> Editar

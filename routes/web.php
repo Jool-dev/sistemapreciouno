@@ -45,7 +45,8 @@ Route::middleware(['auth', 'role:prevencionista'])->group(function () {
     Route::get('/guiasremision', [VistasIntranetController::class, 'vistaguiasderemision'])->name('vistaguiasderemision');
     Route::get('/revisionguias', [VistasIntranetController::class, 'vistarevisionguias'])->name('vistarevisionguias');
 
-    Route::get('/guiasremision/{id}/detalle', [VistasIntranetController::class, 'vistadetalleguia'])->name('guias.detalle');
+//    Route::get('/guiasremision/{id}/detalle', [VistasIntranetController::class, 'vistadetalleguia'])->name('guias.detalle');
+    Route::get('/vistadetalleguia', [VistasIntranetController::class, 'vistadetalleguia'])->name('vistadetalleguia');
     Route::get('/crearguiaremision', [VistasIntranetController::class, 'vistaaddguiaremision'])->name('vistaaddguiaremision');
     Route::post('/registrarguiaremision', [GuiasRemisionController::class, 'registrarguiaremision'])->name('api.registrarguiaremision');
 });

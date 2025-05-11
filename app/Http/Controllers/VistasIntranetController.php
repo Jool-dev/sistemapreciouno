@@ -43,6 +43,13 @@ class VistasIntranetController extends Controller
         return view('intranet.administrador.productos');
     }
 
+    public function vistadetalleguia(){
+        if (!Auth::check()) {
+            return redirect()->route('vistalogin');
+        }
+        return view('intranet.prevencionistas.detalleguia');
+    }
+
     public function vistaconductor(){
         if (!Auth::check()) {
             return redirect()->route('vistalogin');
