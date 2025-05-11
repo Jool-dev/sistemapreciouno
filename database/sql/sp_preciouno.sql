@@ -26,15 +26,14 @@ END;
 -- Procedimiento almacenado para insertar vehiculos
 CREATE PROCEDURE `sp_vehiculoinsertar`(
     spplaca varchar(10),
-    spmarca varchar(50),
-    sptipo varchar(50),
+    spplacasecundaria varchar(50),
     OUT idvehiculo INT,
     OUT success bit,
     out message varchar(100)
 )
 BEGIN
-INSERT INTO vehiculos(placa, marca, tipo, estado)
-values(spplaca, spmarca, sptipo, "Activo");
+INSERT INTO vehiculos(placa, placasecundaria, estado)
+values(spplaca, spplacasecundaria, "Activo");
 
 if Row_count() > 0 then
 		SET idvehiculo = LAST_INSERT_ID();
@@ -49,15 +48,16 @@ END;
 
 -- Procedimiento almacenado para insertar transportes
 CREATE PROCEDURE `sp_transporteinsertar`(
-    spruc_transportista varchar(10),
-    spnombre_razonsocial varchar(50),
+    spruc_transportista varchar(11),
+    spnombre_razonsocial varchar(100),
+    spmodalidadtraslado varchar(100),
     OUT idtransportista INT,
     OUT success bit,
     out message varchar(100)
 )
 BEGIN
-INSERT INTO transporte(ruc_transportista, nombre_razonsocial, estado)
-values(spruc_transportista, spnombre_razonsocial, "Activo");
+INSERT INTO transporte(ruc_transportista, nombre_razonsocial, modalidadtraslado, estado)
+values(spruc_transportista, spnombre_razonsocial, spmodalidadtraslado, "Activo");
 
 if Row_count() > 0 then
 		SET idtransportista = LAST_INSERT_ID();

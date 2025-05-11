@@ -12,24 +12,21 @@ class VehiculoController extends Controller {
             $validated = $request->validate([
                 "idvehiculo" => "nullable",
                 'placa' => 'required',
-                'marca' => 'required',
-                'tipo' => 'required'
+                'placasecundaria' => 'required',
             ]);
 
             $modelovehiculo = new Vehiculo();
             if($validated['idvehiculo'] === null){
                 $vehiculo = $modelovehiculo->insertarvehiculos([
                     "placa" => $validated['placa'],
-                    "marca" => $validated['marca'],
-                    "tipo" => $validated['tipo']
+                    "placasecundaria" => $validated['placasecundaria'],
                 ]);
             }
             else{
                 $vehiculo = $modelovehiculo->editarvehiculo([
                     "idvehiculo" => $validated['idvehiculo'],
                     "placa" => $validated['placa'],
-                    "marca" => $validated['marca'],
-                    "tipo" => $validated['tipo']
+                    "placasecundaria" => $validated['placasecundaria'],
                 ]);
             }
 

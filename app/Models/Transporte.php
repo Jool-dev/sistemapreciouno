@@ -16,6 +16,7 @@ class Transporte extends Model
     protected $fillable = [
         'ruc_transportista',
         'nombre_razonsocial',
+        'modalidadtraslado',
     ];
 
     public function mostrartransporte(array $parametros = []): array {
@@ -33,6 +34,10 @@ class Transporte extends Model
 
         if (isset($parametros['nombre_razonsocial'])) {
             $query->where('nombre_razonsocial', $parametros['nombre_razonsocial']);
+        }
+
+        if (isset($parametros['modalidadtraslado'])) {
+            $query->where('modalidadtraslado', $parametros['modalidadtraslado']);
         }
 
         // Verificar si se pide paginación
@@ -63,9 +68,10 @@ class Transporte extends Model
         DB::statement("SET @message = '';");
 
         // Llamar al SP con parámetros IN + OUT
-        DB::statement("CALL sp_transporteinsertar(?, ?, @idtransportista, @success, @message)", [
+        DB::statement("CALL sp_transporteinsertar(?, ?, ?, @idtransportista, @success, @message)", [
             isset($data['ruc_transportista']) ? $data['ruc_transportista'] : null,
             isset($data['nombre_razonsocial']) ? $data['nombre_razonsocial'] : null,
+            isset($data['modalidadtraslado']) ? $data['modalidadtraslado'] : null,
         ]);
 
         // Obtener resultados de las variables OUT

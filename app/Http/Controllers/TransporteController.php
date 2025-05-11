@@ -12,11 +12,10 @@ class TransporteController extends Controller
     public function registrartransporte(Request $request) {
         try{
             $validated = $request->validate([
-//                "idvehiculo" => "nullable",
-                'codigotransporte' => 'required',
-                'nombre' => 'required',
-                'tipoinventario' => 'required',
-                'fecharegistro' => 'required'
+//                "idtransportista" => "nullable",
+                'ruc_transportista' => 'required',
+                'nombre_razonsocial' => 'required',
+                'modalidadtraslado' => 'required',
             ]);
 
             $modelotransporte = new transportes();
