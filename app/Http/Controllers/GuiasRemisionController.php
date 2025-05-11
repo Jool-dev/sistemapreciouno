@@ -25,6 +25,7 @@ class GuiasRemisionController extends Controller
                 'observaciones' => 'nullable',
                 'idconductor' => 'required',
                 'idtipoempresa' => 'required',
+                "productos" => 'required|array',
             ]);
 
             $modeloguiaremision = new Guiasderemision();
@@ -38,14 +39,26 @@ class GuiasRemisionController extends Controller
                 "pesobrutototal" => $validated['pesobrutototal'],
                 "volumenproducto" => $validated['volumenproducto'],
                 "numerobultopallet" => $validated['numerobultopallet'],
-                "observaciones" => $validated['observaciones'],
+                "observaciones" => $validated['observaciones'] === null ? "" : $validated['observaciones'],
                 "idconductor" => $validated['idconductor'],
                 "idtipoempresa" => $validated['idtipoempresa'],
             ]);
-            if (!$guiasremision["success"]) {
+            if ($guiasremision["data"] === null) {
                 throw new Exception($guiasremision["message"]);
             }
-            // Si la inserción fue exitosa, puedes devolver una respuesta adecuada
+
+            foreach ($validated['productos'] as $p) {
+                $detalleguiasremision = $modeloguiaremision->insertardetalleguiaremision([
+                    "idguia" => $guiasremision["data"][0]['idguia'],
+                    "idproducto" => $p["idproducto"],
+                    "condicion" => $p["estado"],
+                    "cant" => $p["cantidad"]
+                ]);
+
+                if(!$detalleguiasremision["success"]) {
+                    throw new \Exception("Error al registrar el detalleGuia");
+                }
+            }
 
             return response()->json([
                 'success' => true,

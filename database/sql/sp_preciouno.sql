@@ -152,3 +152,29 @@ else
         set message = "NO SE REGISTRO LA GUIA DE REMISION";
 end if;
 END;
+
+
+
+CREATE PROCEDURE `sp_detaleguiaremisioninsertar`(
+    spidguia int,
+    spidproducto int,
+    spcondicion varchar(20),
+    spcant int,
+    OUT iddetalleguia INT,
+    OUT success bit,
+    out message varchar(100)
+)
+BEGIN
+insert into detalleguia(idguia, idproducto, condicion, cantrecibida)
+values(spidguia, spidproducto, spcondicion, spcant);
+
+if Row_count() > 0 then
+			SET iddetalleguia = LAST_INSERT_ID();
+			set success = 1;
+			set message = "detalleguia Registrado Correctente";
+else
+			SET iddetalleguia = 0;
+			set success = 0;
+			set message = "NO SE REGISTRO EL detalleguia";
+end if;
+END;

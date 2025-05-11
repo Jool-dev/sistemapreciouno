@@ -3,144 +3,210 @@
 
 @section('content')
     <div class="container-fluid py-2">
-        <!-- Formulario -->
-        <h5 class="modal-title" id="idmodalguiasremision">Agregar Guía de Remisión</h5>
+        <h5 class="modal-title mb-3 fw-bold text-primary" id="idmodalguiasremision">
+            <i class="fas fa-file-import me-2"></i>Agregar Guía de Remisión
+        </h5>
+
         <form id="idformaddguiasremision" class="needs-validation" novalidate>
             @csrf
             <input type="hidden" id="idguia" name="idguia" value="">
 
-            <!-- Sección: Datos Principales -->
-            <div class="card mb-4 border shadow-sm">
-                <div class="card-header bg-light border-start border-primary border-5 py-2">
-                    <h6 class="mb-0 fw-bold"><i class="fas fa-file-alt me-2 text-primary"></i>Datos Principales</h6>
+            <!-- Contenedor principal con 3 columnas -->
+            <div class="row g-3">
+                <!-- Columna 1 -->
+                <div class="col-md-4">
+                    <!-- Sección 1: Datos Principales -->
+                    <div class="card shadow-sm h-100">
+                        <div class="card-header bg-primary bg-opacity-10 py-2 border-0">
+                            <h6 class="mb-0 text-primary fw-bold"><i class="fas fa-file-alt me-2"></i>Datos Principales</h6>
+                        </div>
+                        <div class="card-body p-3">
+                            <div class="row g-2">
+                                <div class="col-12 mb-2">
+                                    <label for="idtxtcodigoguia" class="form-label small fw-bold">N° Guía</label>
+                                    <input type="text" class="form-control form-control-sm" id="idtxtcodigoguia" name="codigoguia" required>
+                                </div>
+
+                                <div class="col-12 mb-2">
+                                    <label for="idtxtnumerotrasladotim" class="form-label small fw-bold">N° TIM</label>
+                                    <input type="text" class="form-control form-control-sm" id="idtxtnumerotrasladotim" name="numerotrasladotim" required>
+                                </div>
+
+                                <div class="col-12 mb-2">
+                                    <label for="idtxtrazonsocialguia" class="form-label small fw-bold">Razón Social</label>
+                                    <input type="text" class="form-control form-control-sm" id="idtxtrazonsocialguia" name="razonsocialguia" required>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="card-body">
-                    <div class="row g-3">
+
+                <!-- Columna 2 -->
+                <div class="col-md-4">
+                    <!-- Sección 2: Detalles del Traslado -->
+                    <div class="card shadow-sm h-100">
+                        <div class="card-header bg-success bg-opacity-10 py-2 border-0">
+                            <h6 class="mb-0 text-success fw-bold"><i class="fas fa-truck me-2"></i>Detalles del Traslado</h6>
+                        </div>
+                        <div class="card-body p-3">
+                            <div class="row g-2">
+                                <!-- Fila 1: Motivo (ocupa ambas columnas) -->
+                                <div class="col-12 mb-2">
+                                    <label for="idselcetmotivotraslado" class="form-label small fw-bold">Motivo</label>
+                                    <select class="form-select form-select-sm" id="idselcetmotivotraslado" name="motivotraslado" required>
+                                        <option value="">Seleccionar...</option>
+                                        <option value="Venta">Venta</option>
+                                        <option value="Traslado entre almacenes">Traslado entre almacenes</option>
+                                        <option value="Exportación">Exportación</option>
+                                        <option value="Importación">Importación</option>
+                                    </select>
+                                </div>
+
+                                <!-- Fila 2: Peso y Volumen -->
+                                <div class="col-md-6 mb-2">
+                                    <label for="idtxtpesobrutototal" class="form-label small fw-bold">Peso (kg)</label>
+                                    <input type="number" step="0.01" class="form-control form-control-sm" id="idtxtpesobrutototal" name="pesobrutototal" required>
+
+                                </div>
+
+                                <div class="col-md-6 mb-2">
+                                    <label for="idtxtvolumenproducto" class="form-label small fw-bold">Volumen (m³)</label>
+                                    <input type="number" step="0.01" class="form-control form-control-sm" id="idtxtvolumenproducto" name="volumenproducto" required>
+                                </div>
+
+                                <!-- Fila 3: Bultos/Pallets (ocupa ambas columnas) -->
+                                <div class="col-12 mb-2">
+                                    <label for="idselectnumerobultopallet" class="form-label small fw-bold">N° Bultos/Pallets</label>
+                                    <input type="number" class="form-control form-control-sm" id="idselectnumerobultopallet" name="numerobultopallet" required>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Columna 3 -->
+                <div class="col-md-4">
+                    <!-- Sección 3: Personal y Empresa -->
+                    <div class="card shadow-sm mb-3 h-100">
+                        <div class="card-header bg-info bg-opacity-10 py-2 border-0">
+                            <h6 class="mb-0 text-info fw-bold"><i class="fas fa-users me-2"></i>Personal y Empresa</h6>
+                        </div>
+                        <div class="card-body p-3">
+                            <div class="row g-2">
+                                <div class="col-12 mb-2">
+                                    <label for="idselectidconductor" class="form-label small fw-bold">Conductor</label>
+                                    <select class="form-select form-select-sm" id="idselectidconductor" name="idconductor" required>
+                                        <option value="">Seleccionar...</option>
+                                        @forelse($conductores as $conductor)
+                                            <option value="{{ $conductor->idconductor }}">{{ $conductor->nombre }}</option>
+                                        @empty
+                                            <option value="" disabled>No hay conductores</option>
+                                        @endforelse
+                                    </select>
+                                </div>
+
+                                <div class="col-12 mb-2">
+                                    <label for="idselectidtipoempresa" class="form-label small fw-bold">Empresa</label>
+                                    <select class="form-select form-select-sm" id="idselectidtipoempresa" name="idtipoempresa" required>
+                                        <option value="">Seleccionar...</option>
+                                        @forelse($tipoempresa as $empresa)
+                                            <option value="{{ $empresa->idtipoempresa }}">{{ $empresa->razonsocial }}</option>
+                                        @empty
+                                            <option value="" disabled>No hay empresas</option>
+                                        @endforelse
+                                    </select>
+                                </div>
+
+                                <div class="col-12 mb-2">
+                                    <label for="idtxtobservaciones" class="form-label small fw-bold">Observaciones</label>
+                                    <input type="text" class="form-control form-control-sm" id="idtxtobservaciones" name="idtxtobservaciones">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sección de Productos -->
+            <br>
+            <div class="card shadow-sm mb-3">
+                <div class="card-header bg-secondary bg-opacity-10 py-2 border-0">
+                    <h6 class="mb-0 text-secondary fw-bold"><i class="fas fa-boxes me-2"></i>Productos</h6>
+                </div>
+                <div class="card-body p-3">
+                    <!-- Formulario para agregar productos -->
+                    <div class="row g-2 mb-3 align-items-end">
+                        <!-- Código -->
                         <div class="col-md-3">
-                            <label class="form-label fw-bold">Código Guía</label>
-                            <input type="text" class="form-control" id="idtxtcodigoguia" name="codigoguia" required>
+                            <label for="idtxtcodigoproducto" class="form-label small fw-bold">Código</label>
+                            <input type="hidden" id="idproductocarritogiaremision" >
+                            <input type="text"
+                                   class="form-control form-control-sm"
+                                   id="idtxtcodigoproducto"
+                                   pattern="\d{7}"
+                                   maxlength="7"
+                                   oninput="this.value=this.value.replace(/[^0-9]/g,'');"
+                                   required>
                         </div>
-{{--                        <div class="col-md-3">--}}
-{{--                            <label class="form-label fw-bold">Fecha Emisión</label>--}}
-{{--                            <input type="date" class="form-control" id="idtxtfechaemision" name="fechaemision" required>--}}
-{{--                        </div>--}}
-{{--                        <div class="col-md-3">--}}
-{{--                            <label class="form-label fw-bold">Hora Emisión</label>--}}
-{{--                            <input type="time" class="form-control" id="idtxthoraemision" name="horaemision" required>--}}
-{{--                        </div>--}}
-{{--                        <div class="col-md-3">--}}
-{{--                            <label class="form-label fw-bold">Fecha Entrega</label>--}}
-{{--                            <input type="date" class="form-control" id="idtxtfechaentrega" name="fechaentrega" required>--}}
-{{--                        </div>--}}
-                        <div class="col-md-6">
-                            <label class="form-label fw-bold">Razón Social</label>
-                            <input type="text" class="form-control" id="idtxtrazonsocialguia" name="razonsocialguia" required>
-                        </div>
-                        <div class="col-md-3">
-                            <label class="form-label fw-bold">N° Traslado TIM</label>
-                            <input type="text" class="form-control" id="idtxtnumerotrasladotim" name="numerotrasladotim" required>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
-            <!-- Sección: Detalles del Traslado -->
-            <div class="card mb-4 border shadow-sm">
-                <div class="card-header bg-light border-start border-success border-5 py-2">
-                    <h6 class="mb-0 fw-bold"><i class="fas fa-truck-loading me-2 text-success"></i>Detalles del Traslado</h6>
-                </div>
-                <div class="card-body">
-                    <div class="row g-3">
-                        <div class="col-md-6">
-                            <label class="form-label fw-bold">Motivo de Traslado</label>
-                            <select class="form-select" id="idselcetmotivotraslado" name="motivotraslado" required>
-                                <option value="">Seleccionar...</option>
-                                <option value="Venta">Venta</option>
-                                <option value="Traslado entre almacenes">Traslado entre almacenes</option>
-                                <option value="Exportación">Exportación</option>
-                                <option value="Importación">Importación</option>
+                        <!-- Nombre -->
+                        <div class="col-md-4">
+                            <label for="idtxtnombreproducto" class="form-label small fw-bold">Nombre</label>
+                            <input type="text" class="form-control form-control-sm" id="idtxtnombreproducto" readonly>
+                        </div>
+
+                        <!-- Cantidad -->
+                        <div class="col-md-2">
+                            <label for="idtxtcantidadproducto" class="form-label small fw-bold">Cantidad</label>
+                            <input type="number" class="form-control form-control-sm" id="idtxtcantidadproducto">
+                        </div>
+
+                        <!-- Estado -->
+                        <div class="col-md-2">
+                            <label for="idselectestadoproducto" class="form-label small fw-bold">Estado</label>
+                            <select class="form-select form-select-sm" id="idselectestadoproducto">
+                                <option value="Bueno">Bueno</option>
+                                <option value="Regular">Regular</option>
+                                <option value="Dañado">Dañado</option>
                             </select>
                         </div>
-                        <div class="col-md-2">
-                            <label class="form-label fw-bold">Peso Bruto Total (kg)</label>
-                            <input type="number" step="0.01" class="form-control" id="idtxtpesobrutototal" name="pesobrutototal" required>
+
+                        <!-- Botón de agregar (solo icono) -->
+                        <div class="col-md-1">
+                            <button type="button" class="btn btn-primary btn-sm h-100" id="idbtnagregarproducto" title="Agregar producto">
+                                <i class="fas fa-plus"></i>
+                            </button>
                         </div>
-                        <div class="col-md-2">
-                            <label class="form-label fw-bold">Volumen Producto (m³)</label>
-                            <input type="number" step="0.01" class="form-control" id="idtxtvolumenproducto" name="volumenproducto" required>
-                        </div>
-                        <div class="col-md-2">
-                            <label class="form-label fw-bold">N° Bultos/Pallets</label>
-                            <input type="number" class="form-control" id="idselectnumerobultopallet" name="numerobultopallet" required>
-                        </div>
+                    </div>
+
+                    <!-- Tabla de productos agregados -->
+                    <div class="table-responsive">
+                        <table class="table table-sm table-bordered table-hover" id="tablaProductos">
+                            <thead class="table-light">
+                            <tr>
+                                <th width="15%">Código</th>
+                                <th width="40%">Nombre</th>
+                                <th width="15%">Cantidad</th>
+                                <th width="20%">Estado</th>
+                                <th width="10%">Acción</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <!-- Los productos se agregarán aquí dinámicamente -->
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
 
-            <!-- Sección: Datos del Conductor -->
-            <div class="card mb-4 border shadow-sm">
-                <div class="card-header bg-light border-start border-info border-5 py-2">
-                    <h6 class="mb-0 fw-bold"><i class="fas fa-user-tie me-2 text-info"></i>Datos del Conductor</h6>
-                </div>
-                <div class="card-body">
-                    <div class="row g-3">
-                        <div class="col-md-12">
-                            <label class="form-label fw-bold">Conductor</label>
-                            <select class="form-select" id="idselectidconductor" name="idconductor" required>
-                                <option value="">Seleccionar conductor...</option>
-                                @forelse($conductores as $conductor)
-                                    <option value="{{ $conductor->idconductor }}">{{ $conductor->nombre }} </option>
-                                @empty
-                                    <option value="" disabled>No hay conductores disponibles</option>
-                                @endforelse
-                            </select>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Sección: Datos de Empresa -->
-            <div class="card mb-4 border shadow-sm">
-                <div class="card-header bg-light border-start border-dark border-5 py-2">
-                    <h6 class="mb-0 fw-bold"><i class="fas fa-building me-2 text-dark"></i>Datos de Empresa</h6>
-                </div>
-                <div class="card-body">
-                    <div class="row g-3">
-                        <div class="col-md-12">
-                            <label class="form-label fw-bold">Tipo de Empresa</label>
-                            <select class="form-select" id="idselectidtipoempresa" name="idtipoempresa" required>
-                                <option value="">Seleccionar empresa...</option>
-                                @forelse($tipoempresa as $empresa)
-                                    <option value="{{ $empresa->idtipoempresa }}">{{ $empresa->razonsocial }} - RUC: {{ $empresa->ruc }}</option>
-                                @empty
-                                    <option value="" disabled>No hay empresas disponibles</option>
-                                @endforelse
-                            </select>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Sección: Observaciones -->
-            <div class="card mb-4 border shadow-sm">
-                <div class="card-header bg-light border-start border-warning border-5 py-2">
-                    <h6 class="mb-0 fw-bold"><i class="fas fa-clipboard me-2 text-warning"></i>Observaciones</h6>
-                </div>
-                <div class="card-body">
-                    <div class="mb-3">
-                        <label class="form-label fw-bold">Observaciones</label>
-                        <textarea class="form-control" id="idtxtobservaciones" name="observaciones" rows="3"></textarea>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Botones -->
-            <div class="d-flex justify-content-between mt-4">
-                <button type="button" class="btn btn-lg btn-outline-danger" data-bs-dismiss="modal">
-                    <i class="fas fa-times-circle me-2"></i> Cancelar
+            <!-- Botones de acción - ahora fuera del grid -->
+            <!-- Botones de acción alineados a la derecha -->
+            <div class="d-flex justify-content-end mt-3 gap-2">
+                <button type="button" class="btn btn-outline-danger btn-sm px-3" data-bs-dismiss="modal">
+                    <i class="fas fa-times-circle me-1"></i> Cancelar
                 </button>
-                <button type="submit" class="btn btn-lg btn-success">
-                    <i class="fas fa-save me-2"></i> Guardar Guía
+                <button type="submit" class="btn btn-success btn-sm px-3">
+                    <i class="fas fa-save me-1"></i> Guardar
                 </button>
             </div>
         </form>

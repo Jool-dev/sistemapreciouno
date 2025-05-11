@@ -12,6 +12,20 @@ use Illuminate\Support\Facades\Auth;
 class VistasIntranetController extends Controller
 {
     public function vistalogin() {
+        if (session()->has('usuariologeado')) {
+            $rol = strtolower(session('usuariologeado')['data'][0]['rol']);
+
+            // Redirigir según el rol
+            switch ($rol) {
+                case 'administrador':
+                    return redirect()->route('vistadashboard');
+                case 'prevencionista':
+                    return redirect()->route('vistaguiasderemision');
+                default:
+                    return redirect()->route('/');
+            }
+        }
+
         return view('auth.login');
     }
 
@@ -132,10 +146,10 @@ class VistasIntranetController extends Controller
         return view('intranet.prevencionistas.revisionguias');
     }
 
-    public function vistaprevencionista(){
-        if (!Auth::check()) {
-            return redirect()->route('vistalogin');
-        }
-        return view('intranet.prevencionistas.prevencionista');
-    }
+//    public function vistaprevencionista(){
+//        if (!Auth::check()) {
+//            return redirect()->route('vistalogin');
+//        }
+//        return view('intranet.prevencionistas.guiasremision');
+//    }
 }
