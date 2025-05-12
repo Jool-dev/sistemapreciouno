@@ -91,14 +91,30 @@ $(document).ready(function() {
         // Obtener datos del TR actual (no del botón)
         const $tr = $(this).closest('tr');
         const id = $tr.find('td:eq(0)').text().trim();
-        const placa = $tr.find('td:eq(1)').text().trim();
-        const placasecundaria = $tr.find('td:eq(2)').text().trim();
+        const codigoguia = $tr.find('td:eq(1)').text().trim();
+        const razonsocialguia = $tr.find('td:eq(2)').text().trim();
+        const numerotrasladotim = $tr.find('td:eq(3)').text().trim();
+        const motivotraslado = $tr.find('td:eq(3)').text().trim();
+        const pesobrutototal = $tr.find('td:eq(4)').text().trim();
+        const volumenproducto = $tr.find('td:eq(5)').text().trim();
+        const numerobultopallet = $tr.find('td:eq(6)').text().trim();
+        const observaciones = $tr.find('td:eq(6)').text().trim();
+        const idconductor = $tr.find('td:eq(7)').text().trim();
+        const idtipoempresa = $tr.find('td:eq(8)').text().trim();
 
         // Llenar el formulario
         $('#idguia').val(id);
-        $('#idtxtcodigoguia').val(placa);
-        $('#idtxtnumerotrasladotim').val(placasecundaria);
-        $('#idmodalguiasremision').text('Editar Vehículo');
+        $('#idtxtcodigoguia').val(codigoguia);
+        $('#idtxtrazonsocialguia').val(razonsocialguia);
+        $('#idtxtnumerotrasladotim').val(numerotrasladotim);
+        $('#idselcetmotivotraslado').val(motivotraslado);
+        $('#idtxtpesobrutototal').val(pesobrutototal);
+        $('#idtxtvolumenproducto').val(volumenproducto);
+        $('#idselectnumerobultopallet').val(numerobultopallet);
+        $('#idtxtobservaciones').val(observaciones);
+        $('#idselectidconductor').val(idconductor);
+        $('#idselectidtipoempresa').val(idtipoempresa);
+        $('#idmodalguiasremision').text('Editar Guia');
 
         // Mostrar modal
         const modal = new bootstrap.Modal(document.getElementById('idmodalguiasremision'));

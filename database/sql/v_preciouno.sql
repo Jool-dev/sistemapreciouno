@@ -36,6 +36,11 @@ as
     left join guiaremision as gm on dg.idguia = gm.idguia
     left join productos as p on dg.idproducto = p.idproducto;
 
+-- crear vista validacion
+create view v_validacion
+as
+select * from validacion;
+
 -- crear vista usuario
 create view v_usuario as
 select u.id as idusuario, u.name, u.email, u.password, u.idrol, r.nombre as rol from users as u left join roles as r on u.idrol = r.idrol;
