@@ -73,4 +73,34 @@ class GuiasRemisionController extends Controller
             ], 500);
         }
     }
+
+    public function eliminarguia(Request $request) {
+        try {
+            $validated = $request->validate([
+                "idguia" => "nullable",
+            ]);
+
+            $modeloguiaremision = new Guiasderemision();
+            $guiasremision = $modeloguiaremision->editarguia([
+                "idguia" => $validated['idguia'],
+                "estado" => "Eliminado"
+            ]);
+
+            if(!$guiasremision["success"]){
+                throw new Exception($guiasremision["message"]);
+            }
+
+            return response()->json([
+                'success' => true,
+                'message' => "Eliminado correctamente",
+            ]);
+        }
+        catch (\Exception $ex){
+            return response()->json([
+                'success' => false,
+                'message' => 'Error al eliminar la guia: '.$ex->getMessage(),
+                'error_details' => env('APP_DEBUG') ? $ex->getTrace() : null
+            ], 500);
+        }
+    }
 }

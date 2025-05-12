@@ -20,7 +20,7 @@
             </thead>
             <tbody>
                 @forelse($data as $guia)
-                    <tr class="text-center">
+                    <tr class="text-center" wire:key="guia-{{ $guia['idguia'] }}-{{ now()->timestamp }}">
                         <td>{{ $guia['idguia'] }}</td>
                         <td>{{ $guia['codigoguia'] }}</td>
                         <td>{{ $guia['fechaemision'] }}</td>
@@ -34,15 +34,18 @@
                         <td class="text-start text-wrap" style="max-width: 200px;">{{ $guia['observaciones'] }}</td>
                         <td>
                             <div class="d-flex justify-content-center gap-2 flex-wrap">
-                                <a href="{{ route('vistadetalleguia') }}" class="btn btn-sm btn-outline-info" title="Ver Detalle">
+                                <a href="{{ route('vistadetalleguia', ["idguia" => $guia['idguia']])}}" class="btn btn-sm btn-outline-info" title="Ver Detalle">
                                     <i class="fa-solid fa-circle-info"></i>
                                 </a>
-                                <a href="#" class="btn btn-sm btn-outline-warning" title="Editar">
+                                <!-- Botón Editar -->
+                                <button type="button" class="btn btn-sm btn-outline-warning btn-editarguia" title="Editar">
                                     <i class="fa-regular fa-pen-to-square"></i>
-                                </a>
-                                <a href="#" class="btn btn-sm btn-outline-danger" title="Eliminar">
+                                </button>
+                                <!-- Botón Eliminar -->
+                                <button type="button" class="btn btn-sm btn-outline-danger btn-eliminarguia"
+                                        data-id="{{ $guia['idguia'] }}" title="Eliminar">
                                     <i class="fa-solid fa-trash"></i>
-                                </a>
+                                </button>
 
                                 @if($guia['estado'] !== 'Confirmado')
                                     <a href="{{ route('vistarevisionguias', ["idguia" => $guia['idguia']])}}"
