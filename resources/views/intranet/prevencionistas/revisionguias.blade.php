@@ -21,16 +21,6 @@
                         La guía de remisión <span class="fw-bold text-primary">{{$guia->codigoguia}}</span> ha sido validada correctamente
                     </p>
 
-                    <!-- Botones de acción -->
-                    <div class="d-flex justify-content-center gap-3">
-                        <button class="btn btn-outline-secondary">
-                            <i class="fas fa-print me-2"></i> Imprimir Reporte
-                        </button>
-                        <button class="btn btn-success">
-                            <i class="fas fa-check-circle me-2"></i> Finalizar Proceso
-                        </button>
-                    </div>
-
                     <!-- Sello de aprobación -->
                     <div class="mt-5">
                         <div class="position-relative d-inline-block">
@@ -40,7 +30,7 @@
                                 </div>
                             </div>
                             <div class="border border-2 border-success rounded p-4 pt-5" style="opacity: 0.8;">
-                                <p class="mb-0 small text-muted">Validado electrónicamente por:</p>
+                                <p class="mb-0 small text-muted">Validado por el Administrador:</p>
                                 <p class="mb-0 fw-bold">Sistema de Gestión Logística</p>
                                 <p class="small text-muted">{{ now()->format('d/m/Y H:i') }}</p>
                             </div>
