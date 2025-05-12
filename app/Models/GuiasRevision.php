@@ -91,4 +91,32 @@ class GuiasRevision extends Model
             ]
         );
     }
+
+    public function insertardetalleguiarevicion_validacion(array $data): array {
+        // Definir variables de salida
+        DB::statement("SET @idvalidacionguia = 0;");
+        DB::statement("SET @success = 0;");
+        DB::statement("SET @message = '';");
+
+        // Llamar al SP con parámetros IN + OUT
+        DB::statement("CALL sp_validacioninsertar(?, ?, ?, ?, @idvalidacionguia, @success, @message)", [
+            isset($data['idguia']) ? $data['idguia'] : null,
+            isset($data['idproducto']) ? $data['idproducto'] : null,
+            isset($data['cant']) ? $data['cant'] : null,
+            isset($data['condicion']) ? $data['condicion'] : null
+        ]);
+
+
+        // Obtener resultados de las variables OUT
+        $result = DB::select("SELECT @idvalidacionguia as idvalidacionguia, @success as success, @message as message");
+        return GlobalModel::returnArray(
+            $result[0]->success == 1,
+            $result[0]->message,
+            [
+                [
+                    "idvalidacionguia" => $result[0]->idvalidacionguia
+                ]
+            ]
+        );
+    }
 }

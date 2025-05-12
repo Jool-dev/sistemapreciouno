@@ -133,6 +133,7 @@
                 <div class="card-header bg-secondary bg-opacity-10 py-2 border-0">
                     <h6 class="mb-0 text-secondary fw-bold"><i class="fas fa-boxes me-2"></i>Agrega los Productos al Carrito</h6>
                 </div>
+
                 <div class="card-body p-3">
                     <!-- Formulario para agregar productos -->
                     <div class="row g-2 mb-3 align-items-end">
@@ -183,16 +184,16 @@
                     <div class="table-responsive">
                         <table class="table table-sm table-bordered table-hover" id="tablaProductos">
                             <thead class="table-light">
-                            <tr>
-                                <th width="15%">Código</th>
-                                <th width="40%">Producto</th>
-                                <th width="15%">Cantidad</th>
-                                <th width="20%">Estado</th>
-                                <th width="10%">Acción</th>
-                            </tr>
+                                <tr>
+                                    <th width="15%">Código</th>
+                                    <th width="40%">Producto</th>
+                                    <th width="15%">Cantidad</th>
+                                    <th width="20%">Estado</th>
+                                    <th width="10%">Acción</th>
+                                </tr>
                             </thead>
                             <tbody>
-                            <!-- Los productos se agregarán aquí dinámicamente -->
+                                <!-- Los productos se agregarán aquí dinámicamente -->
                             </tbody>
                         </table>
                     </div>

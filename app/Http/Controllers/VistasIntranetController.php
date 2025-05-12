@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Conductores;
+use App\Models\Guiasderemision;
 use App\Models\TipoEmpresa;
 use App\Models\Vehiculo;
 use App\Models\Transporte;
@@ -97,22 +98,7 @@ class VistasIntranetController extends Controller
             return redirect()->route('vistalogin');
         }
 
-        $modelovehiculos = new Vehiculo();
-        $modelConductores = new Conductores();
-
-        $data = $modelovehiculos->mostravehiculo();
-        $data2 = $modelConductores->mostrarconductores();
-
-        // Convertir arrays a objetos stdClass
-        $vehiculos = array_map(function($item) {
-            return (object)$item;
-        }, $data["data"] == null ? [] : $data["data"]);
-
-        $conductores = array_map(function($item) {
-            return (object)$item;
-        }, $data2["data"] == null ? [] : $data2["data"]);
-
-        return view('intranet.prevencionistas.guiasremision', compact('vehiculos', 'conductores'));
+        return view('intranet.prevencionistas.guiasremision');
     }
 
     public function vistaaddguiaremision(){
@@ -139,17 +125,29 @@ class VistasIntranetController extends Controller
         return view('intranet.prevencionistas.addguiasremision', compact('conductores', 'tipoempresa'));
     }
 
-    public function vistarevisionguias(){
+    public function vistarevisionguias($idguia = null){
+        if (!is_numeric($idguia)) {
+            abort(400, 'ID de guía inválido');
+        }
+
         if (!Auth::check()) {
             return redirect()->route('vistalogin');
         }
-        return view('intranet.prevencionistas.revisionguias');
-    }
 
-//    public function vistaprevencionista(){
-//        if (!Auth::check()) {
-//            return redirect()->route('vistalogin');
-//        }
-//        return view('intranet.prevencionistas.guiasremision');
-//    }
+        $modeloguiaremision = new Guiasderemision();
+        $guia = $modeloguiaremision->mostrarguiasderemision([
+            'idguia' => $idguia
+        ]);
+
+        $detalleguia = $modeloguiaremision->mostrardetalleguia([
+            "idguia" => $idguia
+        ]);
+
+        $detalleguia = array_map(function($item) {
+            return (object)$item;
+        }, $detalleguia["data"] == null ? [] : $detalleguia["data"]);
+
+        $guia = !empty($guia["data"]) ? (object)$guia["data"][0] : (object)[];
+        return view('intranet.prevencionistas.revisionguias', compact('detalleguia', 'guia'));
+    }
 }
