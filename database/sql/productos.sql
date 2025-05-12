@@ -1,3 +1,7 @@
+insert into tipocondicion(nombretipocondicion)values('Bueno');
+insert into tipocondicion(nombretipocondicion)values('Dañado');
+insert into tipocondicion(nombretipocondicion)values('Regular');
+
 -- Insertamos productos
 INSERT INTO productos (codigoproducto, nombre, tipocodproducto, tipoinventario, fecharegistro, estado) VALUES
                                                                                                            ('40275954', 'ARROZ SUPERIOR TOTTUS X 5 KG', 'Fijo', 'Tottus', '2025-03-18 09:20:41', 'Activo'),
