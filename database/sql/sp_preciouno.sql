@@ -178,3 +178,29 @@ else
 			set message = "NO SE REGISTRO EL detalleguia";
 end if;
 END;
+
+
+CREATE PROCEDURE `sp_validacioninsertar`(
+    spidguia int,
+    spidproducto int,
+    spcant int,
+    spcondicion int,
+    OUT idvalidacionguia INT,
+    OUT success bit,
+    out message varchar(100)
+)
+BEGIN
+    insert into validacion(idguia, idproducto, cantrecibidarevision, idtipocondicion, estado)
+    values(spidguia, spidproducto, spcant, spcondicion, "Activo");
+
+    if Row_count() > 0 then
+        SET idvalidacionguia = LAST_INSERT_ID();
+        update guiaremision set estado = "Confirmado" where idguia = spidguia;
+        set success = 1;
+        set message = "validacion Registrado correctamente";
+    else
+        SET idvalidacionguia = 0;
+        set success = 0;
+        set message = "NO SE REGISTRO la validacion, matate.";
+    end if;
+END;

@@ -1,4 +1,5 @@
 import Swal from "sweetalert2";
+import $ from 'jquery';
 
 window.SweetAlertpreguntarSI_NO = function(titulo, mensaje = null, confirmButtonText = "Sí", cancelButtonText = "No") {
     // const texto = mensaje || '¿Estás seguro de realizar esta acción?';

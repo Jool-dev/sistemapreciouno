@@ -95,10 +95,39 @@ class Guiasderemision extends Model {
         }
 
         // Si no hay paginado, obtener todo
-        $guiasderemision = $query->get()->map(fn($item) => (array) $item)->toArray();
+        $guiasderemision = $query->orderByDesc('idguia')->get()->map(fn($item) => (array) $item)->toArray();
         return GlobalModel::returnArray(
             !empty($guiasderemision),
             empty($guiasderemision) ? "No hay guias de remision registradas" : "OK",
+            $guiasderemision
+        );
+    }
+
+    public function mostrardetalleguia(array $parametros = []): array {
+        $query = DB::table('v_detalleguia');
+
+        // Filtros condicionales
+        if (isset($parametros['idguia'])) {
+            $query->where('idguia', $parametros['idguia']);
+        }
+
+        // Verificar si se pide paginación
+        if (isset($parametros['paginado']) && $parametros['paginado'] === true) {
+            $porPagina = $parametros['porPagina'] ?? 10;
+            $guiasderemision = $query->orderByDesc('idguia')->paginate($porPagina);
+
+            return GlobalModel::returnArray(
+                $guiasderemision->count() > 0,
+                $guiasderemision->count() === 0 ? "No hay DetallesGuias" : "OK",
+                $guiasderemision // Retorna el paginador
+            );
+        }
+
+        // Si no hay paginado, obtener todo
+        $guiasderemision = $query->get()->map(fn($item) => (array) $item)->toArray();
+        return GlobalModel::returnArray(
+            !empty($guiasderemision),
+            empty($guiasderemision) ? "No hay un Detalle Guia" : "OK",
             $guiasderemision
         );
     }

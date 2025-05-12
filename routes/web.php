@@ -3,6 +3,7 @@
 use App\Http\Controllers\GuiasRemisionController;
 use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\ConductoresController;
+use App\Http\Controllers\RevisionDeGuiasController;
 use App\Http\Controllers\UsuariosController;
 use App\Http\Controllers\VehiculoController;
 use App\Http\Controllers\VistasIntranetController;
@@ -42,13 +43,12 @@ Route::middleware(['auth', 'role:administrador'])->group(function () {
 //Vista para prevencionista
 Route::middleware(['auth', 'role:prevencionista'])->group(function () {
     Route::get('/guiasremision', [VistasIntranetController::class, 'vistaguiasderemision'])->name('vistaguiasderemision');
-    Route::get('/revisionguias', [VistasIntranetController::class, 'vistarevisionguias'])->name('vistarevisionguias');
-
-//    Route::get('/guiasremision/{id}/detalle', [VistasIntranetController::class, 'vistadetalleguia'])->name('guias.detalle');
     Route::get('/vistadetalleguia', [VistasIntranetController::class, 'vistadetalleguia'])->name('vistadetalleguia');
     Route::get('/crearguiaremision', [VistasIntranetController::class, 'vistaaddguiaremision'])->name('vistaaddguiaremision');
     Route::post('/registrarguiaremision', [GuiasRemisionController::class, 'registrarguiaremision'])->name('api.registrarguiaremision');
+    Route::post('/registrarvalidacionguia', [RevisionDeGuiasController::class, 'registrarguiarevicion_validacion'])->name('registrarguiarevicion_validacion');
 
+    Route::get('/revisionguias/{idguia?}', [VistasIntranetController::class, 'vistarevisionguias'])->name('vistarevisionguias');
     Route::post("/buscarproductocodigo", [ProductoController::class, 'buscarproductocodigo'])->name('api.buscarproductocodigo');
 });
 

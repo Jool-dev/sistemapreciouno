@@ -31,7 +31,10 @@ select * from guiaremision;
 -- crear vista revisiondeguias
 create view v_detalleguia
 as
-select * from detalleguia;
+    SELECT dg.iddetalleguia, dg.idguia, dg.idproducto, p.nombre as producto, dg.cantrecibida as cant,
+    gm.fechaemision, gm.estado FROM detalleguia as dg
+    left join guiaremision as gm on dg.idguia = gm.idguia
+    left join productos as p on dg.idproducto = p.idproducto;
 
 -- crear vista usuario
 create view v_usuario as
