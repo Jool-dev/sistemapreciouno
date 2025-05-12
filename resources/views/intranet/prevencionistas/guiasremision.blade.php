@@ -9,10 +9,16 @@
                 <h2 class="fw-bold mb-1">Guías de Remisión</h2>
             </div>
 
-            <a href="{{route('vistaaddguiaremision')}}" class="btn btn-primary d-flex align-items-center">
-                <i class="fas fa-plus-circle me-2"></i>
+{{--            <a href="{{route('vistaaddguiaremision')}}" class="btn btn-primary d-flex align-items-center">--}}
+{{--                <i class="fas fa-plus-circle me-2"></i>--}}
+{{--                Nueva Guía--}}
+{{--            </a>--}}
+
+            <a href="{{ route('vistaaddguiaremision') }}" class="btn btn-primary d-flex align-items-center" id="btnnuevaguia">
+                <i class="fa-solid fa-plus-minus me-2"></i>
                 Nueva Guía
             </a>
+
         </div>
 
         <!-- Panel de búsqueda y filtros -->

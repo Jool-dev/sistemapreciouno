@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\Global\GlobalModel;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
 
 class Guiasderemision extends Model {
     protected $table = 'guiaremision'; // Especifica el horaemision exacto de la tabla
@@ -27,7 +28,8 @@ class Guiasderemision extends Model {
         'idtipoempresa',
     ];
     public function mostrarguiasderemision(array $parametros = []): array {
-        $query = DB::table('v_guiaremision');
+//        $query = DB::table('v_guiaremision');
+        $query = DB::table('v_guiaremision')->where('estado', '!=', 'Eliminado');
 
         // Filtros condicionales
         if (isset($parametros['idguia'])) {
@@ -193,6 +195,38 @@ class Guiasderemision extends Model {
                     "iddetalleguia" => $result[0]->iddetalleguia
                 ]
             ]
+        );
+    }
+
+    public function editarguia(array $datos): array {
+        if (!isset($datos['idguia'])) {
+            return GlobalModel::returnArray(false, 'idguia es obligatorio');
+        }
+
+        $id = $datos['idguia'];
+        unset($datos['idguia']); // No queremos actualizar la PK
+
+        if (empty($datos)) {
+            return GlobalModel::returnArray(false, 'No hay datos para actualizar');
+        }
+
+        $guia = self::find($id);
+        if (!$guia) {
+            return GlobalModel::returnArray(false, 'Guia no encontrado');
+        }
+
+        // Llenamos solo los campos que existan
+        foreach ($datos as $key => $value) {
+            if (Schema::hasColumn('guiaremision', $key) && !is_null($value)) {
+                $guia->$key = $value;
+            }
+        }
+
+        $guia->save();
+        return GlobalModel::returnArray(
+            true,
+            'Guia Editada correctamente',
+            $guia
         );
     }
 }

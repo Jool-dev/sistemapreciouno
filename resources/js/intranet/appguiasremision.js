@@ -69,6 +69,96 @@ $(document).ready(function() {
         }
     });
 
+    $('#btnnuevaguia').on('click', function () {
+        // Limpiar inputs
+        $('#idguia').val(''); // limpiar para nuevo
+        $('#idformaddguiasremision')[0].reset();
+
+        // Cambiar el título del modal
+        $('#idmodalguiasremision').text('Nueva Guia de Remision');
+        $("#idformaddguiasremision :input").prop("disabled", false);
+
+        // Mostrar el modal
+        const modalElement = document.getElementById('idmodalguiasremision');
+        const modalInstance = bootstrap.Modal.getInstance(modalElement) || new bootstrap.Modal(modalElement);
+        modalInstance.show();
+    });
+
+    // Delegación de eventos mejorada
+    $(document).on('click', '.btn-editarguia', function(e) {
+        e.preventDefault();
+
+        // Obtener datos del TR actual (no del botón)
+        const $tr = $(this).closest('tr');
+        const id = $tr.find('td:eq(0)').text().trim();
+        const placa = $tr.find('td:eq(1)').text().trim();
+        const placasecundaria = $tr.find('td:eq(2)').text().trim();
+
+        // Llenar el formulario
+        $('#idguia').val(id);
+        $('#idtxtcodigoguia').val(placa);
+        $('#idtxtnumerotrasladotim').val(placasecundaria);
+        $('#idmodalguiasremision').text('Editar Vehículo');
+
+        // Mostrar modal
+        const modal = new bootstrap.Modal(document.getElementById('idmodalguiasremision'));
+        modal.show();
+    });
+
+    //Eliminar
+    $(document).on('click', '.btn-eliminarguia', async function(e) {
+        e.preventDefault();
+
+        // const id = $(this).data('id'); // Obtener ID directamente del data-attribute
+        const $tr = $(this).closest('tr');
+        const id = $tr.find('td:eq(0)').text().trim();
+        const csrfToken = $('meta[name="csrf-token"]').attr('content');
+
+        // Verificación adicional
+        if (!csrfToken) {
+            console.log('Token CSRF no encontrado');
+            return;
+        }
+
+        const pregunta = await window.SweetAlertpreguntarSI_NO("¿Estás seguro de eliminar?");
+
+        if (!pregunta) return;
+
+        try {
+            const response = await $.ajax({
+                url: "/estadoguia",
+                type: "POST",
+                data: {
+                    idguia: id,
+                    _token: $('meta[name="csrf-token"]').attr('content')
+                },
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                    'Accept': 'application/json'
+                },
+                dataType: 'json'
+            });
+
+            if (response.success) {
+                Livewire.dispatch("listarGuiasRemisionDesdeJS");
+                Swal.fire({
+                    icon: 'success',
+                    title: response.message,
+                    timer: 1500,
+                    showConfirmButton: false
+                });
+            } else {
+                throw new Error(response.message || 'Error en la operación');
+            }
+        } catch (error) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: error.responseJSON?.message || 'No se pudo completar la eliminación'
+            });
+        }
+    });
+
     // Evento para botón agregar
     $('#idbtnagregarproducto').click(agregarProductoAlCarrito);
 

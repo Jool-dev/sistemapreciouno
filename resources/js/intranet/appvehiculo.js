@@ -115,7 +115,6 @@ $(document).ready(function() {
         const id = $tr.find('td:eq(0)').text().trim();
         const placa = $tr.find('td:eq(1)').text().trim();
         const placasecundaria = $tr.find('td:eq(2)').text().trim();
-        const tipo = $tr.find('td:eq(3)').text().trim();
 
         // Llenar el formulario
         $('#idvehiculo').val(id);
