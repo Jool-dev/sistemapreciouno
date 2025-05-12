@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Conductores;
 use App\Models\DetalleGuia;
 use App\Models\Guiasderemision;
+use App\Models\Productos;
 use App\Models\TipoEmpresa;
+use App\Models\ValidacionGuia;
 use App\Models\Vehiculo;
 use App\Models\Transporte;
 use Illuminate\Http\Request;
@@ -86,7 +88,6 @@ class VistasIntranetController extends Controller
         $modelConductores = new Conductores();
         $modelTipoEmpresa = new TipoEmpresa();
 
-
         $data = $modelConductores->mostrarconductores();
         $data2 = $modelTipoEmpresa->mostrartipoempresa();
 
@@ -110,20 +111,57 @@ class VistasIntranetController extends Controller
         if (!Auth::check()) {
             return redirect()->route('vistalogin');
         }
+        // Inicializar modelos
         $modeloguiaremision = new Guiasderemision();
-        $guia = $modeloguiaremision->mostrarguiasderemision([
-            'idguia' => $idguia
-        ]);
-        $detalleguia = $modeloguiaremision->mostrardetalleguia([
-            "idguia" => $idguia
-        ]);
+        $modelConductores = new Conductores();
+        $modelTipoEmpresa = new TipoEmpresa();
+        $modelTransporte = new Transporte();
+        $modelValidacion = new ValidacionGuia();
+
+        // Obtener datos principales de la guía
+        $guiaData = $modeloguiaremision->mostrarguiasderemision(['idguia' => $idguia]);
+        $guia = !empty($guiaData["data"]) ? (object)$guiaData["data"][0] : (object)[];
+
+        // Obtener detalles de productos asociados
+        $detalleguiaData = $modeloguiaremision->mostrardetalleguia(["idguia" => $idguia]);
         $detalleguia = array_map(function($item) {
             return (object)$item;
-        }, $detalleguia["data"] == null ? [] : $detalleguia["data"]);
-        $guia = !empty($guia["data"]) ? (object)$guia["data"][0] : (object)[];
-//        $detalleGuia = new DetalleGuia();
-//        $productosGuia = $detalleGuia->mostrardetalleguia(['idguia' => $idguia]);
-        return view('intranet.prevencionistas.detalleguia', compact('detalleguia', 'guia'));
+        }, $detalleguiaData["data"] ?? []);
+
+        // Obtener datos del conductor
+        $conductorData = $modelConductores->mostrarconductores(["idguia" => $idguia]);
+        $conductor = !empty($conductorData["data"]) ? (object)$conductorData["data"][0] : (object)[];
+
+        // Obtener datos del tipo de empresa
+        $tipoempresaData = $modelTipoEmpresa->mostrartipoempresa(["idguia" => $idguia]);
+        $tipoempresa = !empty($tipoempresaData["data"]) ? (object)$tipoempresaData["data"][0] : (object)[];
+
+        // Obtener datos del transporte
+        $transporteData = $modelTransporte->mostrartransporte(["idguia" => $idguia]);
+        $transporte = !empty($transporteData["data"]) ? (object)$transporteData["data"][0] : (object)[];
+
+        // Obtener datos de validación con productos por condición
+        $validacionData = $modelValidacion->mostrarvalidacionguia(["idguia" => $idguia]);
+        $validacion = !empty($validacionData["data"]) ? (object)$validacionData["data"][0] : (object)[];
+
+        // Obtener productos agrupados por condición
+        $productosPorCondicion = $modelValidacion->obtenerProductosPorCondicion($idguia);
+        $productosBuenos = $productosPorCondicion['success'] ? $productosPorCondicion['data']['productosBuenos'] : [];
+        $productosDañados = $productosPorCondicion['success'] ? $productosPorCondicion['data']['productosDañados'] : [];
+        $productosRegulares = $productosPorCondicion['success'] ? $productosPorCondicion['data']['productosRegulares'] : [];
+
+        // Pasar todos los datos a la vista
+        return view('intranet.prevencionistas.detalleguia', [
+            'guia' => $guia,
+            'detalleguia' => $detalleguia,
+            'conductor' => $conductor,
+            'tipoempresa' => $tipoempresa,
+            'transporte' => $transporte,
+            'validacion' => $validacion,
+            'productosBuenos' => $productosBuenos,
+            'productosRegulares' => $productosRegulares,
+            'productosDanados' => $productosDañados,
+        ]);
     }
 
     public function vistarevisionguias($idguia = null){
