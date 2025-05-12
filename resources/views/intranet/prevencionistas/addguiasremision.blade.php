@@ -144,8 +144,8 @@
                             <input type="text"
                                    class="form-control form-control-sm"
                                    id="idtxtcodigoproducto"
-                                   pattern="\d{7}"
-                                   maxlength="7"
+                                   pattern="\d{8}"
+                                   maxlength="8"
                                    oninput="this.value=this.value.replace(/[^0-9]/g,'');"
                                    required>
                         </div>
