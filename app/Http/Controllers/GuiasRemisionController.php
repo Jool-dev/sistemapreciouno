@@ -6,18 +6,23 @@ use App\Models\Guiasderemision;
 use Illuminate\Http\Request;
 use Exception;
 
+use App\Models\Conductores;
+use App\Models\TipoEmpresa;
+use App\Models\Productos;
+
+
 class GuiasRemisionController extends Controller
 {
     public function registrarguiaremision(Request $request)
     {
         try {
             $validated = $request->validate([
-//                'idguia' => 'nullable',
+                //                'idguia' => 'nullable',
                 'codigoguia' => 'required',
                 'fechaemision' => 'required',
                 'horaemision' => 'required',
                 'razonsocialguia' => 'required',
-                'numerotrasladotim'=> 'required',
+                'numerotrasladotim' => 'required',
                 'motivotraslado' => 'required',
                 'pesobrutototal' => 'required',
                 'volumenproducto' => 'required',
@@ -55,7 +60,7 @@ class GuiasRemisionController extends Controller
                     "cant" => $p["cantidad"]
                 ]);
 
-                if(!$detalleguiasremision["success"]) {
+                if (!$detalleguiasremision["success"]) {
                     throw new \Exception("Error al registrar el detalleGuia");
                 }
             }
@@ -68,13 +73,23 @@ class GuiasRemisionController extends Controller
         } catch (\Exception $ex) {
             return response()->json([
                 'success' => false,
-                'message' => 'Error al registrar la guía de remisión: '.$ex->getMessage(),
+                'message' => 'Error al registrar la guía de remisión: ' . $ex->getMessage(),
                 'error_details' => env('APP_DEBUG') ? $ex->getTrace() : null
             ], 500);
         }
     }
 
-    public function eliminarguia(Request $request) {
+    public function vistaguias()
+    {
+        $conductores = Conductores::all();
+        $tipoempresa = TipoEmpresa::all();
+        $productos = Productos::all();
+
+        return view('intranet.prevencionistas.addguiasremision', compact('conductores', 'tipoempresa', 'productos'));
+    }
+
+    public function eliminarguia(Request $request)
+    {
         try {
             $validated = $request->validate([
                 "idguia" => "nullable",
@@ -86,7 +101,7 @@ class GuiasRemisionController extends Controller
                 "estado" => "Eliminado"
             ]);
 
-            if(!$guiasremision["success"]){
+            if (!$guiasremision["success"]) {
                 throw new Exception($guiasremision["message"]);
             }
 
@@ -94,11 +109,10 @@ class GuiasRemisionController extends Controller
                 'success' => true,
                 'message' => "Eliminado correctamente",
             ]);
-        }
-        catch (\Exception $ex){
+        } catch (\Exception $ex) {
             return response()->json([
                 'success' => false,
-                'message' => 'Error al eliminar la guia: '.$ex->getMessage(),
+                'message' => 'Error al eliminar la guia: ' . $ex->getMessage(),
                 'error_details' => env('APP_DEBUG') ? $ex->getTrace() : null
             ], 500);
         }
