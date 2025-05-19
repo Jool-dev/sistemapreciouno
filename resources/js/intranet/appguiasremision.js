@@ -95,7 +95,7 @@ function agregarProductoAlCarrito() {
         id: contadorId++,
         idproducto: $('#idproductocarritogiaremision').val().trim(),
         codigo: $('#idtxtcodigoproducto').val().trim(),
-        nombre: $('#idtxtnombreproducto').val().trim(),
+        nombre: $('#idselectnombreproducto option:selected').text().trim(),
         cantidad: $('#idtxtcantidadproducto').val(),
         estado: $('#idselectestadoproducto').val()
     };
