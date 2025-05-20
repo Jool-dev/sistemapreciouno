@@ -89,7 +89,12 @@
                                 data-productos="{{ json_encode($detalleguia) }}" data-guia="{{ json_encode($guia) }}">
                                 @forelse($detalleguia as $dt)
                                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                                        <p class="small text-muted">{{ $dt->producto ?? 'Producto' }}</p>
+                                        <div>
+                                            <p class="small text-muted">
+                                                {{ $dt->producto ?? 'Producto' }}</p>
+                                            <p class="small text-muted">Código:
+                                                {{ $dt->codproducto ?? 'codigoproducto' }}</p>
+                                        </div>
                                         <span class="badge bg-primary rounded-pill">{{ $dt->cant ?? 0 }}</span>
                                     </li>
                                 @empty
@@ -97,6 +102,7 @@
                                         <i class="fas fa-box-open me-2"></i> No hay productos en esta guía
                                     </li>
                                 @endforelse
+
                             </div>
                         </div>
                     </div>
@@ -678,18 +684,18 @@
 
             productos.forEach(producto => {
                 tbody.append(`
-            <tr data-id="${producto.id}">
-                <td>${producto.codigo}</td>
-                <td>${producto.nombre}</td>
-                <td>${producto.cantidad}</td>
-                <td>${producto.estado}</td>
-                <td class="text-center">
-                    <button class="btn btn-sm btn-danger btn-eliminar">
-                        <i class="fas fa-trash"></i>
-                    </button>
-                </td>
-            </tr>
-        `);
+                    <tr data-id="${producto.id}">
+                        <td>${producto.codigo}</td>
+                        <td>${producto.nombre}</td>
+                        <td>${producto.cantidad}</td>
+                        <td>${producto.estado}</td>
+                        <td class="text-center">
+                            <button class="btn btn-sm btn-danger btn-eliminar">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </td>
+                    </tr>
+                `);
             });
         }
 

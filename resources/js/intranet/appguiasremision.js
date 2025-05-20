@@ -65,8 +65,15 @@ $(document).ready(function () {
             _token: $('input[name="_token"]').val()
         };
 
-        const pregunta = await window.SweetAlertpreguntarSI_NO("¿Estás seguro de Registrar?");
-        if (!pregunta) return;
+        const confirm = await Swal.fire({
+            title: "¿Estás seguro de registrar esta guía?",
+            icon: "question",
+            showCancelButton: true,
+            confirmButtonText: "Sí, guardar",
+            cancelButtonText: "Cancelar"
+        });
+
+        if (!confirm.isConfirmed) return;
 
         $.ajax({
             url: "/registrarguiaremision",
@@ -91,38 +98,65 @@ $(document).ready(function () {
 });
 
 function agregarProductoAlCarrito() {
-    const producto = {
-        id: contadorId++,
-        idproducto: $('#idproductocarritogiaremision').val().trim(),
-        codigo: $('#idtxtcodigoproducto').val().trim(),
-        nombre: $('#idselectnombreproducto option:selected').text().trim(),
-        cantidad: $('#idtxtcantidadproducto').val(),
-        estado: $('#idselectestadoproducto').val()
-    };
+    const idproducto = $('#idproductocarritogiaremision').val().trim();
+    const codigo = $('#idtxtcodigoproducto').val().trim();
+    const nombre = $('#idselectnombreproducto option:selected').text().trim();
+    const cantidad = parseInt($('#idtxtcantidadproducto').val());
+    const estado = $('#idselectestadoproducto').val();
 
-    if (!producto.codigo || !producto.nombre || !producto.cantidad) {
+    if (!idproducto || !codigo || !nombre) {
+        Swal.fire({
+            icon: 'warning',
+            title: 'Campos incompletos',
+            text: 'Debe seleccionar un producto válido con nombre y código .',
+            confirmButtonText: 'Entendido'
+        });
+        return;
+    }
+
+    if (isNaN(cantidad) || cantidad <= 0) {
+        Swal.fire({
+            icon: 'warning',
+            title: 'Cantidad inválida',
+            text: 'La cantidad debe ser un número mayor a 0',
+            confirmButtonText: 'Corregir'
+        });
+        $('#idtxtcantidadproducto').focus();
         return;
     }
 
     const productoExistente = productos.find(p =>
-        p.idproducto === producto.idproducto &&
-        p.estado === producto.estado
+        p.idproducto === idproducto && p.estado === estado
     );
 
     if (productoExistente) {
+        Swal.fire({
+            icon: 'info',
+            title: 'Producto duplicado',
+            text: 'Este producto con el mismo estado ya fue agregado.',
+        });
         return;
     }
 
-    productos.push(producto);
+    productos.push({
+        id: contadorId++,
+        idproducto,
+        codigo,
+        nombre,
+        cantidad,
+        estado
+    });
+
     actualizarTablaProductos();
 
+    $('#idselectnombreproducto').val('');
     $('#idtxtcodigoproducto').val('').focus();
-    $('#idtxtnombreproducto').val('');
+    // $('#idtxtnombreproducto').val('');
     $('#idtxtcantidadproducto').val('');
     $('#idproductocarritogiaremision').val('');
     $('#idselectestadoproducto').val('Bueno');
 }
-
+//Eliminar producto de la tabla
 function actualizarTablaProductos() {
     const tbody = $('#tablaProductos tbody').empty();
 
@@ -178,11 +212,30 @@ function validarFormulario() {
     if (camposIncompletos) {
         Swal.fire({
             icon: 'error',
+            title: 'Campo requerido',
             text: 'Complete todos los campos requeridos',
             confirmButtonText: 'Entendido'
         });
         return false;
     }
+
+    // const Nguia = $('#idtxtcodigoguia').val().trim();
+    // const NTraslado = $('#idtxtnumerotrasladotim').val().trim();
+    // const RazonSocial = $('#idtxtrazonsocialguia').val().trim();
+    // const MotivoTraslado = $('#idselcetmotivotraslado').val();
+    // const PesoBruto = $('#idtxtpesobrutototal').val().trim();
+    // const VolumenProducto = $('#idtxtvolumenproducto').val().trim();
+    // const NumeroBulto = $('#idselectnumerobultopallet').val();
+
+    // if (!Nguia|| !NTraslado || !RazonSocial ) {
+    //     Swal.fire({
+    //         icon: 'warning',
+    //         title: 'Campos de datos principales incompletos',
+    //         text: 'Debe completar los campos con N° Guia,N° TIM y Razon social .',
+    //         confirmButtonText: 'Entendido'
+    //     });
+    //     return;
+    // }
 
     if (productos.length === 0) {
         Swal.fire({
@@ -195,4 +248,8 @@ function validarFormulario() {
     }
 
     return true;
+
+
 }
+
+
