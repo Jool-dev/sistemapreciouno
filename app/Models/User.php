@@ -24,7 +24,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'role',
+        'idrol'
     ];
 
     /**
@@ -49,20 +49,22 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
-    public function login(array $parametros) : array {
+    public function login(array $parametros): array
+    {
         global $message, $usuario;
         $usuario = $this->existeusuario($parametros["login"]);
-        if($usuario["data"] === null){
+        if ($usuario["data"] === null) {
             $message = "El Login no existe";
-        } else if (Hash::check($parametros["password"], $usuario["data"]->password)){
+        } else if (Hash::check($parametros["password"], $usuario["data"]->password)) {
             $message = "OK";
-        } else{
+        } else {
             $message = "La Clave es Incorrecta";
         }
 
         return GlobalModel::returnArray(!empty($usuario), $message, $usuario["data"]);
     }
-    public function existeusuario($login): array {
+    public function existeusuario($login): array
+    {
         $query = DB::table('v_usuario');
         $usuario = $query->where('email', $login)->get()->map(function ($item) {
             return (array) $item;
