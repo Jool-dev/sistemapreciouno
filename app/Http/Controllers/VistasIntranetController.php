@@ -147,8 +147,12 @@ class VistasIntranetController extends Controller
         // Obtener productos agrupados por condición
         $productosPorCondicion = $modelValidacion->obtenerProductosPorCondicion($idguia);
         $productosBuenos = $productosPorCondicion['success'] ? $productosPorCondicion['data']['productosBuenos'] : [];
-        $productosDañados = $productosPorCondicion['success'] ? $productosPorCondicion['data']['productosDañados'] : [];
+        $productosDanados = $productosPorCondicion['success'] ? $productosPorCondicion['data']['productosDañados'] : [];
         $productosRegulares = $productosPorCondicion['success'] ? $productosPorCondicion['data']['productosRegulares'] : [];
+        $productosSinCondicion = $productosPorCondicion['success'] && isset($productosPorCondicion['data']['productosSinCondicion'])
+            ? $productosPorCondicion['data']['productosSinCondicion']
+            : [];
+
 
         // Pasar todos los datos a la vista
         return view('intranet.prevencionistas.detalleguia', [
@@ -160,7 +164,8 @@ class VistasIntranetController extends Controller
             'validacion' => $validacion,
             'productosBuenos' => $productosBuenos,
             'productosRegulares' => $productosRegulares,
-            'productosDanados' => $productosDañados,
+            'productosDanados' => $productosDanados,
+            'productosSinCondicion' => $productosSinCondicion,
         ]);
     }
 

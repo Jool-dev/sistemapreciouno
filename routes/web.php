@@ -7,6 +7,7 @@ use App\Http\Controllers\RevisionDeGuiasController;
 use App\Http\Controllers\UsuariosController;
 use App\Http\Controllers\VehiculoController;
 use App\Http\Controllers\VistasIntranetController;
+use App\Http\Controllers\ReporteController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -50,6 +51,8 @@ Route::middleware(['auth', 'role:prevencionista'])->group(function () {
     Route::post('/registrarvalidacionguia', [RevisionDeGuiasController::class, 'registrarguiarevicion_validacion'])->name('registrarguiarevicion_validacion');
 
     Route::get('/revisionguias/{idguia?}', [VistasIntranetController::class, 'vistarevisionguias'])->name('vistarevisionguias');
+    //generar el reporte
+    Route::get('/guias/{id}/pdf', [ReporteController::class, 'generarPdfGuia'])->name('guias.pdf');
     Route::post("/buscarproductocodigo", [ProductoController::class, 'buscarproductocodigo'])->name('api.buscarproductocodigo');
 });
 
