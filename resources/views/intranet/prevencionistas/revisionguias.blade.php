@@ -1,8 +1,8 @@
 @extends('intranet.prevencionistas.prevencionista')
-@section('title','Validacion Guia Conteo')
+@section('title', 'Validacion Guia Conteo')
 
 @section('content')
-    @if($guia->estado == 'Confirmado')
+    @if ($guia->estado == 'Confirmado')
         <div class="container py-5">
             <div class="row justify-content-center">
                 <div class="col-lg-8 text-center">
@@ -18,7 +18,8 @@
 
                     <!-- Subtítulo -->
                     <p class="lead mb-4">
-                        La guía de remisión <span class="fw-bold text-primary">{{$guia->codigoguia}}</span> ha sido validada correctamente
+                        La guía de remisión <span class="fw-bold text-primary">{{ $guia->codigoguia }}</span> ha sido
+                        validada correctamente
                     </p>
 
                     <!-- Sello de aprobación -->
@@ -40,7 +41,7 @@
             </div>
         </div>
     @else
-        <div class="container-fluid py-3"  id="divvalidacionguiarevicion">
+        <div class="container-fluid py-3" id="divvalidacionguiarevicion">
             <div class="row g-3">
                 <!-- Primer Card (más estrecho) -->
                 <div class="col-xl-3 col-lg-4 col-md-5">
@@ -85,10 +86,15 @@
 
                             <!-- Pestaña de productos -->
                             <div class="tab-pane fade p-3" id="products" data-total-productos="{{ count($detalleguia) }}"
-                                 data-productos="{{ json_encode($detalleguia) }}" data-guia="{{ json_encode($guia) }}">
+                                data-productos="{{ json_encode($detalleguia) }}" data-guia="{{ json_encode($guia) }}">
                                 @forelse($detalleguia as $dt)
                                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                                        <p class="small text-muted">{{ $dt->producto ?? 'Producto' }}</p>
+                                        <div>
+                                            <p class="small text-muted">
+                                                {{ $dt->producto ?? 'Producto' }}</p>
+                                            <p class="small text-muted">Código:
+                                                {{ $dt->codproducto ?? 'codigoproducto' }}</p>
+                                        </div>
                                         <span class="badge bg-primary rounded-pill">{{ $dt->cant ?? 0 }}</span>
                                     </li>
                                 @empty
@@ -96,6 +102,7 @@
                                         <i class="fas fa-box-open me-2"></i> No hay productos en esta guía
                                     </li>
                                 @endforelse
+
                             </div>
                         </div>
                     </div>
@@ -114,33 +121,34 @@
                             <div class="row g-2 mb-3 align-items-end">
                                 <!-- Código -->
                                 <div class="col-md-3">
-                                    <label for="idtxtcodigoproducto_guiarevision" class="form-label small fw-bold">Código</label>
+                                    <label for="idtxtcodigoproducto_guiarevision"
+                                        class="form-label small fw-bold">Código</label>
                                     <input type="hidden" id="idproductocarritogia_revision">
-                                    <input type="text"
-                                           class="form-control form-control-sm"
-                                           id="idtxtcodigoproducto_guiarevision"
-                                           pattern="\d{8}"
-                                           maxlength="8"
-                                           oninput="this.value=this.value.replace(/[^0-9]/g,'');"
-                                           required>
+                                    <input type="text" class="form-control form-control-sm"
+                                        id="idtxtcodigoproducto_guiarevision" pattern="\d{8}" maxlength="8"
+                                        oninput="this.value=this.value.replace(/[^0-9]/g,'');" required>
                                 </div>
 
                                 <!-- Nombre -->
                                 <div class="col-md-4">
-                                    <label for="idtxtnombreproducto_guiarevision" class="form-label small fw-bold">Nombre del Producto</label>
-                                    <input type="text" class="form-control form-control-sm" id="idtxtnombreproducto_guiarevision"
-                                           readonly>
+                                    <label for="idtxtnombreproducto_guiarevision" class="form-label small fw-bold">Nombre
+                                        del Producto</label>
+                                    <input type="text" class="form-control form-control-sm"
+                                        id="idtxtnombreproducto_guiarevision" readonly>
                                 </div>
 
                                 <!-- Cantidad -->
                                 <div class="col-md-2">
-                                    <label for="idtxtcantidadproducto_guiarevision" class="form-label small fw-bold">Cantidad</label>
-                                    <input type="number" class="form-control form-control-sm" id="idtxtcantidadproducto_guiarevision">
+                                    <label for="idtxtcantidadproducto_guiarevision"
+                                        class="form-label small fw-bold">Cantidad</label>
+                                    <input type="number" class="form-control form-control-sm"
+                                        id="idtxtcantidadproducto_guiarevision">
                                 </div>
 
                                 <!-- Estado -->
                                 <div class="col-md-2">
-                                    <label for="idselectestadoproducto_guiarevision" class="form-label small fw-bold">Estado</label>
+                                    <label for="idselectestadoproducto_guiarevision"
+                                        class="form-label small fw-bold">Estado</label>
                                     <select class="form-select form-select-sm" id="idselectestadoproducto_guiarevision">
                                         <option value="Bueno">Bueno</option>
                                         <option value="Regular">Regular</option>
@@ -150,14 +158,15 @@
 
                                 <!-- Botón de agregar (solo icono) -->
                                 <div class="col-md-1">
-                                    <button type="button" class="btn btn-primary btn-sm h-100" id="idbtnagregarproducto_guiarevision"
-                                            title="Agregar producto">
+                                    <button type="button" class="btn btn-primary btn-sm h-100"
+                                        id="idbtnagregarproducto_guiarevision" title="Agregar producto">
                                         <i class="fas fa-plus"></i>
                                     </button>
                                 </div>
                             </div>
 
-                            <div id="liveAlert" class="alert alert-warning alert-dismissible py-2 mb-2 fade show d-none" role="alert" style="padding-left: 1rem; padding-right: 1rem;">
+                            <div id="liveAlert" class="alert alert-warning alert-dismissible py-2 mb-2 fade show d-none"
+                                role="alert" style="padding-left: 1rem; padding-right: 1rem;">
                                 <div class="d-flex align-items-center">
                                     <i class="fas fa-exclamation-circle me-2"></i>
                                     <span id="alertMessage"></span>
@@ -168,16 +177,16 @@
                             <div class="table-responsive">
                                 <table class="table table-sm table-bordered table-hover" id="tablaProductos_guiarevision">
                                     <thead class="table-light">
-                                    <tr>
-                                        <th width="15%">Código</th>
-                                        <th width="40%">Producto</th>
-                                        <th width="15%">Cantidad</th>
-                                        <th width="20%">Estado</th>
-                                        <th width="10%">Acción</th>
-                                    </tr>
+                                        <tr>
+                                            <th width="15%">Código</th>
+                                            <th width="40%">Producto</th>
+                                            <th width="15%">Cantidad</th>
+                                            <th width="20%">Estado</th>
+                                            <th width="10%">Acción</th>
+                                        </tr>
                                     </thead>
                                     <tbody>
-                                    <!-- Los productos se agregarán aquí dinámicamente -->
+                                        <!-- Los productos se agregarán aquí dinámicamente -->
                                     </tbody>
                                 </table>
                             </div>
@@ -380,24 +389,26 @@
             dataguia = JSON.parse(container.dataset.guia);
             tokenlarave = document.querySelector('meta[name="csrf-token"]').content;
 
-            if(dataguia["estado"] === "Confirmado"){
+            if (dataguia["estado"] === "Confirmado") {
                 confetti({
                     particleCount: 100,
                     spread: 70,
-                    origin: { y: 0.6 }
+                    origin: {
+                        y: 0.6
+                    }
                 });
             }
 
             // alert('jQuery está cargado, versión: ' + $.fn.jquery);
             // 1. Prevenir el comportamiento por defecto del Enter en todo el formulario
             $('#idformaddguiasremision').on('keypress', function(e) {
-                if(e.which === 13 && !$(e.target).is('textarea, [type="submit"]')) {
+                if (e.which === 13 && !$(e.target).is('textarea, [type="submit"]')) {
                     e.preventDefault();
                 }
             });
 
             // Para detectar cambios en inputs y selects
-            $('#idtxtcodigoproducto_guiarevision').on('input',function (){
+            $('#idtxtcodigoproducto_guiarevision').on('input', function() {
                 $('#idtxtnombreproducto_guiarevision').val('');
                 $('#idtxtcantidadproducto_guiarevision').val('');
                 $('#idproductocarritogiaremision').val('');
@@ -414,14 +425,14 @@
             // 2. Manejador específico para el campo de código de producto
             // Evento para manejar Enter (código 13 es la tecla Enter)
             $('#idtxtcodigoproducto_guiarevision').keypress(function(e) {
-                if(e.which === 13) { // 13 es el código de la tecla Enter
+                if (e.which === 13) { // 13 es el código de la tecla Enter
                     e.preventDefault();
                     const codigo = $(this).val().trim();
 
                     // Resetear estilo si había error previo
                     $(this).removeClass('border-danger');
 
-                    if(codigo) {
+                    if (codigo) {
                         buscarproductocodigo(codigo);
                     }
                 }
@@ -429,12 +440,12 @@
 
             // 3. Manejador para navegación entre campos
             $('.form-control:not(#idtxtcodigoproducto_guiarevision), .form-select').keypress(function(e) {
-                if(e.which === 13) {
+                if (e.which === 13) {
                     e.preventDefault();
                     const $current = $(this);
 
                     // Si es el último campo antes del botón agregar
-                    if($current.is('#idselectestadoproducto_guiarevision')) {
+                    if ($current.is('#idselectestadoproducto_guiarevision')) {
                         $('#idbtnagregarproducto_guiarevision').click();
                         $('#idtxtcodigoproducto_guiarevision').focus();
                     }
@@ -442,7 +453,7 @@
                     else {
                         const inputs = $current.closest('.row').find('.form-control, .form-select');
                         const currentIndex = inputs.index(this);
-                        if(currentIndex < inputs.length - 1) {
+                        if (currentIndex < inputs.length - 1) {
                             inputs.eq(currentIndex + 1).focus();
                         }
                     }
@@ -450,19 +461,19 @@
             });
 
             // Evento para botón agregar
-            $('#idbtnagregarproducto_guiarevision').click(function (e) {
+            $('#idbtnagregarproducto_guiarevision').click(function(e) {
                 agregarProductoAlCarrito();
             });
 
             //escuh el botoon click del cancelar
-            $('#btncancelar_guiarevision').click(function (e){
+            $('#btncancelar_guiarevision').click(function(e) {
                 window.location.replace("/guiasremision");
             });
-            $('#idbtnregresa_guiarevision').click(function (e){
+            $('#idbtnregresa_guiarevision').click(function(e) {
                 $("#divresultadovalidacionguiarevicion").addClass("d-none").removeClass("d-flex");
                 $("#divvalidacionguiarevicion").removeClass("d-none").addClass("d-block");
             });
-            $('#btnconfirmarvalidacionguia').click(async function (e){
+            $('#btnconfirmarvalidacionguia').click(async function(e) {
                 await confirmarregistro();
             });
 
@@ -477,7 +488,7 @@
                 $(this).removeClass('border-danger');
             });
 
-            $('#btnguardar_guiarevision').click(function (e){
+            $('#btnguardar_guiarevision').click(function(e) {
                 validaarocurrencias();
             });
         });
@@ -486,130 +497,205 @@
             const $codigoInput = $('#idtxtcodigoproducto_guiarevision');
             const $btnAgregar = $('#idbtnagregarproducto_guiarevision');
 
-            //desactivo los campos
+            // Validación: campo vacío
+            if (!codigo || codigo.trim() === "") {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Campo vacío',
+                    text: 'Por favor, ingrese el código del producto para buscarlo.',
+                    confirmButtonText: 'Entendido'
+                });
+                $codigoInput.addClass('border-danger').focus();
+                return;
+            }
+
+            // Validación: longitud o formato incorrecto
+            if (!/^[0-9]{6,20}$/.test(codigo)) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Código inválido',
+                    text: 'El código debe tener entre 6 y 20 dígitos numéricos.',
+                    confirmButtonText: 'Corregir'
+                });
+                $codigoInput.addClass('border-danger').focus();
+                return;
+            }
+
+            // Desactivar campos y mostrar spinner
             $codigoInput.prop('disabled', true);
             $('#idtxtcantidadproducto_guiarevision').prop('disabled', true);
             $('#idselectestadoproducto_guiarevision').prop('disabled', true);
-
-            // Mostrar carga en el botón
             $btnAgregar.prop('disabled', true).html('<i class="fas fa-spinner fa-spin"></i>');
 
+            // Petición AJAX
             $.ajax({
                 url: '/buscarproductocodigo',
                 method: 'POST',
-                data: { codigoproducto: codigo, _token: $('meta[name="csrf-token"]').attr('content') },
+                data: {
+                    codigoproducto: codigo,
+                    _token: $('meta[name="csrf-token"]').attr('content')
+                },
                 success: function(response) {
                     $btnAgregar.prop('disabled', false).html('<i class="fas fa-plus"></i>');
                     $codigoInput.prop('disabled', false);
                     $('#idtxtcantidadproducto_guiarevision').prop('disabled', false);
                     $('#idselectestadoproducto_guiarevision').prop('disabled', false);
 
-                    if(response.data !== null) {
+                    if (response.data !== null && response.data.length > 0) {
                         $('#idtxtnombreproducto_guiarevision').val(response.data[0]["nombre"]);
                         $('#idproductocarritogia_revision').val(response.data[0]["idproducto"]);
-
                         $('#idtxtcantidadproducto_guiarevision').focus();
+                        $codigoInput.removeClass('border-danger');
                     } else {
+                        Swal.fire({
+                            icon: 'info',
+                            title: 'Producto no encontrado',
+                            text: `No se encontró ningún producto con el código "${codigo}".`,
+                            confirmButtonText: 'Verificar'
+                        });
                         $codigoInput.addClass('border-danger').focus();
                         $('#idtxtnombreproducto_guiarevision').val('');
                         $('#idtxtcantidadproducto_guiarevision').val('');
-                        $('#idproductocarritogiaremision').val('');
+                        $('#idproductocarritogia_revision').val('');
                         $('#idselectestadoproducto_guiarevision').val('Bueno');
                     }
                 },
                 error: function(xhr) {
                     $btnAgregar.prop('disabled', false).html('<i class="fas fa-plus"></i>');
+                    $codigoInput.prop('disabled', false);
                     $codigoInput.addClass('border-danger');
+
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error de servidor',
+                        text: 'No se pudo completar la búsqueda. Intenta nuevamente.',
+                        confirmButtonText: 'OK'
+                    });
                 }
             });
         }
 
+
         function agregarProductoAlCarrito() {
-            let validar = true;
+            const idproducto = parseInt($('#idproductocarritogia_revision').val());
+            const codigo = $('#idtxtcodigoproducto_guiarevision').val().trim();
+            const nombre = $('#idtxtnombreproducto_guiarevision').val().trim();
+            const cantidad = parseInt($('#idtxtcantidadproducto_guiarevision').val());
+            const estado = $('#idselectestadoproducto_guiarevision').val();
+
+            // Validación de campos obligatorios
+            if (!idproducto || !codigo || !nombre) {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Campos incompletos',
+                    text: 'Debe ingresar un producto válido con su código',
+                    confirmButtonText: 'Entendido'
+                });
+                return;
+            }
+
+            // Validación de cantidad
+            if (isNaN(cantidad)) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Cantidad inválida',
+                    text: 'Debe ingresar una cantidad numérica.',
+                    confirmButtonText: 'Corregir'
+                });
+                $('#idtxtcantidadproducto_guiarevision').focus();
+                return;
+            }
+
+            if (cantidad <= 0) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Cantidad no válida',
+                    text: 'La cantidad debe ser mayor a cero.',
+                    confirmButtonText: 'Corregir'
+                });
+                $('#idtxtcantidadproducto_guiarevision').focus();
+                return;
+            }
+
+            // Verificar si el producto está en la guía original
+            const productoEnGuia = productosguardadosguia.find(p => p.idproducto === idproducto);
+            if (!productoEnGuia) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Producto no permitido',
+                    text: 'Este producto no está incluido en la guía de remisión.',
+                    confirmButtonText: 'Entendido'
+                });
+                return;
+            }
+
+            // Verificar si se excede la cantidad disponible
+            const cantidadYaAgregada = productos
+                .filter(p => p.idproducto === idproducto)
+                .reduce((total, p) => total + p.cantidad, 0);
+
+            const disponible = productoEnGuia.cant - cantidadYaAgregada;
+            if (cantidad > disponible) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Cantidad excedida',
+                    html: `Solo quedan <strong>${disponible}</strong> unidades disponibles en la guía.`,
+                    confirmButtonText: 'Corregir'
+                });
+                return;
+            }
+
+            // Verificar producto duplicado (por estado)
+            const productoDuplicado = productos.find(p => p.idproducto === idproducto && p.estado === estado);
+            if (productoDuplicado) {
+                Swal.fire({
+                    icon: 'info',
+                    title: 'Producto duplicado',
+                    text: 'Ya agregaste este producto con el mismo estado.',
+                    confirmButtonText: 'OK'
+                });
+                return;
+            }
+
+            // Si pasa todas las validaciones
             const producto = {
                 id: contadorId++,
-                idproducto: parseInt($('#idproductocarritogia_revision').val().trim()),
-                codigo: $('#idtxtcodigoproducto_guiarevision').val().trim(),
-                nombre: $('#idtxtnombreproducto_guiarevision').val().trim(),
-                cantidad: parseInt($('#idtxtcantidadproducto_guiarevision').val()) || 0,
-                estado: $('#idselectestadoproducto_guiarevision').val()
+                idproducto,
+                codigo,
+                nombre,
+                cantidad,
+                estado
             };
 
-            // 1. Validación de campos obligatorios (con mensaje)
-            if(!producto.codigo || !producto.nombre || !$('#idtxtcantidadproducto_guiarevision').val()) {
-                mostrarAlerta('Complete el campo código', 'danger');
-                return false; // Cambiado a return false
-            }
+            productos.push(producto);
+            actualizarTablaProductos();
 
-            // 2. Validación de cantidad numérica
-            if(isNaN(producto.cantidad)) {
-                mostrarAlerta('La cantidad llego nula', 'danger');
-                $('#idtxtcantidadproducto_guiarevision').focus();
-                validar = false;
-            }
-
-            // 3. Validación de cantidad positiva
-            if(producto.cantidad <= 0) {
-                mostrarAlerta('La cantidad debe ser mayor a cero', 'danger');
-                $('#idtxtcantidadproducto_guiarevision').focus();
-                validar = false;
-
-            }
-
-            // 4. Validar que el producto exista en productosguardadosguia
-            const productoEnGuia = productosguardadosguia.find(p => p.idproducto === parseInt(producto.idproducto));
-            if(!productoEnGuia) {
-                mostrarAlerta('Este producto no está incluido en la guía', 'danger');
-                validar = false;
-
-            }
-
-            // 5. Validar cantidad disponible
-            const cantidadEnCarrito = productos.filter(p => p.idproducto === parseInt(producto.idproducto)).reduce((sum, p) => sum + p.cantidad, 0);
-            const cantidadDisponible = productoEnGuia.cant - cantidadEnCarrito;
-            if(producto.cantidad > cantidadDisponible) {
-                mostrarAlerta(`Cantidad No Aceptada, en la guia tiene Disponible: ${cantidadDisponible} productos`, 'danger');
-                validar = false;
-            }
-
-            // 6. Validar que no exista el mismo producto con el mismo estado
-            const productoExistente = productos.find(p =>p.idproducto === parseInt(producto.idproducto) && p.estado === producto.estado);
-            if(productoExistente) {
-                mostrarAlerta(`Producto duplicado, Ya existe este producto con el mismo estado`, 'danger');
-                validar = false;
-            }
-
-            if(validar){
-                // Si pasa todas las validaciones
-                productos.push(producto);
-                actualizarTablaProductos();
-
-                // Limpiar campos
-                $('#idtxtcodigoproducto_guiarevision').val('').focus();
-                $('#idtxtnombreproducto_guiarevision').val('');
-                $('#idtxtcantidadproducto_guiarevision').val('');
-                $('#idproductocarritogiaremision').val('');
-                $('#idselectestadoproducto_guiarevision').val('Bueno');
-            }
+            // Limpiar campos
+            $('#idtxtcodigoproducto_guiarevision').val('').focus();
+            $('#idtxtnombreproducto_guiarevision').val('');
+            $('#idtxtcantidadproducto_guiarevision').val('');
+            $('#idproductocarritogia_revision').val('');
+            $('#idselectestadoproducto_guiarevision').val('Bueno');
         }
+
 
         function actualizarTablaProductos() {
             const tbody = $('#tablaProductos_guiarevision tbody').empty();
 
             productos.forEach(producto => {
                 tbody.append(`
-            <tr data-id="${producto.id}">
-                <td>${producto.codigo}</td>
-                <td>${producto.nombre}</td>
-                <td>${producto.cantidad}</td>
-                <td>${producto.estado}</td>
-                <td class="text-center">
-                    <button class="btn btn-sm btn-danger btn-eliminar">
-                        <i class="fas fa-trash"></i>
-                    </button>
-                </td>
-            </tr>
-        `);
+                    <tr data-id="${producto.id}">
+                        <td>${producto.codigo}</td>
+                        <td>${producto.nombre}</td>
+                        <td>${producto.cantidad}</td>
+                        <td>${producto.estado}</td>
+                        <td class="text-center">
+                            <button class="btn btn-sm btn-danger btn-eliminar">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </td>
+                    </tr>
+                `);
             });
         }
 
@@ -651,20 +737,25 @@
             $('#miAlertaocurrencia').fadeIn();
         }
 
-        async function validaarocurrencias(){
-            if(productos.length === 0){
+        async function validaarocurrencias() {
+            if (productos.length === 0) {
                 mostrarAlerta("es necesario que agregue productos a la canasta")
                 return;
             }
 
             // 1. Calcular total de productos (suma de todas las cantidades)
-            window.SweetAlertProgressOpen1([{title: "Validando la guia..."}]);
+            window.SweetAlertProgressOpen1([{
+                title: "Validando la guia..."
+            }]);
             const totalProductos = productos.reduce((sum, producto) => sum + producto.cantidad, 0);
 
             // 2. Calcular productos por estado
-            const productosDanados = productos.filter(p => p.estado === 'Dañado').reduce((sum, producto) => sum + producto.cantidad, 0);
-            const productosResueltos = productos.filter(p => p.estado === 'Regular').reduce((sum, producto) => sum + producto.cantidad, 0);
-            const productosBuenos = productos.filter(p => p.estado === 'Bueno').reduce((sum, producto) => sum + producto.cantidad, 0);
+            const productosDanados = productos.filter(p => p.estado === 'Dañado').reduce((sum, producto) => sum +
+                producto.cantidad, 0);
+            const productosResueltos = productos.filter(p => p.estado === 'Regular').reduce((sum, producto) => sum +
+                producto.cantidad, 0);
+            const productosBuenos = productos.filter(p => p.estado === 'Bueno').reduce((sum, producto) => sum + producto
+                .cantidad, 0);
 
             // 3. Calcular productos faltantes
             const productosFaltantes = calcularProductosFaltantes(productos, productosguardadosguia);
@@ -687,11 +778,11 @@
             $('#idh3resueltos').text(productosResueltos);
             $('#idh3buenos').text(productosBuenos);
 
-            if(parseInt(productosDanados) === 0 && parseInt($('#idh3faltantes').text().trim()) === 0){
+            if (parseInt(productosDanados) === 0 && parseInt($('#idh3faltantes').text().trim()) === 0) {
                 // Ocultar inmediatamente
                 $('#miAlertaocurrencia').fadeOut();
                 // mostrarAlertaOcurrencia('¡Operación completada con éxito!', 'success');
-            }else{
+            } else {
                 mostrarAlertaOcurrencia('¡Ocurrencia Detectada!', 'danger');
             }
 
@@ -727,7 +818,8 @@
                 if (faltante > 0) {
                     productosFaltantes.push({
                         id: productoGuia.idproducto,
-                        codigo: productoGuia.codigo || `PROD-${productoGuia.idproducto.toString().padStart(5, '0')}`,
+                        codigo: productoGuia.codigo ||
+                            `PROD-${productoGuia.idproducto.toString().padStart(5, '0')}`,
                         nombre: productoGuia.producto || productoGuia.nombre,
                         requerido: cantidadEnGuia,
                         registrado: cantidadEnCarrito,
@@ -780,7 +872,7 @@
                 'Bueno': 'success',
                 'Regular': 'warning',
                 'Dañado': 'danger'
-            }[estado];
+            } [estado];
 
             $(`#titulo-${estado.toLowerCase()}`).html(`
                 <i class="fas fa-${estado === 'Bueno' ? 'check-circle' : estado === 'Regular' ? 'exclamation-circle' : 'times-circle'} me-1"></i>
@@ -806,7 +898,7 @@
             });
         }
 
-        async function confirmarregistro(){
+        async function confirmarregistro() {
 
             // Validar productos (solo si los campos están completos)
             if (productos.length === 0) {
@@ -820,7 +912,7 @@
             }
 
             const pregunta = await window.SweetAlertpreguntarSI_NO("¿Estas seguro de confirmar?");
-            if(pregunta){
+            if (pregunta) {
                 const datos = {
                     idguia: dataguia["idguia"],
                     productos: productos, // <- Aquí incluimos el array de productos

@@ -13,9 +13,13 @@ use App\Models\Transporte;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
+
+
+
 class VistasIntranetController extends Controller
 {
-    public function vistalogin() {
+    public function vistalogin()
+    {
         if (session()->has('usuariologeado')) {
             $rol = strtolower(session('usuariologeado')['data'][0]['rol']);
 
@@ -33,46 +37,52 @@ class VistasIntranetController extends Controller
         return view('auth.login');
     }
 
-    public function vistadashboard() {
+    public function vistadashboard()
+    {
         if (!Auth::check()) {
             return redirect()->route('vistalogin');
         }
         return view('intranet.administrador.dashboard');
     }
 
-    public function vistavehiculo()  {
+    public function vistavehiculo()
+    {
         if (!Auth::check()) {
             return redirect()->route('vistalogin');
         }
         return view('intranet.administrador.vehiculo');
     }
 
-    public function vistausuarios() {
+    public function vistausuarios()
+    {
         if (!Auth::check()) {
             return redirect()->route('vistalogin');
         }
         return view('intranet.administrador.usuarios');
     }
 
-    public function vistaproducto(){
+    public function vistaproducto()
+    {
         if (!Auth::check()) {
             return redirect()->route('vistalogin');
         }
         return view('intranet.administrador.productos');
     }
 
-    public function vistaconductor(){
+    public function vistaconductor()
+    {
         if (!Auth::check()) {
             return redirect()->route('vistalogin');
         }
-//      Metodo directo usando eloquent
+        //      Metodo directo usando eloquent
         $vehiculos = \App\Models\Vehiculo::where('estado', 'activo')->get();
         $transportes = \App\Models\Transporte::where('estado', 'activo')->get();
 
         return view('intranet.administrador.conductores', compact('transportes', 'vehiculos'));
     }
 
-    public function vistaguiasderemision(){
+    public function vistaguiasderemision()
+    {
         if (!Auth::check()) {
             return redirect()->route('vistalogin');
         }
@@ -80,30 +90,17 @@ class VistasIntranetController extends Controller
         return view('intranet.prevencionistas.guiasremision');
     }
 
-    public function vistaaddguiaremision(){
-        if (!Auth::check()) {
-            return redirect()->route('vistalogin');
-        }
-        //ESTO JALA LOS DATOS FORANEOS
-        $modelConductores = new Conductores();
-        $modelTipoEmpresa = new TipoEmpresa();
+    public function vistaaddguiaremision()
+    {
+        $conductores = Conductores::all();
+        $tipoempresa = TipoEmpresa::all();
+        $productos = Productos::all();
 
-        $data = $modelConductores->mostrarconductores();
-        $data2 = $modelTipoEmpresa->mostrartipoempresa();
-
-        // Convertir arrays a objetos stdClass
-        $conductores = array_map(function($item) {
-            return (object)$item;
-        }, $data["data"] == null ? [] : $data["data"]);
-
-        $tipoempresa = array_map(function($item) {
-            return (object)$item;
-        }, $data2["data"] == null ? [] : $data2["data"]);
-
-        return view('intranet.prevencionistas.addguiasremision', compact('conductores', 'tipoempresa'));
+        return view('intranet.prevencionistas.addguiasremision', compact('conductores', 'tipoempresa', 'productos'));
     }
 
-    public function vistadetalleguia($idguia = null){
+    public function vistadetalleguia($idguia = null)
+    {
         if (!is_numeric($idguia)) {
             abort(400, 'ID de guía inválido');
         }
@@ -124,7 +121,7 @@ class VistasIntranetController extends Controller
 
         // Obtener detalles de productos asociados
         $detalleguiaData = $modeloguiaremision->mostrardetalleguia(["idguia" => $idguia]);
-        $detalleguia = array_map(function($item) {
+        $detalleguia = array_map(function ($item) {
             return (object)$item;
         }, $detalleguiaData["data"] ?? []);
 
@@ -169,7 +166,8 @@ class VistasIntranetController extends Controller
         ]);
     }
 
-    public function vistarevisionguias($idguia = null){
+    public function vistarevisionguias($idguia = null)
+    {
         if (!is_numeric($idguia)) {
             abort(400, 'ID de guía inválido');
         }
@@ -187,7 +185,7 @@ class VistasIntranetController extends Controller
             "idguia" => $idguia
         ]);
 
-        $detalleguia = array_map(function($item) {
+        $detalleguia = array_map(function ($item) {
             return (object)$item;
         }, $detalleguia["data"] == null ? [] : $detalleguia["data"]);
 

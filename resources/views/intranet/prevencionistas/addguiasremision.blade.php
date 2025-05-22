@@ -1,5 +1,5 @@
 @extends('intranet.prevencionistas.prevencionista')
-@section('title','Agregar Guía de Remisión')
+@section('title', 'Agregar Guía de Remisión')
 
 @section('content')
     <div class="container-fluid py-2">
@@ -34,7 +34,6 @@
                         </div>
                     </div>
                 </div>
-
                 <!-- Columna 2: Detalles del Traslado -->
                 <div class="col-md-3">
                     <div class="card shadow-sm h-100 border-success">
@@ -59,7 +58,8 @@
                                 </div>
                                 <div class="col-6">
                                     <label for="idtxtvolumenproducto" class="form-label small fw-bold">Volumen (m³)</label>
-                                    <input type="number" step="0.01" class="form-control form-control-sm" id="idtxtvolumenproducto" name="volumenproducto" required>
+                                    <input type="number" step="0.01" class="form-control form-control-sm"
+                                        id="idtxtvolumenproducto" name="volumenproducto" required>
                                 </div>
                             </div>
                             <div>
@@ -123,54 +123,62 @@
             <br>
             <div class="card shadow-sm mb-3">
                 <div class="card-header bg-secondary bg-opacity-10 py-2 border-0">
-                    <h6 class="mb-0 text-secondary fw-bold"><i class="fas fa-boxes me-2"></i>Agrega los Productos al Carrito</h6>
+                    <h6 class="mb-0 text-secondary fw-bold"><i class="fas fa-boxes me-2"></i>Agrega los Productos al
+                        Carrito</h6>
                 </div>
 
                 <div class="card-body p-3">
                     <!-- Formulario para agregar productos -->
+                    <!-- Agregar Producto por Nombre -->
                     <div class="row g-2 mb-3 align-items-end">
-                        <!-- Código -->
-                        <div class="col-md-3">
-                            <label for="idtxtcodigoproducto" class="form-label small fw-bold">Código</label>
-                            <input type="hidden" id="idproductocarritogiaremision" >
-                            <input type="text"
-                                   class="form-control form-control-sm"
-                                   id="idtxtcodigoproducto"
-                                   pattern="\d{8}"
-                                   maxlength="8"
-                                   oninput="this.value=this.value.replace(/[^0-9]/g,'');"
-                                   required>
+                        <!-- Nombre del Producto (select) -->
+                        <div class="col-md-4">
+                            <label for="idselectnombreproducto" class="form-label small fw-bold">Nombre del
+                                Producto</label>
+                            <select class="form-select form-select-sm" id="idselectnombreproducto" required>
+                                <option value="">Seleccionar...</option>
+                                @foreach ($productos as $producto)
+                                    <option value="{{ $producto->idproducto }}"
+                                        data-codigo="{{ $producto->codigoproducto }}">
+                                        {{ $producto->nombre }}
+                                    </option>
+                                @endforeach
+                            </select>
                         </div>
 
-                        <!-- Nombre -->
-                        <div class="col-md-4">
-                            <label for="idtxtnombreproducto" class="form-label small fw-bold">Nombre del Producto</label>
-                            <input type="text" class="form-control form-control-sm" id="idtxtnombreproducto" readonly>
+                        <!-- Código del Producto (autocompletado) -->
+                        <div class="col-md-3">
+                            <label for="idtxtcodigoproducto" class="form-label small fw-bold">Código</label>
+                            <input type="text" class="form-control form-control-sm" id="idtxtcodigoproducto" readonly>
+                            <input type="hidden" id="idproductocarritogiaremision">
                         </div>
 
                         <!-- Cantidad -->
                         <div class="col-md-2">
                             <label for="idtxtcantidadproducto" class="form-label small fw-bold">Cantidad</label>
-                            <input type="number" class="form-control form-control-sm" id="idtxtcantidadproducto">
+                            <input type="number" class="form-control form-control-sm" id="idtxtcantidadproducto"
+                                required>
                         </div>
 
                         <!-- Estado -->
                         <div class="col-md-2">
                             <label for="idselectestadoproducto" class="form-label small fw-bold">Estado</label>
-                            <select class="form-select form-select-sm" id="idselectestadoproducto">
+                            <select class="form-select form-select-sm" id="idselectestadoproducto" required>
                                 <option value="Bueno">Bueno</option>
                                 <option value="Regular">Regular</option>
                                 <option value="Dañado">Dañado</option>
                             </select>
                         </div>
 
-                        <!-- Botón de agregar (solo icono) -->
+                        <!-- Botón Agregar -->
                         <div class="col-md-1">
-                            <button type="button" class="btn btn-primary btn-sm h-100" id="idbtnagregarproducto" title="Agregar producto">
+                            <button type="button" class="btn btn-primary btn-sm h-100" id="idbtnagregarproducto"
+                                title="Agregar producto">
                                 <i class="fas fa-plus"></i>
                             </button>
                         </div>
                     </div>
+
 
                     <!-- Tabla de productos agregados -->
                     <div class="table-responsive">
