@@ -94,7 +94,7 @@ class UsuariosController extends Controller
         }
     }
 
-    public function eliminarvehiculo(Request $request) {
+    public function eliminarusuario(Request $request) {
         try {
             $validated = $request->validate([
                 "id" => "nullable",

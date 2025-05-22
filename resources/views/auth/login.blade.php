@@ -21,69 +21,58 @@
         </div>
 
         <div class="card-body p-4">
-            <form id="formulariologin">
+            <form id="formulariologin" method="POST">
                 @csrf
-                <div class="row gy-2 overflow-hidden">
+                <div class="row gy-3">
+                    <!-- Campo de Correo -->
                     <div class="col-12">
-                        <div class="form-floating mb-3">
-                            <input type="email" class="form-control" name="email" id="username" placeholder="name@example.com" required>
-                            <label for="email" class="form-label">Correo</label>
+                        <div class="form-floating">
+                            <input
+                                type="email"
+                                class="form-control"
+                                name="email"
+                                id="username"
+                                placeholder="correo@ejemplo.com"
+                                required
+                                autocomplete="username"
+                            >
+                            <label for="email">Correo electrónico</label>
                         </div>
                     </div>
+
+                    <!-- Campo de Contraseña -->
                     <div class="col-12">
-                        <div class="form-floating mb-3">
-                            <input type="password" class="form-control" name="password" id="password" value="" placeholder="Password" required>
-                            <label for="password" class="form-label">Contraseña</label>
+                        <div class="form-floating">
+                            <input
+                                type="password"
+                                class="form-control"
+                                name="password"
+                                id="password"
+                                placeholder="Contraseña"
+                                required
+                                autocomplete="current-password"
+                            >
+                            <label for="password">Contraseña</label>
                         </div>
                     </div>
+
+                    <!-- Enlace para recuperar contraseña -->
+                    <div class="col-12 text-end">
+                        <a href="#!" class="link-primary text-decoration-none small">
+                            ¿Olvidaste tu contraseña?
+                        </a>
+                    </div>
+
+                    <!-- Botón de Inicio de Sesión -->
                     <div class="col-12">
-                        <div class="d-flex gap-2 justify-content-between">
-                            <a href="#!" class="link-primary text-decoration-none">¿Olvidastes tu Contraseña?</a>
+                        <div class="d-grid">
+                            <button id="btnlogin" class="btn btn-primary btn-lg" type="submit">
+                                Iniciar Sesión
+                            </button>
                         </div>
                     </div>
-                    <div class="col-12">
-                        <div class="d-grid my-3">
-                            <button id="btnlogin" class="btn btn-primary btn-lg" type="submit">Iniciar Sesión</button>
-                        </div>
-                    </div>
-                    {{--                        <div class="col-12">--}}
-                    {{--                            <p class="m-0 text-secondary text-center">Don't have an account? <a href=" {{route("vistausuarioregistro1")}}" class="link-primary text-decoration-none">Registráte</a></p>--}}
-                    {{--                        </div>--}}
                 </div>
             </form>
-            {{--                <form id="formulariologin">--}}
-            {{--                    @csrf <!-- Token de seguridad de Laravel -->--}}
-            {{--                    <div class="mb-3">--}}
-            {{--                        <label for="username" class="form-label">Usuario</label>--}}
-            {{--                        <div class="input-group">--}}
-            {{--                            <span class="input-group-text bg-light"><i class="bi bi-person-fill text-primary"></i></span>--}}
-            {{--                            <input type="text" class="form-control" id="username" placeholder="Ingresa tu usuario" required>--}}
-            {{--                        </div>--}}
-            {{--                    </div>--}}
-
-            {{--                    <div class="mb-3">--}}
-            {{--                        <label for="password" class="form-label">Contraseña</label>--}}
-            {{--                        <div class="input-group">--}}
-            {{--                            <span class="input-group-text bg-light"><i class="bi bi-lock-fill text-primary"></i></span>--}}
-            {{--                            <input type="password" class="form-control" id="password" placeholder="Ingresa tu contraseña" required>--}}
-            {{--                        </div>--}}
-            {{--                    </div>--}}
-
-            {{--                    <div class="mb-3 d-flex justify-content-between align-items-center">--}}
-            {{--                        <div class="form-check">--}}
-            {{--                            <input class="form-check-input" type="checkbox" id="remember">--}}
-            {{--                            <label class="form-check-label small" for="remember">Recordar sesión</label>--}}
-            {{--                        </div>--}}
-            {{--                        <a href="#" class="small text-decoration-none">¿Olvidaste tu contraseña?</a>--}}
-            {{--                    </div>--}}
-
-            {{--                    <button href="{{route("vistadashboard")}}" type="submit" class="btn btn-primary w-100 py-2 mb-3 fw-bold">Iniciar Sesión</button>--}}
-            {{--                    <button id="btnlogin" class="btn btn-primary btn-lg" type="submit">Iniciar Sesión</button>--}}
-            {{--                </form>--}}
-        </div>
-
-        <div class="card-footer bg-light text-center py-3">
-            <p class="small mb-0">¿No tienes cuenta? <a href="#" class="text-decoration-none">Regístrate aquí</a></p>
         </div>
     </div>
 </div>

@@ -34,16 +34,6 @@
 
         <!-- Navbar content collapsible -->
         <div class="collapse navbar-collapse" id="navbarResponsive">
-            <!-- Navigation links -->
-            <ul class="navbar-nav me-auto ms-3">
-                <li class="nav-item">
-                    <a class="nav-link" href="{{route('vistaguiasderemision')}}">Inicio</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{route('vistarevisionguias')}}">Reportes</a>
-                </li>
-            </ul>
-
             <!-- User dropdown -->
             <ul class="navbar-nav ms-auto me-3 me-lg-4">
                 <li class="nav-item dropdown">
