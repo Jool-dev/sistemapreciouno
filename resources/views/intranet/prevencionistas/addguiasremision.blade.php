@@ -186,8 +186,8 @@
                             <label for="idselectestadoproducto" class="form-label small fw-bold">Estado</label>
                             <select class="form-select form-select-sm" id="idselectestadoproducto" required>
                                 <option value="Bueno">Bueno</option>
-                                <option value="Regular">Regular</option>
-                                <option value="Dañado">Dañado</option>
+                                {{--  <option value="Regular">Regular</option>  --}}
+                                {{--  <option value="Dañado">Dañado</option>  --}}
                             </select>
                         </div>
 
