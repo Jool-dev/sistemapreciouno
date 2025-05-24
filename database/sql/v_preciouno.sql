@@ -43,7 +43,7 @@ as
     FROM
         detalleguia dg
         left join guiaremision gm on dg.idguia = gm.idguia
-        left join productos p on dg.idproducto = p.idproducto
+        left join productos p on dg.idproducto = p.idproducto;
 
 -- crear vista validacion
 create view v_validacion
