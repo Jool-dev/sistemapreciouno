@@ -22,14 +22,17 @@
                             <div class="mb-3">
                                 <label for="idtxtcodigoguia" class="form-label small fw-bold">N° Guía</label>
                                 <input type="text" class="form-control form-control-sm" id="idtxtcodigoguia" name="codigoguia" required>
+                                <div class="invalid-feedback">Ingrese el numero de la guia </div>
                             </div>
                             <div class="mb-3">
                                 <label for="idtxtnumerotrasladotim" class="form-label small fw-bold">N° TIM</label>
                                 <input type="text" class="form-control form-control-sm" id="idtxtnumerotrasladotim" name="numerotrasladotim" required>
+                                <div class="invalid-feedback">Ingrese el número de TIM</div>
                             </div>
                             <div class="mb-0">
                                 <label for="idtxtrazonsocialguia" class="form-label small fw-bold">Razón Social</label>
                                 <input type="text" class="form-control form-control-sm" id="idtxtrazonsocialguia" name="razonsocialguia" required>
+                                <div class="invalid-feedback">Ingrese la razón social</div>
                             </div>
                         </div>
                     </div>
@@ -50,21 +53,25 @@
                                     <option value="Exportación">Exportación</option>
                                     <option value="Importación">Importación</option>
                                 </select>
+                                <div class="invalid-feedback">Seleccione un motivo de traslado</div>
                             </div>
                             <div class="row g-2 mb-3">
                                 <div class="col-6">
                                     <label for="idtxtpesobrutototal" class="form-label small fw-bold">Peso (kg)</label>
                                     <input type="number" step="0.01" class="form-control form-control-sm" id="idtxtpesobrutototal" name="pesobrutototal" required>
+                                    <div class="invalid-feedback">Ingrese el peso bruto total</div>
                                 </div>
                                 <div class="col-6">
                                     <label for="idtxtvolumenproducto" class="form-label small fw-bold">Volumen (m³)</label>
                                     <input type="number" step="0.01" class="form-control form-control-sm"
                                         id="idtxtvolumenproducto" name="volumenproducto" required>
+                                    <div class="invalid-feedback">Ingrese el volumen total</div>
                                 </div>
                             </div>
                             <div>
                                 <label for="idselectnumerobultopallet" class="form-label small fw-bold">N° Bultos/Pallets</label>
                                 <input type="number" class="form-control form-control-sm" id="idselectnumerobultopallet" name="numerobultopallet" required>
+                                <div class="invalid-feedback">Ingrese el número de bultos o pallets</div>
                             </div>
                         </div>
                     </div>
@@ -87,6 +94,7 @@
                                         <option value="" disabled>No hay conductores</option>
                                     @endforelse
                                 </select>
+                                <div class="invalid-feedback">Seleccione un conductor</div>
                             </div>
                             <div>
                                 <label for="idtxtobservaciones" class="form-label small fw-bold">Observaciones</label>
@@ -112,6 +120,11 @@
                                     <option value="" disabled>No hay empresas</option>
                                 @endforelse
                             </select>
+                            <div class="invalid-feedback">Seleccione una empresa receptora</div>
+                            <div class="mt-2">
+                                <label for="idtxtdireccionempresa" class="form-label small fw-bold">Dirección</label>
+                                <input type="text" class="form-control form-control-sm" id="idtxtdireccionempresa" name="direccionempresa" required>
+                                <div class="invalid-feedback">Ingrese la dirección de la empresa receptora</div>
                         </div>
                     </div>
                 </div>
