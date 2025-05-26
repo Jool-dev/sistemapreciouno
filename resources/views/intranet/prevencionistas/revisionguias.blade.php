@@ -31,12 +31,18 @@
                                 </div>
                             </div>
                             <div class="border border-2 border-success rounded p-4 pt-5" style="opacity: 0.8;">
-                                <p class="mb-0 small text-muted">Validado por el Administrador:</p>
+                                <p class="mb-0 small text-muted">Validado por el prevencionista:</p>
                                 <p class="mb-0 fw-bold">Sistema de Gestión Logística</p>
                                 <p class="small text-muted">{{ now()->format('d/m/Y H:i') }}</p>
                             </div>
                         </div>
                     </div>
+                    <!-- Botón para regresar -->
+                    <div class="mt-4">
+                        <a href="{{ route('vistaguiasderemision') }}" class="btn btn-primary">
+                            <i class="fas fa-arrow-left me-2"></i> Regresar a Listado de Guías
+                        </a>
+                    
                 </div>
             </div>
         </div>
@@ -64,24 +70,26 @@
                         <div class="card-body tab-content p-0" style="overflow-y: auto; max-height: 500px;">
                             <!-- Pestaña de opciones -->
                             <div class="tab-pane fade show active p-3" id="options">
-                                <li class="list-group-item d-flex justify-content-between align-items-center">
-                                    <p>idguia</p>
-                                    <span>{{ $guia->idguia ?? 'N/A' }}</span>
-                                </li>
-                                <li class="list-group-item d-flex justify-content-between align-items-center">
-                                    <p>Fecha Emision</p>
-                                    <span>{{ $guia->fechaemision ?? 'N/A' }}</span>
-                                </li>
-
-                                <li class="list-group-item d-flex justify-content-between align-items-center">
-                                    <p>Hora Emision</p>
-                                    <span>{{ $guia->horaemision ?? 'N/A' }}</span>
-                                </li>
-
-                                <li class="list-group-item d-flex justify-content-between align-items-center">
-                                    <p>Tim</p>
-                                    <span>{{ $guia->numerotrasladotim ?? 'N/A' }}</span>
-                                </li>
+                                
+                                    <ul class="class="list-group list-group-flush">
+                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                            <p>idguia</p>
+                                            <span>{{ $guia->idguia ?? 'N/A' }}</span>
+                                        </li>
+                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                            <p>Fecha Emision</p>
+                                            <span>{{ $guia->fechaemision ?? 'N/A' }}</span>
+                                        </li>
+                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                            <p>Hora Emision</p>
+                                            <span>{{ $guia->horaemision ?? 'N/A' }}</span>
+                                        </li>
+                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                            <p>Tim</p>
+                                            <span>{{ $guia->numerotrasladotim ?? 'N/A' }}</span>
+                                        </li>
+                                    </ul>
+                                
                             </div>
 
                             <!-- Pestaña de productos -->
