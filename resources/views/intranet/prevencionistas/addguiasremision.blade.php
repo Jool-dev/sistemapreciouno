@@ -203,9 +203,9 @@
             <!-- Botones de acción - ahora fuera del grid -->
             <!-- Botones de acción alineados a la derecha -->
             <div class="d-flex justify-content-end mt-3 gap-2">
-                <button type="button" class="btn btn-outline-danger btn-sm px-3" data-bs-dismiss="modal">
+                <a href="{{ route('vistaguiasderemision') }}" class="btn btn-outline-danger btn-sm px-3">
                     <i class="fas fa-times-circle me-1"></i> Cancelar
-                </button>
+                </a>
                 <button type="submit" class="btn btn-success btn-sm px-3">
                     <i class="fas fa-save me-1"></i> Guardar
                 </button>

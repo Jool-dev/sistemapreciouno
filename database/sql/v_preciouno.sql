@@ -35,6 +35,7 @@ as
         dg.iddetalleguia as iddetalleguia,
         dg.idguia as idguia,
         dg.idproducto as idproducto,
+        dg.condicion as condicion,
         p.codigoproducto as codproducto,
         p.nombre as producto,
         dg.cantrecibida as cant,
