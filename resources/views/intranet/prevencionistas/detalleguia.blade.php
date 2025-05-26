@@ -112,7 +112,7 @@
                                     @forelse($detalleguia as $item)
                                         <tr>
                                             <td class="text-center">{{ $item->idproducto ?? 'N/A' }}</td>
-                                            <td class="text-center">{{ $item->producto ?? 'Sin descripción' }}</td>
+                                            <td class="text-center">{{ $item->codproducto ?? 'Sin descripción' }}</td>
                                             <td class="text-center">{{ $item->producto ?? 'Sin descripción' }}</td>
                                             <td class="text-center">{{ $item->condicion ?? 'Sin descripción' }}</td>
                                             <td class="text-center">{{ number_format($item->cant ?? 0, 2) }}</td>
