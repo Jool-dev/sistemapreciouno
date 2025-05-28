@@ -1,0 +1,139 @@
+/*sobreescribir bootstrap*/
+/* Sobrescribir bg-danger para fondo rojo Precio Uno */
+.bg-danger {
+    background-color: #c8102e !important; /* rojo Precio Uno */
+    color: white !important;
+}
+
+/* Sobrescribir btn-danger para botón rojo Precio Uno */
+.btn-danger {
+    background-color: #c8102e !important;
+    border-color: #c8102e !important;
+    color: white !important;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.btn-danger:hover,
+.btn-danger:focus,
+.btn-danger:active,
+.btn-danger:focus-visible {
+    background-color: #a10b25 !important; /* rojo más oscuro */
+    border-color: #a10b25 !important;
+    color: white !important;
+}
+
+/* Sobrescribir links con clase text-danger para rojo Precio Uno */
+.text-danger {
+    color: #c8102e !important;
+    transition: color 0.3s ease;
+}
+
+.text-danger:hover,
+.text-danger:focus {
+    color: #a10b25 !important;
+    text-decoration: underline;
+}
+
+/* Reset base */
+html, body {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #c8102e;
+    font-family: 'Nunito', sans-serif;
+}
+
+/* Contenedor principal */
+.login-container {
+    display: flex;
+    width: 900px;
+    max-width: 95%;
+    height: 480px;
+    background: #fff; /* blanco */
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+    margin: 3rem auto;
+}
+
+/* Lado izquierdo con fondo rojo sólido */
+.left-side {
+    flex: 1;
+    padding: 2.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #c8102e; /* rojo Precio Uno (sólido en lugar de degradado) */
+    color: white;
+}
+
+/* Logo o texto principal en el lado izquierdo */
+.left-side h2 {
+    font-size: 3rem;
+    font-weight: 700;
+    text-align: center;
+    color: white;
+}
+
+/* Lado derecho blanco con texto en rojo */
+.right-side {
+    flex: 1;
+    background: #fff;
+    color: #c8102e; /* rojo Precio Uno */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 3rem;
+    font-weight: 700;
+    text-align: center;
+}
+
+/* Título grande */
+.right-side h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    letter-spacing: 1px;
+    color: #c8102e;
+}
+
+/* Texto secundario */
+.right-side p {
+    font-weight: 400;
+    font-size: 1.25rem;
+    color: #333; /* Cambiado a gris oscuro en lugar de naranja */
+}
+
+/* Responsividad: vertical en pantallas pequeñas */
+/*@media (max-width: 768px) {*/
+/*    .login-container {*/
+/*        flex-direction: column;*/
+/*        height: auto;*/
+/*        border-radius: 0;*/
+/*    }*/
+/*    .left-side, .right-side {*/
+/*        flex: none;*/
+/*        width: 100%;*/
+/*        padding: 2rem;*/
+/*    }*/
+/*    .left-side h2 {*/
+/*        font-size: 2.5rem;*/
+/*    }*/
+/*    .right-side h1 {*/
+/*        font-size: 2rem;*/
+/*    }*/
+/*}*/
+
+@media (max-width: 500px) {
+    .right-side{
+        display: none;
+    }
+
+    .left-side{
+        display: flex;
+        justify-content: center;
+        align-content: center;
+    }
+}

@@ -160,14 +160,13 @@
                                                     <th width="10%">Código</th>
                                                     <th width="40%">Descripción</th>
                                                     <th width="15%">Cantidad</th>
-                                                    <th width="15%">Unidad</th>
                                                     <th width="20%">Condición</th>
                                                 </tr>
                                                 </thead>
                                                 <tbody>
                                                 @forelse($productosBuenos as $item)
                                                     <tr>
-                                                        <td>{{ $item->idproducto ?? 'N/A' }}</td>
+                                                        <td>{{ $item->codproducto ?? 'N/A' }}</td>
                                                         <td>
                                                             {{ $item->producto ?? 'Sin descripción' }}
                                                             @if(!empty($item->observaciones))
@@ -175,7 +174,6 @@
                                                             @endif
                                                         </td>
                                                         <td class="text-center">{{ number_format($item->cantidad ?? 0, 2) }}</td>
-                                                        <td>{{ $item->unidadmedida ?? 'N/A' }}</td>
                                                         <td>
                                                             <span class="badge bg-success">{{ $item->nombretipocondicion ?? 'VALIDADO' }}</span>
                                                         </td>
@@ -218,7 +216,7 @@
                                                 <tbody>
                                                 @forelse($productosRegulares as $item)
                                                     <tr>
-                                                        <td>{{ $item->idproducto ?? 'N/A' }}</td>
+                                                        <td>{{ $item->codproducto ?? 'N/A' }}</td>
                                                         <td>
                                                             {{ $item->producto ?? 'Sin descripción' }}
                                                             @if(!empty($item->observaciones))
@@ -269,7 +267,7 @@
                                                 <tbody>
                                                 @forelse($productosDanados as $item)
                                                     <tr>
-                                                        <td>{{ $item->idproducto ?? 'N/A' }}</td>
+                                                        <td>{{ $item->codproducto ?? 'N/A' }}</td>
                                                         <td>
                                                             {{ $item->producto ?? 'Sin descripción' }}
                                                             @if(!empty($item->observaciones))
@@ -320,7 +318,7 @@
                                                 <tbody>
                                                 @forelse($productosSinCondicion as $item)
                                                     <tr>
-                                                        <td>{{ $item->idproducto ?? 'N/A' }}</td>
+                                                        <td>{{ $item->codproducto ?? 'N/A' }}</td>
                                                         <td>
                                                             {{ $item->producto ?? 'Sin descripción' }}
                                                             @if(!empty($item->observaciones))

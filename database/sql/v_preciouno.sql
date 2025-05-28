@@ -31,20 +31,26 @@ select * from guiaremision;
 -- crear vista revisiondeguias
 create view v_detalleguia
 as
-    select 
-        dg.iddetalleguia as iddetalleguia,
-        dg.idguia as idguia,
-        dg.idproducto as idproducto,
-        dg.condicion as condicion,
-        p.codigoproducto as codproducto,
-        p.nombre as producto,
-        dg.cantrecibida as cant,
-        gm.fechaemision as fechaemision,
-        gm.estado as estado
-    FROM
-        detalleguia dg
+select
+    dg.iddetalleguia as iddetalleguia,
+    dg.idguia as idguia,
+    dg.idproducto as idproducto,
+    dg.condicion as condicion,
+    p.codigoproducto as codproducto,
+    p.nombre as producto,
+    dg.cantrecibida as cant,
+    gm.fechaemision as fechaemision,
+    gm.estado as estado,
+    v.estado AS estado_validacion,
+    v.cantrecibidarevision,
+    tc.nombretipocondicion  AS nombretipocondicion
+FROM
+    detalleguia dg
         left join guiaremision gm on dg.idguia = gm.idguia
-        left join productos p on dg.idproducto = p.idproducto;
+        left join productos p on dg.idproducto = p.idproducto
+        left join validacion v ON dg.idguia = v.idguia AND dg.idproducto = v.idproducto
+        left join tipocondicion tc ON v.idtipocondicion = tc.idtipocondicion
+WHERE gm.estado <> 'ANULADO';
 
 -- crear vista validacion
 create view v_validacion

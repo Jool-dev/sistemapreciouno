@@ -1,0 +1,21 @@
+/* Gradientes para fondos de tarjetas */
+.bg-gradient-primary {
+    background: linear-gradient(135deg, #009688, #26a69a);
+}
+.bg-gradient-warning {
+    background: linear-gradient(135deg, #fbc02d, #fdd835);
+}
+.bg-gradient-success {
+    background: linear-gradient(135deg, #4caf50, #66bb6a);
+}
+.bg-gradient-danger {
+    background: linear-gradient(135deg, #e53935, #ef5350);
+}
+/* Sombra suave en íconos */
+.card i.fa-3x {
+    text-shadow: 0 2px 5px rgba(0,0,0,0.15);
+}
+/* Fuentes */
+h1, h3, h6 {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}

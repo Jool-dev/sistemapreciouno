@@ -1,4 +1,3 @@
-
 import $ from 'jquery';
 import Swal from "sweetalert2";
 
@@ -61,6 +60,7 @@ $(document).ready(function () {
             observaciones: $("#idtxtobservaciones").val(),
             idconductor: $("#idselectidconductor").val(),
             idtipoempresa: $("#idselectidtipoempresa").val(),
+            idtransportista: $("#idselectrasnporte").val(),
             productos: productos,
             _token: $('input[name="_token"]').val()
         };
@@ -91,6 +91,38 @@ $(document).ready(function () {
                     icon: 'error',
                     title: 'Error',
                     text: xhr.responseJSON.message || 'Ocurrió un error al guardar'
+                });
+            }
+        });
+    });
+
+    //Listener para el cambio del selector de empresa y haga la petición para traer conductores filtrados
+    $('#idselecttransportista').on('change', function () {
+        const idtransportista = $(this).val();
+        if (!idtransportista) {
+            $('#idselectidconductor').html('<option value="">Seleccionar...</option>');
+            return;
+        }
+
+        $.ajax({
+            url: '/conductores-por-empresa/' + idtransportista,
+            type: 'GET',
+            success: function (data) {
+                let opciones = '<option value="">Seleccionar...</option>';
+                if (data.length > 0) {
+                    data.forEach(function (conductor) {
+                        opciones += `<option value="${conductor.idconductor}">${conductor.nombre}</option>`;
+                    });
+                } else {
+                    opciones += '<option value="" disabled>No hay conductores disponibles</option>';
+                }
+                $('#idselectidconductor').html(opciones);
+            },
+            error: function () {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'No se pudo cargar la lista de conductores'
                 });
             }
         });
@@ -251,5 +283,3 @@ function validarFormulario() {
 
 
 }
-
-

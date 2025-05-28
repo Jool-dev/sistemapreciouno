@@ -74,19 +74,38 @@
                 <div class="col-md-3">
                     <div class="card shadow-sm h-100 border-info">
                         <div class="card-header bg-info text-white py-2">
-                            <h6 class="mb-0 fw-semibold"><i class="fas fa-users me-2"></i>Personal</h6>
+                            <h6 class="mb-0 fw-semibold"><i class="fas fa-users me-2"></i>Datos del conductor</h6>
                         </div>
                         <div class="card-body p-3">
                             <div class="mb-3">
-                                <label for="idselectidconductor" class="form-label small fw-bold">Conductor</label>
-                                <select class="form-select form-select-sm" id="idselectidconductor" name="idconductor" required>
+                                <label for="idselecttransportista" class="form-label small fw-bold">Transportista</label>
+                                <select class="form-select form-select-sm" id="idselecttransportista" name="idtransportista" required>
                                     <option value="">Seleccionar...</option>
-                                    @forelse($conductores as $conductor)
-                                        <option value="{{ $conductor->idconductor }}">{{ $conductor->nombre }}</option>
+                                    @forelse($transportes as $transporte)
+                                        <option value="{{ $transporte->idtransportista }}">{{ $transporte->nombre_razonsocial }}</option>
                                     @empty
                                         <option value="" disabled>No hay conductores</option>
                                     @endforelse
                                 </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="idselectidconductor" class="form-label small fw-bold">Conductor</label>
+{{--                                <select class="form-select form-select-sm" id="idselectidconductor" name="idconductor" required>--}}
+{{--                                    <option value="">Seleccionar...</option>--}}
+{{--                                    @forelse($conductores as $conductor)--}}
+{{--                                        <option value="{{ $conductor->idconductor }}">{{ $conductor->nombre }}</option>--}}
+{{--                                    @empty--}}
+{{--                                        <option value="" disabled>No hay conductores</option>--}}
+{{--                                    @endforelse--}}
+{{--                                </select>--}}
+                                <select class="form-select form-select-sm" id="idselectidconductor" name="idconductor" required>
+                                    <option value="">Seleccionar...</option>
+                                    {{-- Opcional: cargar todos o dejar vacío --}}
+                                    {{-- @foreach ($conductores as $conductor)
+                                        <option value="{{ $conductor->idconductor }}">{{ $conductor->nombre }}</option>
+                                    @endforeach --}}
+                                </select>
+
                             </div>
                             <div>
                                 <label for="idtxtobservaciones" class="form-label small fw-bold">Observaciones</label>

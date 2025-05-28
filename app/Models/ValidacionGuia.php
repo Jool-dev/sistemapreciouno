@@ -76,28 +76,36 @@ class ValidacionGuia extends Model
         );
     }
 
-    // Método para obtener productos por condición
+    // Metodo para obtener productos por condicion
     public function obtenerProductosPorCondicion($idguia)
     {
-        $validacion = $this->mostrarvalidacionguia(['idguia' => $idguia]);
+        $productosBuenos = DB::table('v_detalleguia')
+            ->where('idguia', $idguia)
+            ->where('nombretipocondicion', 'BUENO')
+            ->get();
 
-        if (!$validacion['success']) {
-            return [
-                'success' => false,
-                'message' => $validacion['message'],
-                'data' => []
-            ];
-        }
+        $productosRegulares = DB::table('v_detalleguia')
+            ->where('idguia', $idguia)
+            ->where('nombretipocondicion', 'REGULAR')
+            ->get();
 
-        $productos = collect($validacion['data']);
+        $productosDanados = DB::table('v_detalleguia')
+            ->where('idguia', $idguia)
+            ->where('nombretipocondicion', 'DAÑADO')
+            ->get();
+
+        $productosSinCondicion = DB::table('v_detalleguia')
+            ->where('idguia', $idguia)
+            ->whereNull('nombretipocondicion')
+            ->get();
 
         return [
             'success' => true,
-            'message' => 'OK',
             'data' => [
-                'productosBuenos' => $productos->where('idtipocondicion', 1)->all(),
-                'productosDañados' => $productos->where('idtipocondicion', 2)->all(),
-                'productosRegulares' => $productos->where('idtipocondicion', 3)->all(),
+                'productosBuenos' => $productosBuenos,
+                'productosRegulares' => $productosRegulares,
+                'productosDañados' => $productosDanados,
+                'productosSinCondicion' => $productosSinCondicion,
             ]
         ];
     }
