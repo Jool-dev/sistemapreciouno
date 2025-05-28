@@ -7,7 +7,7 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
-## Instalacion del Proyecto SistemaVotos Loreto
+## Instalacion del Proyecto GestionLogisticaPrecioUno Loreto
 
 Requiere de laravel 12, junto con la libreria NodeJs (npm) para la Ejecucion del Proyecto.
 por otro lado, es necesario tener instalado lo Siguiente.
@@ -18,7 +18,7 @@ por otro lado, es necesario tener instalado lo Siguiente.
 
 
 ### **Paso 1**:
-Clonar el repositorio remoto y cambiarlo el nombre del Proyecto a "sistemavotosloreto" todo minuscula.
+Clonar el repositorio remoto y cambiarlo el nombre del Proyecto a "sistemapreciouno" todo minuscula.
 
 ### **Paso 2**:
 Abrir el Terminal del Editor o IDE y ejecutar "composer install" ó "composer update" dependiendo el caso, espera
