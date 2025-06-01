@@ -167,7 +167,7 @@
                                                 <tbody>
                                                 @forelse($productosBuenos as $item)
                                                     <tr>
-                                                        <td>{{ $item->idproducto ?? 'N/A' }}</td>
+                                                        <td class="text-center">{{ $item->idproducto ?? 'N/A' }}</td>
                                                         <td>
                                                             {{ $item->producto ?? 'Sin descripción' }}
                                                             @if(!empty($item->observaciones))

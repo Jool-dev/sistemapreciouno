@@ -24,6 +24,18 @@ $(document).ready(function () {
         }
     });
 
+    // Validación de campos al escribir
+    $('#idformaddguiasremision').on('input change', 'input, select', function () {
+        const $campo = $(this);
+        const valor = $campo.val()?.trim();
+
+        if (valor) {
+            $campo.removeClass('is-invalid').addClass('is-valid');
+        } else {
+            $campo.removeClass('is-valid').addClass('is-invalid');
+        }
+    });
+
     // Auto completar campos al seleccionar producto por nombre
     $('#idselectnombreproducto').on('change', function () {
         const selected = $(this).find('option:selected');
@@ -182,9 +194,33 @@ function eliminarProducto(id) {
     actualizarTablaProductos();
 }
 
+function limpiarValidaciones() {
+    $('.is-valid, .is-invalid').removeClass('is-valid is-invalid');
+}
+
+(function () {
+    'use strict';
+    window.addEventListener('load', function () {
+        // Obtener todos los formularios a validar
+        var forms = document.getElementsByClassName('needs-validation');
+        // Validación al enviar
+        Array.prototype.filter.call(forms, function (form) {
+            form.addEventListener('submit', function (event) {
+                if (!form.checkValidity()) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                }
+                form.classList.add('was-validated');
+            }, false);
+        });
+    }, false);
+})();
+
 function validarFormulario() {
     let valido = true;
     let camposIncompletos = false;
+
+    // Validar campos requeridos
     const camposRequeridos = [
         '#idtxtcodigoguia',
         '#idtxtnumerotrasladotim',
@@ -197,45 +233,31 @@ function validarFormulario() {
         '#idselectidconductor'
     ];
 
-    $(camposRequeridos.join(',')).removeClass('is-invalid');
+    // $(camposRequeridos.join(',')).removeClass('is-invalid');
 
     camposRequeridos.forEach(selector => {
         const $campo = $(selector);
-        if (!$campo.val().trim()) {
-            $campo.addClass('is-invalid');
+        const valor = $campo.val()?.trim();
+
+        if (!valor) {
+            $campo.addClass('is-invalid').removeClass('is-valid');
             if (valido) $campo.focus();
             valido = false;
             camposIncompletos = true;
+        } else {
+            $campo.removeClass('is-invalid').addClass('is-valid');
         }
     });
 
     if (camposIncompletos) {
         Swal.fire({
             icon: 'error',
-            title: 'Campo requerido',
+            title: 'Campos requeridos',
             text: 'Complete todos los campos requeridos',
             confirmButtonText: 'Entendido'
         });
         return false;
     }
-
-    // const Nguia = $('#idtxtcodigoguia').val().trim();
-    // const NTraslado = $('#idtxtnumerotrasladotim').val().trim();
-    // const RazonSocial = $('#idtxtrazonsocialguia').val().trim();
-    // const MotivoTraslado = $('#idselcetmotivotraslado').val();
-    // const PesoBruto = $('#idtxtpesobrutototal').val().trim();
-    // const VolumenProducto = $('#idtxtvolumenproducto').val().trim();
-    // const NumeroBulto = $('#idselectnumerobultopallet').val();
-
-    // if (!Nguia|| !NTraslado || !RazonSocial ) {
-    //     Swal.fire({
-    //         icon: 'warning',
-    //         title: 'Campos de datos principales incompletos',
-    //         text: 'Debe completar los campos con N° Guia,N° TIM y Razon social .',
-    //         confirmButtonText: 'Entendido'
-    //     });
-    //     return;
-    // }
 
     if (productos.length === 0) {
         Swal.fire({
@@ -248,7 +270,6 @@ function validarFormulario() {
     }
 
     return true;
-
 
 }
 
