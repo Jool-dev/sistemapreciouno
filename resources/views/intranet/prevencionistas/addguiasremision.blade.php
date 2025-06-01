@@ -63,8 +63,7 @@
                                 </div>
                                 <div class="col-6">
                                     <label for="idtxtvolumenproducto" class="form-label small fw-bold">Volumen (m³)</label>
-                                    <input type="number" step="0.01" class="form-control form-control-sm"
-                                        id="idtxtvolumenproducto" name="volumenproducto" required>
+                                    <input type="number" step="0.01" class="form-control form-control-sm" id="idtxtvolumenproducto" name="volumenproducto" required>
                                     <div class="invalid-feedback">Ingrese el volumen total</div>
                                 </div>
                             </div>
@@ -125,19 +124,18 @@
                                 <label for="idtxtdireccionempresa" class="form-label small fw-bold">Dirección</label>
                                 <input type="text" class="form-control form-control-sm" id="idtxtdireccionempresa" name="direccionempresa" required>
                                 <div class="invalid-feedback">Ingrese la dirección de la empresa receptora</div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-    </div>
+            </div>
 
             <!-- Sección de Productos -->
             <br>
             <div class="card shadow-sm mb-3">
                 <div class="card-header bg-secondary bg-opacity-10 py-2 border-0">
-                    <h6 class="mb-0 text-secondary fw-bold"><i class="fas fa-boxes me-2"></i>Agrega los Productos al
-                        Carrito</h6>
+                    <h6 class="mb-0 text-secondary fw-bold"><i class="fas fa-boxes me-2"></i>Agrega los Productos al Carrito</h6>
                 </div>
 
                 <div class="card-body p-3">
@@ -146,8 +144,7 @@
                     <div class="row g-2 mb-3 align-items-end">
                         <!-- Nombre del Producto (select) -->
                         <div class="col-md-4">
-                            <label for="idselectnombreproducto" class="form-label small fw-bold">Nombre del
-                                Producto</label>
+                            <label for="idselectnombreproducto" class="form-label small fw-bold">Nombre del Producto</label>
                             <select class="form-select form-select-sm" id="idselectnombreproducto" required>
                                 <option value="">Seleccionar...</option>
                                 @foreach ($productos as $producto)
@@ -169,8 +166,7 @@
                         <!-- Cantidad -->
                         <div class="col-md-2">
                             <label for="idtxtcantidadproducto" class="form-label small fw-bold">Cantidad</label>
-                            <input type="number" class="form-control form-control-sm" id="idtxtcantidadproducto"
-                                required>
+                            <input type="number" class="form-control form-control-sm" id="idtxtcantidadproducto" required>
                         </div>
 
                         <!-- Estado -->
@@ -197,16 +193,16 @@
                     <div class="table-responsive">
                         <table class="table table-sm table-bordered table-hover" id="tablaProductos">
                             <thead class="table-light">
-                            <tr>
-                                <th width="15%">Código</th>
-                                <th width="40%">Producto</th>
-                                <th width="15%">Cantidad</th>
-                                <th width="20%">Estado</th>
-                                <th width="10%">Acción</th>
-                            </tr>
+                                <tr>
+                                    <th width="15%">Código</th>
+                                    <th width="40%">Producto</th>
+                                    <th width="15%">Cantidad</th>
+                                    <th width="20%">Estado</th>
+                                    <th width="10%">Acción</th>
+                                </tr>
                             </thead>
                             <tbody>
-                            <!-- Los productos se agregarán aquí dinámicamente -->
+                                <!-- Los productos se agregarán aquí dinámicamente -->
                             </tbody>
                         </table>
                     </div>
