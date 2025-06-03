@@ -4,11 +4,23 @@
 @section('content')
     @vite('resources/css/views/prevencionistas/detalleguia.css')
     <div class="container-fluid px-3">
-        <!-- Header con botones -->
-        <div class="d-flex justify-content-between align-items-center mb-3">
-            <h2 class="mb-0 text-primary fw-bold">
-                <i class="fas fa-file-invoice me-2"></i>Guía de remision electronica #{{ $guia->codigoguia ?? 'N/A' }}<span id="idguia" class="text-dark"></span>
-            </h2>
+        <!-- Header con botones mejorado -->
+        <div class="d-flex justify-content-between align-items-center mb-4 py-3 px-4 bg-white rounded-3 shadow-sm" style="border-left: 5px solid #2575fc;">
+            <div class="d-flex align-items-center">
+                <div>
+                    <h2 class="mb-0 text-dark fw-bold">
+                        Guía de Remisión Electrónica <span class="text-primary">#{{ $guia->codigoguia ?? 'N/A' }}</span>
+                    </h2>
+                </div>
+            </div>
+
+            <button onclick="window.location.href='/guiasremision'"
+                    class="btn btn-return px-4 py-2 rounded-pill shadow-hover">
+                <div class="d-flex align-items-center justify-content-center">
+                    <i class="fas fa-chevron-left me-2 transition-transform"></i>
+                    <span>Regresar al Listado</span>
+                </div>
+            </button>
         </div>
         <!-- Tarjeta principal -->
         <div class="card border-0 shadow">

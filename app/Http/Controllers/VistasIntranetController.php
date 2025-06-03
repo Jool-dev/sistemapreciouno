@@ -79,6 +79,15 @@ class VistasIntranetController extends Controller
         return view('intranet.administrador.conductores', compact('transportes', 'vehiculos'));
     }
 
+    public function vistaguiasderemisionadministrador()
+    {
+        if (!Auth::check()) {
+            return redirect()->route('vistalogin');
+        }
+
+        return view('intranet.prevencionistas.guiasremision');
+    }
+
     public function vistaguiasderemision()
     {
         if (!Auth::check()) {

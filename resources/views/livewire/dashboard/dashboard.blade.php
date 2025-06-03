@@ -1,5 +1,4 @@
 <div class="container-fluid px-4">
-    <h1 class="mt-4 mb-4 fw-bold">Dashboard</h1>
     @vite('resources/css/views/dahsboard/dashboard.css')
     <!-- Tarjetas resumen -->
     <div class="row g-4 mb-4">
@@ -53,13 +52,22 @@
     </div>
 
     <!-- Gráfico ancho -->
+{{--    <div class="card mb-4 shadow-sm rounded-3">--}}
+{{--        <div class="card-header bg-light fw-semibold d-flex align-items-center">--}}
+{{--            <i class="fas fa-chart-area me-2"></i> Últimas Guías Emitidas--}}
+{{--        </div>--}}
+{{--        <div class="card-body p-3">--}}
+{{--            <canvas id="myAreaChart" style="width: 100%; height: 350px;"></canvas>--}}
+{{--            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>--}}
+{{--        </div>--}}
+{{--    </div>--}}
+    <!-- Gráfico de líneas: Guías sin y con discrepancias -->
     <div class="card mb-4 shadow-sm rounded-3">
         <div class="card-header bg-light fw-semibold d-flex align-items-center">
-            <i class="fas fa-chart-area me-2"></i> Últimas Guías Emitidas
+            <i class="fas fa-chart-line me-2"></i> Guías Emitidas (Sin vs Con Discrepancias)
         </div>
         <div class="card-body p-3">
-            <canvas id="myAreaChart" style="width: 100%; height: 350px;"></canvas>
-            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+            <canvas id="chartGuiasDiscrepancias" style="width: 100%; height: 350px;"></canvas>
         </div>
     </div>
 
@@ -196,24 +204,59 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
     // Gráfico Últimas Guías Emitidas
-    const ctxArea = document.getElementById('myAreaChart').getContext('2d');
-    new Chart(ctxArea, {
+    {{--const ctxArea = document.getElementById('myAreaChart').getContext('2d');--}}
+    {{--new Chart(ctxArea, {--}}
+    {{--    type: 'line',--}}
+    {{--    data: {--}}
+    {{--        labels: {!! json_encode($ultimasGuias->pluck('fecha')) !!},--}}
+    {{--        datasets: [{--}}
+    {{--            label: 'Guías Emitidas',--}}
+    {{--            data: {!! json_encode($ultimasGuias->pluck('total')) !!},--}}
+    {{--            fill: true,--}}
+    {{--            borderColor: 'rgba(54, 162, 235, 1)',--}}
+    {{--            backgroundColor: 'rgba(54, 162, 235, 0.2)',--}}
+    {{--            tension: 0.3--}}
+    {{--        }]--}}
+    {{--    },--}}
+    {{--    options: {--}}
+    {{--        responsive: true,--}}
+    {{--        scales: {--}}
+    {{--            y: { beginAtZero: true }--}}
+    {{--        }--}}
+    {{--    }--}}
+    {{--});--}}
+    const ctxGuias = document.getElementById('chartGuiasDiscrepancias').getContext('2d');
+    new Chart(ctxGuias, {
         type: 'line',
         data: {
-            labels: {!! json_encode($ultimasGuias->pluck('fecha')) !!},
-            datasets: [{
-                label: 'Guías Emitidas',
-                data: {!! json_encode($ultimasGuias->pluck('total')) !!},
-                fill: true,
-                borderColor: 'rgba(54, 162, 235, 1)',
-                backgroundColor: 'rgba(54, 162, 235, 0.2)',
-                tension: 0.3
-            }]
+            labels: @json($fechas),
+            datasets: [
+                {
+                    label: 'Guías Sin Discrepancias',
+                    data: @json($datosSinDiscrepancias),
+                    borderColor: 'orange',
+                    backgroundColor: 'rgba(255,165,0,0.2)',
+                    tension: 0.4,
+                    pointRadius: 5
+                },
+                {
+                    label: 'Guías Con Discrepancias',
+                    data: @json($datosConDiscrepancias),
+                    borderColor: 'red',
+                    backgroundColor: 'rgba(255,0,0,0.2)',
+                    tension: 0.4,
+                    pointRadius: 5
+                }
+            ]
         },
         options: {
             responsive: true,
+            plugins: {
+                legend: { position: 'top' }
+            },
             scales: {
-                y: { beginAtZero: true }
+                y: { beginAtZero: true },
+                x: { title: { display: true, text: 'Fecha de emisión' } }
             }
         }
     });

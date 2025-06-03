@@ -40,23 +40,11 @@
                     </div>
                     <!-- Botón para regresar -->
                     <div class="mt-4">
-                        <a href="{{ route('vistaguiasderemision') }}" class="btn btn-primary">
+                        <a href="{{ route('vistaguiasderemision') }}" class="btn btn-outline-success">
                             <i class="fas fa-arrow-left me-2"></i> Regresar a Listado de Guías
                         </a>
-                    
-                </div>
-            </div>
-{{--            retornar--}}
-            <div class="text-center mt-5">
-                <button onclick="window.location.href='/guiasremision'"
-                        class="btn btn-return btn-lg px-4 py-3 rounded-pill shadow-sm">
-                    <div class="d-flex align-items-center justify-content-center">
-                        <i class="fas fa-arrow-left me-3 fa-beat" style="--fa-animation-duration: 2s;"></i>
-                        <span class="position-relative">
-                Regresar al Inicio
-            </span>
                     </div>
-                </button>
+                </div>
             </div>
         </div>
     @else
@@ -83,7 +71,7 @@
                         <div class="card-body tab-content p-0" style="overflow-y: auto; max-height: 500px;">
                             <!-- Pestaña de opciones -->
                             <div class="tab-pane fade show active p-3" id="options">
-                                
+
                                     <ul class="class="list-group list-group-flush">
                                         <li class="list-group-item d-flex justify-content-between align-items-center">
                                             <p>idguia</p>
@@ -102,7 +90,7 @@
                                             <span>{{ $guia->numerotrasladotim ?? 'N/A' }}</span>
                                         </li>
                                     </ul>
-                                
+
                             </div>
 
                             <!-- Pestaña de productos -->

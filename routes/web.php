@@ -29,7 +29,6 @@ Route::middleware(['auth', 'role:administrador'])->group(function () {
     Route::post('/mantenimientoconductor', [ConductoresController::class, 'mantenimientoconductor'])->name('api.mantenimientoconductor');
     //transporte
 
-
     //vehiculo
     Route::get('/vehiculo', [VistasIntranetController::class, 'vistavehiculo'])->name('vistavehiculo');
     Route::post('/mantenimientovehiculo', [VehiculoController::class, 'mantenimientovehiculo'])->name('api.mantenimientovehiculo');
@@ -38,6 +37,8 @@ Route::middleware(['auth', 'role:administrador'])->group(function () {
     Route::get('/producto', [VistasIntranetController::class, 'vistaproducto'])->name('vistaproducto');
     Route::post('/registrarproducto', [ProductoController::class, 'registrarproducto'])->name('api.registrarproducto');
     Route::post('/eliminarproducto', [ProductoController::class, 'eliminarproducto'])->name('api.eliminarproducto');
+    //
+    Route::get('/guiasremisionadministrador', [VistasIntranetController::class, 'vistaguiasderemisionadministrador'])->name('vistaguiasderemisionadministrador');
 });
 
 

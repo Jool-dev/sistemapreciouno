@@ -2,7 +2,6 @@
     <div class="card shadow mb-4">
         <div class="card-header bg-primary text-white py-3">
             <h4 class="mb-0"><i class="fas fa-file-invoice me-2"></i>Detalle de Guía de Remisión</h4>
-{{--            <h4 class="mb-0"><i class="fas fa-file-invoice me-2"></i>Detalle de Guía de Remisión #{{ $guia->codigoguia }}</h4>--}}
         </div>
 
         <div class="card-body">
@@ -48,23 +47,7 @@
                             </tr>
                             </thead>
                             <tbody>
-{{--                            @forelse($guia->productos as $producto)--}}
-{{--                                <tr>--}}
-{{--                                    <td>{{ $producto->codigo }}</td>--}}
-{{--                                    <td>{{ $producto->nombre }}</td>--}}
-{{--                                    <td>{{ $producto->pivot->cantidad }}</td>--}}
-{{--                                    <td>{{ $producto->peso_unitario }}</td>--}}
-{{--                                    <td>--}}
-{{--                                        <button class="btn btn-sm btn-outline-danger" title="Eliminar">--}}
-{{--                                            <i class="fas fa-trash-alt"></i>--}}
-{{--                                        </button>--}}
-{{--                                    </td>--}}
-{{--                                </tr>--}}
-{{--                            @empty--}}
-{{--                                <tr>--}}
-{{--                                    <td colspan="5" class="text-center">No hay productos registrados</td>--}}
-{{--                                </tr>--}}
-{{--                            @endforelse--}}
+{{--                            agregar productos--}}
                             </tbody>
                         </table>
                     </div>
