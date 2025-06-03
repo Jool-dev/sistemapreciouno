@@ -13,6 +13,9 @@ class Dashboard extends Component
     public $guiasConDanio;
     public $ultimasGuias;
     public $guiascondiscrepancias;
+    public $fechas;
+    public $datosSinDiscrepancias;
+    public $datosConDiscrepancias;
 
     public function mount()
     {
@@ -57,6 +60,46 @@ class Dashboard extends Component
             ->groupBy('g.codigoguia')
             ->limit(10)
             ->get();
+
+        //pruebita
+        // Fechas base (últimos 7 días con guías emitidas)
+        $fechasBase = DB::table('guiaremision')
+            ->selectRaw('DATE(fechaemision) as fecha')
+            ->where('estado', '!=', 'Eliminado')
+            ->groupByRaw('DATE(fechaemision)')
+            ->orderByRaw('DATE(fechaemision) asc')
+            ->limit(7)
+            ->pluck('fecha');
+
+        // Guías sin discrepancias por fecha
+        $sinDiscrepancias = DB::table('guiaremision as g')
+            ->join('validacion as v', 'g.idguia', '=', 'v.idguia')
+            ->where('v.idtipocondicion', 1)
+            ->where('g.estado', '!=', 'Eliminado')
+            ->select(DB::raw('DATE(g.fechaemision) as fecha'), DB::raw('COUNT(DISTINCT g.idguia) as total'))
+            ->groupBy('fecha')
+            ->pluck('total', 'fecha');
+
+        // Guías con discrepancias por fecha
+        $conDiscrepancias = DB::table('guiaremision as g')
+            ->join('validacion as v', 'g.idguia', '=', 'v.idguia')
+            ->where('v.idtipocondicion', 2)
+            ->where('g.estado', '!=', 'Eliminado')
+            ->select(DB::raw('DATE(g.fechaemision) as fecha'), DB::raw('COUNT(DISTINCT g.idguia) as total'))
+            ->groupBy('fecha')
+            ->pluck('total', 'fecha');
+
+        // Preparar arrays alineados por fecha
+        $this->fechas = [];
+        $this->datosSinDiscrepancias = [];
+        $this->datosConDiscrepancias = [];
+
+        foreach ($fechasBase as $fecha) {
+            $this->fechas[] = \Carbon\Carbon::parse($fecha)->format('d-M');
+            $this->datosSinDiscrepancias[] = $sinDiscrepancias[$fecha] ?? 0;
+            $this->datosConDiscrepancias[] = $conDiscrepancias[$fecha] ?? 0;
+        }
+
     }
 
     public function render()

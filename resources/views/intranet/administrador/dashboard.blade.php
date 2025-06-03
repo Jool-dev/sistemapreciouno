@@ -2,5 +2,7 @@
 @section('title', 'Dashboard')
 
 @section('content')
-    @livewire('dashboard.dashboard')
+    <div class="enable-scroll">
+        @livewire('dashboard.dashboard')
+    </div>
 @endsection

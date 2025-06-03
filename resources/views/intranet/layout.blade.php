@@ -13,7 +13,7 @@
     @livewireStyles
     @vite([
         'resources/css/demo/styles.css',
-        //'resources/js/app.js',
+        'resources/css/views/layout.css',
         'resources/js/intranet/appproducto.js',
         'resources/js/intranet/appvehiculo.js',
         'resources/js/intranet/appconductores.js',
@@ -30,86 +30,81 @@
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
 </head>
 <body class="sb-nav-fixed">
-    <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-        <!-- Navbar Brand-->
-               <a class="navbar-brand ps-3" href="{{route("vistadashboard")}}">Bienvenido Usuario</a>
-        <!-- Sidebar Toggle-->
-        <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i
-                class="fas fa-bars"></i></button>
-        <!-- Navbar Search-->
-        <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
-            <div class="input-group">
-                <input class="form-control" type="text" placeholder="Ingrese su busqueda..." aria-label="Ingrese su busqueda..."
-                    aria-describedby="btnNavbarSearch" />
-                <button class="btn btn-primary" id="btnNavbarSearch" type="button"><i
-                        class="fas fa-search"></i></button>
+<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+    <!-- Navbar Brand-->
+{{--    <a class="navbar-brand" href="{{ route('vistadashboard') }}">--}}
+{{--        <img src="{{ asset('storage/img/Hiperbodega_Precio_Uno.svg') }}"--}}
+{{--             alt="Logo"--}}
+{{--             class="img-fluid me-2 d-none d-sm-inline"--}}
+{{--             style="max-height: 30px; width: auto;">--}}
+{{--    </a>--}}
+    <!-- Menú principal horizontal -->
+    <div class="navbar-nav me-auto">
+        @if (session('usuariologeado')["data"][0]['idrol'] == 1)
+            <div>
+                <a class="nav-link {{ request()->routeIs('vistadashboard') ? 'active' : '' }}" href="{{ route('vistadashboard') }}">
+                    <i class="fas fa-tachometer-alt me-2"></i>Dashboard
+                </a>
             </div>
-        </form>
-        <!-- Navbar-->
-        <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown"
-                    aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
-                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                    <li><a class="dropdown-item" href="#!">Settings</a></li>
-                    <li><a class="dropdown-item" href="#!">Activity Log</a></li>
-                    <li>
-                        <hr class="dropdown-divider" />
-                    </li>
-                    <li><a class="dropdown-item" href="#!" id="btncerrarsesion">Logout</a></li>
-                </ul>
-            </li>
-        </ul>
-    </nav>
-
-    <div id="layoutSidenav">
-        <div id="layoutSidenav_nav">
-            <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
-                <div class="sb-sidenav-menu">
-                    <div class="nav">
-                        @if (session('usuariologeado')["data"][0]['idrol'] == 1)
-                            <a class="nav-link" href="{{route('vistadashboard')}}">
-                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                                Dashboard
-                            </a>
-                            <a class="nav-link" href="{{route('vistaconductor')}}">
-                                <div class="sb-nav-link-icon"><i class="fa-solid fa-id-card"></i></div>
-                                Conductor
-                            </a>
-                            <a class="nav-link" href="{{route('vistavehiculo')}}">
-                                <div class="sb-nav-link-icon"><i class="fa-solid fa-truck"></i></div>
-                                Vehiculo
-                            </a>
-                            <a class="nav-link" href="{{route('vistaproducto')}}">
-                                <div class="sb-nav-link-icon"><i class="fa-solid fa-bag-shopping"></i></div>
-                                Producto
-                            </a>
-                            <a class="nav-link" href="{{route('vistausuarios')}}">
-                                <div class="sb-nav-link-icon"><i class="fa-solid fa-user"></i></div>
-                                Usuarios
-                            </a>
-                        @else
-                            <a class="nav-link" href="{{route('vistaguiasderemision')}}">
-                                <div class="sb-nav-link-icon"><i class="fa-solid fa-tag"></i></div>
-                                Guías de Remisión
-                            </a>
-                            <a class="nav-link" href="{{route("vistarevisionguias")}}">
-                                <div class="sb-nav-link-icon"><i class="fa-solid fa-tag"></i></div>
-                                Revisión de Guías
-                            </a>
-                        @endif
-                    </div>
-                </div>
-            </nav>
-        </div>
-
-        <div id="layoutSidenav_content">
-            <main>
-                @yield('content')
-            </main>
-        </div>
+            <div>
+                <a class="nav-link {{ request()->routeIs('vistausuarios') ? 'active' : '' }}" href="{{ route('vistausuarios') }}">
+                    <i class="fa-solid fa-user me-2"></i>Usuarios
+                </a>
+            </div>
+            <div>
+                <a class="nav-link {{ request()->routeIs('vistaconductor') ? 'active' : '' }}" href="{{ route('vistaconductor') }}">
+                    <i class="fa-solid fa-id-card me-2"></i>Conductores
+                </a>
+            </div>
+            <div>
+                <a class="nav-link {{ request()->routeIs('vistavehiculo') ? 'active' : '' }}" href="{{ route('vistavehiculo') }}">
+                    <i class="fa-solid fa-truck me-2"></i>Vehículos
+                </a>
+            </div>
+            <div>
+                <a class="nav-link {{ request()->routeIs('vistaproducto') ? 'active' : '' }}" href="{{ route('vistaproducto') }}">
+                    <i class="fa-solid fa-bag-shopping me-2"></i>Productos
+                </a>
+            </div>
+            <div>
+                <a class="nav-link {{ request()->routeIs('vistaguiasderemisionadministrador') ? 'active' : '' }}" href="{{ route('vistaguiasderemisionadministrador') }}">
+                    <i class="fa-solid fa-table-list me-2"></i>Guias de Carga
+                </a>
+            </div>
+        @else
+        @endif
     </div>
-
+    <!-- Barra de búsqueda (derecha) -->
+{{--    <div class="ms-auto d-flex">--}}
+{{--        <form class="d-flex align-items-center me-3">--}}
+{{--            <div class="input-group">--}}
+{{--                <input class="form-control form-control-sm" type="text" placeholder="Ingrese su busqueda..."--}}
+{{--                       aria-label="Buscar" style="width: 200px;">--}}
+{{--                <button class="btn btn-sm btn-primary" type="submit">--}}
+{{--                    <i class="fas fa-search"></i>--}}
+{{--                </button>--}}
+{{--            </div>--}}
+{{--        </form>--}}
+{{--    </div>--}}
+    <!-- Menú de usuario -->
+    <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown"
+               aria-expanded="false">Bienvenido {{ Auth::user()->name }}<i class="fas fa-user fa-fw"></i></a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                <li><a class="dropdown-item" href="#!">Configuración</a></li>
+                <li><hr class="dropdown-divider" /></li>
+                <li><a class="dropdown-item" id="btncerrarsesion">Cerrar Sesión</a></li>
+            </ul>
+        </li>
+    </ul>
+</nav>
+{{--contenido vistas--}}
+<div class="container-fluid mt-5 pt-3" class="@if(Request::is('dashboard')) enable-scroll @endif">
+    <main>
+        @yield('content')
+    </main>
+</div>
     @livewireScripts
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>

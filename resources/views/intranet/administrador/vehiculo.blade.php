@@ -3,22 +3,47 @@
 
 @section('content')
     <div class="container-fluid py-2">
-        <!-- Título -->
-        <div class="d-flex justify-content-between align-items-center mb-4">
-            <h3 class="fw-bold">Vehiculos</h3>
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#idmodalvehiculo" id="btnnuevovehiculo">
-                <i class="fa-solid fa-plus-minus"></i>
-                Agregar Nuevo
-            </button>
-        </div>
+        <!-- Barra de búsqueda y acciones -->
+        <div class="row mb-4 align-items-center">
+            <!-- Campo de búsqueda -->
+            <div class="col-md-5 mb-2 mb-md-0">
+                <div class="input-group">
+            <span class="input-group-text">
+                <i class="fas fa-search"></i>
+            </span>
+                    <input type="text"
+                           class="form-control"
+                           placeholder="Buscar por nombre o código..."
+                           wire:model.live.debounce.500ms="search"
+                           aria-label="Buscar productos">
+                </div>
+            </div>
 
-        <!-- Barra de búsqueda -->
-        <div class="row mb-3">
-            <div class="col-md-4">
-                <input type="text" class="form-control" placeholder="Buscar...">
+            <!-- Selector de items por página -->
+            <div class="col-md-3 mb-2 mb-md-0">
+                <div class="input-group">
+            <span class="input-group-text">
+                <i class="fas fa-list-ol"></i>
+            </span>
+                    <select class="form-select" wire:model.live="perPage" aria-label="Items por página">
+                        <option value="10">10 por página</option>
+                        <option value="25">25 por página</option>
+                        <option value="50">50 por página</option>
+                        <option value="100">100 por página</option>
+                    </select>
+                </div>
+            </div>
+            <!-- Botón de agregar -->
+            <div class="col-md-4 text-md-end">
+                <button type="button"
+                        class="btn btn-primary w-40 w-md-auto"
+                        data-bs-toggle="modal"
+                        data-bs-target="#idmodalvehiculo">
+                    <i class="fa-solid fa-plus me-2"></i>
+                    Nuevo Vehículo
+                </button>
             </div>
         </div>
-
         <!-- Tabla -->
         @livewire('vehiculo.vechiculo')
     </div>
