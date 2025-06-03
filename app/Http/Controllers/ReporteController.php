@@ -47,7 +47,7 @@ class ReporteController extends Controller
         ];
 
         // Generar PDF usando DomPDF
-        $pdf = PDF::loadView('intranet.prevencionistas.PDF.detalleguia', $datos)
+        $pdf = PDF::loadView('intranet.PDF.detalleguia', $datos)
             ->setPaper('a4', 'portrait')
             ->setOptions([
                 'isHtml5ParserEnabled' => true,
@@ -55,7 +55,7 @@ class ReporteController extends Controller
                 'defaultFont' => 'sans-serif'
             ]);
 
-        $filename = 'Reporte_Guia_' . $guia->idguia . '_' . date('Ymd') . '.pdf';
+        $filename = 'Guia #' . $guia->idguia . '_' . date('Ymd') . '.pdf';
 
         return $pdf->download($filename);
     }

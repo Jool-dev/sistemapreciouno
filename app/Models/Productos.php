@@ -23,6 +23,15 @@ class Productos extends Model
     public function mostraproducto(array $parametros = []): array {
         $query = DB::table('v_producto');
 
+        // Búsqueda
+        if (!empty($parametros['search'])) {
+            $searchTerm = $parametros['search'];
+            $query->where(function($q) use ($searchTerm) {
+                $q->where('nombre', 'like', '%'.$searchTerm.'%')
+                    ->orWhere('codigoproducto', 'like', '%'.$searchTerm.'%');
+            });
+        }
+
         // Filtros condicionales
         if (isset($parametros['idproducto'])) {
             $query->where('idproducto', $parametros['idproducto']);
@@ -56,12 +65,29 @@ class Productos extends Model
             );
         }
 
-        // Si no hay paginado, obtener todo
-        $producto = $query->get()->map(fn($item) => (array) $item)->toArray();
+        // Ordenamiento
+        $orderBy = $parametros['orderBy'] ?? 'idproducto';
+        $orderDirection = $parametros['orderDirection'] ?? 'asc';
+        $query->orderBy($orderBy, $orderDirection);
+
+        // Paginación
+        if (isset($parametros['paginado']) && $parametros['paginado'] === true) {
+            $porPagina = $parametros['porPagina'] ?? 10;
+            $paginator = $query->paginate($porPagina);
+
+            return GlobalModel::returnArray(
+                $paginator->isNotEmpty(),
+                $paginator->isEmpty() ? "No hay productos registrados" : "OK",
+                $paginator
+            );
+        }
+
+        // Sin paginación
+        $resultados = $query->get();
         return GlobalModel::returnArray(
-            !empty($producto),
-            empty($producto) ? "No hay productos registrados" : "OK",
-            $producto
+            $resultados->isNotEmpty(),
+            $resultados->isEmpty() ? "No hay productos registrados" : "OK",
+            $resultados->toArray()
         );
     }
 

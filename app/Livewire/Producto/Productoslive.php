@@ -5,18 +5,67 @@ namespace App\Livewire\Producto;
 use App\Models\Productos;
 use Livewire\Attributes\On;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class Productoslive extends Component
 {
+    use WithPagination;
+
+    public $search = '';
+    public $perPage = 10;
+    public $sortField = 'idproducto'; // Añade esta propiedad
+    public $sortDirection = 'asc';    // Añade esta propiedad
+
+    protected $paginationTheme = 'bootstrap';
+
+    protected $queryString = [
+        'search' => ['except' => ''],
+        'perPage' => ['except' => 10],
+        'sortField' => ['except' => 'idproducto'],
+        'sortDirection' => ['except' => 'asc']
+    ];
+
     #[On('listarproductoDesdeJS')]
-    public function listar() {}
+    public function refreshList()
+    {
+        $this->resetPage();
+    }
+
+    public function updatingSearch()
+    {
+        $this->resetPage();
+    }
+
+    public function updatingPerPage()
+    {
+        $this->resetPage();
+    }
+
+    // Método para ordenar
+    public function sortBy($field)
+    {
+        if ($this->sortField === $field) {
+            $this->sortDirection = $this->sortDirection === 'asc' ? 'desc' : 'asc';
+        } else {
+            $this->sortDirection = 'asc';
+            $this->sortField = $field;
+        }
+    }
 
     public function render()
     {
-        $modeloproducto = new Productos();
-        $data = $modeloproducto->mostraproducto();
+        $modelo = new Productos();
+
+        $resultado = $modelo->mostraproducto([
+            'search' => $this->search,
+            'porPagina' => $this->perPage,
+            'paginado' => true,
+            'orderBy' => $this->sortField,
+            'orderDirection' => $this->sortDirection
+        ]);
+
         return view('livewire.producto.productoslive', [
-            'data' => $data["data"] == null ? [] : $data["data"]
+            'data' => $resultado['data'] ?? []
         ]);
     }
 }

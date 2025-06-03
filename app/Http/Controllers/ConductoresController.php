@@ -87,4 +87,11 @@ class ConductoresController extends Controller
             ], 500);
         }
     }
+
+    // Obtener conductores por empresa
+    public function getConductoresPorEmpresa($idtransportista)
+    {
+        $conductores = Conductores::where('idtransportista', $idtransportista)->get(['idconductor', 'nombre']);
+        return response()->json($conductores);
+    }
 }

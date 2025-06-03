@@ -13,9 +13,6 @@ use App\Models\Transporte;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-
-
-
 class VistasIntranetController extends Controller
 {
     public function vistalogin()
@@ -42,6 +39,7 @@ class VistasIntranetController extends Controller
         if (!Auth::check()) {
             return redirect()->route('vistalogin');
         }
+
         return view('intranet.administrador.dashboard');
     }
 
@@ -92,11 +90,12 @@ class VistasIntranetController extends Controller
 
     public function vistaaddguiaremision()
     {
+        $transportes = Transporte::all();
         $conductores = Conductores::all();
         $tipoempresa = TipoEmpresa::all();
         $productos = Productos::all();
 
-        return view('intranet.prevencionistas.addguiasremision', compact('conductores', 'tipoempresa', 'productos'));
+        return view('intranet.prevencionistas.addguiasremision', compact('transportes','conductores', 'tipoempresa', 'productos'));
     }
 
     public function vistadetalleguia($idguia = null)
@@ -124,6 +123,9 @@ class VistasIntranetController extends Controller
         $detalleguia = array_map(function ($item) {
             return (object)$item;
         }, $detalleguiaData["data"] ?? []);
+
+        //solucion para evitar duplicidad visual
+        $detalleguia = array_map('unserialize', array_unique(array_map('serialize', $detalleguia)));
 
         // Obtener datos del conductor
         $conductorData = $modelConductores->mostrarconductores(["idguia" => $idguia]);

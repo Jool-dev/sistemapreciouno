@@ -160,14 +160,13 @@
                                                     <th width="10%">Código</th>
                                                     <th width="40%">Descripción</th>
                                                     <th width="15%">Cantidad</th>
-                                                    <th width="15%">Unidad</th>
                                                     <th width="20%">Condición</th>
                                                 </tr>
                                                 </thead>
                                                 <tbody>
                                                 @forelse($productosBuenos as $item)
                                                     <tr>
-                                                        <td class="text-center">{{ $item->idproducto ?? 'N/A' }}</td>
+                                                        <td>{{ $item->codproducto ?? 'N/A' }}</td>
                                                         <td>
                                                             {{ $item->producto ?? 'Sin descripción' }}
                                                             @if(!empty($item->observaciones))
@@ -175,7 +174,6 @@
                                                             @endif
                                                         </td>
                                                         <td class="text-center">{{ number_format($item->cantidad ?? 0, 2) }}</td>
-                                                        <td>{{ $item->unidadmedida ?? 'N/A' }}</td>
                                                         <td>
                                                             <span class="badge bg-success">{{ $item->nombretipocondicion ?? 'VALIDADO' }}</span>
                                                         </td>
@@ -218,7 +216,7 @@
                                                 <tbody>
                                                 @forelse($productosRegulares as $item)
                                                     <tr>
-                                                        <td>{{ $item->idproducto ?? 'N/A' }}</td>
+                                                        <td>{{ $item->codproducto ?? 'N/A' }}</td>
                                                         <td>
                                                             {{ $item->producto ?? 'Sin descripción' }}
                                                             @if(!empty($item->observaciones))
@@ -269,7 +267,7 @@
                                                 <tbody>
                                                 @forelse($productosDanados as $item)
                                                     <tr>
-                                                        <td>{{ $item->idproducto ?? 'N/A' }}</td>
+                                                        <td>{{ $item->codproducto ?? 'N/A' }}</td>
                                                         <td>
                                                             {{ $item->producto ?? 'Sin descripción' }}
                                                             @if(!empty($item->observaciones))
@@ -320,7 +318,7 @@
                                                 <tbody>
                                                 @forelse($productosSinCondicion as $item)
                                                     <tr>
-                                                        <td>{{ $item->idproducto ?? 'N/A' }}</td>
+                                                        <td>{{ $item->codproducto ?? 'N/A' }}</td>
                                                         <td>
                                                             {{ $item->producto ?? 'Sin descripción' }}
                                                             @if(!empty($item->observaciones))
@@ -367,43 +365,6 @@
                                         {{ $validacion->observaciones }}
                                     </div>
                                 @endif
-                            </div>
-                        </div>
-
-                        <!-- Documentos -->
-                        <div class="mt-3">
-                            <h5 class="fw-bold text-primary mb-3">
-                                <i class="fas fa-file-alt me-2"></i> Documentos Adjuntos
-                            </h5>
-                            <div class="alert alert-info">
-                                <i class="fas fa-info-circle me-2"></i>Documentos adjuntos a la guía de remisión
-                            </div>
-                            <div class="row">
-                                <div class="col-md-4 mb-3">
-                                    <div class="card border-0 shadow-sm h-100">
-                                        <div class="card-body text-center">
-                                            <i class="fas fa-file-pdf text-danger fs-1 mb-3"></i>
-                                            <h6>Guía_Remision_GR001245.pdf</h6>
-                                            <p class="text-muted small">15/05/2023 - 2.4MB</p>
-                                            <button class="btn btn-sm btn-outline-primary">
-                                                <i class="fas fa-download me-1"></i> Descargar
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-4 mb-3">
-                                    <div class="card border-0 shadow-sm h-100">
-                                        <div class="card-body text-center">
-                                            <i class="fas fa-file-image text-success fs-1 mb-3"></i>
-                                            <h6>Foto_Entrega_001.jpg</h6>
-                                            <p class="text-muted small">15/05/2023 - 1.8MB</p>
-                                            <button class="btn btn-sm btn-outline-primary">
-                                                <i class="fas fa-download me-1"></i> Descargar
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </div>

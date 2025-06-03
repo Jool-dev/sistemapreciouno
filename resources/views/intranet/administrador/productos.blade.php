@@ -15,11 +15,22 @@
         <!-- Barra de búsqueda -->
         <div class="row mb-3">
             <div class="col-md-4">
-                <input type="text" class="form-control" placeholder="Buscar...">
+                <input type="text"
+                       class="form-control"
+                       placeholder="Buscar por nombre o código..."
+                       wire:model.live.debounce.500ms="search">
+            </div>
+            <div class="col-md-2">
+                <select class="form-select" wire:model.live="perPage">
+                    <option value="10">10 por página</option>
+                    <option value="25">25 por página</option>
+                    <option value="50">50 por página</option>
+                    <option value="100">100 por página</option>
+                </select>
             </div>
         </div>
 
-        <!-- Tabla -->
+        <!-- Tabla (el ordenamiento va dentro del componente Livewire) -->
         @livewire('producto.productoslive')
     </div>
 

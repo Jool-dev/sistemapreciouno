@@ -1,552 +1,275 @@
 <div class="container-fluid px-4">
-    <h1 class="mt-4">Dashboard</h1>
-    <ol class="breadcrumb mb-4">
-        <li class="breadcrumb-item active">Sistema de Control Logistico</li>
-    </ol>
-    <div class="row">
-        <div class="col-xl-3 col-md-6">
-            <div class="card bg-primary text-white mb-4">
-                <div class="card-body">Guías Emitidas</div>
-                <div class="card-footer d-flex align-items-center justify-content-between">
-                    <a class="small text-white stretched-link" href="#">View Details</a>
-                    <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+    <h1 class="mt-4 mb-4 fw-bold">Dashboard</h1>
+    @vite('resources/css/views/dahsboard/dashboard.css')
+    <!-- Tarjetas resumen -->
+    <div class="row g-4 mb-4">
+        <div class="col-md-3">
+            <div class="card text-white bg-gradient-primary shadow-sm rounded-3">
+                <div class="card-body d-flex justify-content-between align-items-center">
+                    <div>
+                        <h6 class="mb-1 fw-semibold">Guías Emitidas</h6>
+                        <h3 class="fw-bold">{{ $totalGuiasEmitidas }}</h3>
+                    </div>
+                    <i class="fas fa-truck fa-3x opacity-75"></i>
                 </div>
             </div>
         </div>
-        <div class="col-xl-3 col-md-6">
-            <div class="card bg-warning text-white mb-4">
-                <div class="card-body">Revisiones Realizadas</div>
-                <div class="card-footer d-flex align-items-center justify-content-between">
-                    <a class="small text-white stretched-link" href="#">View Details</a>
-                    <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+
+        <div class="col-md-3">
+            <div class="card text-white bg-gradient-warning shadow-sm rounded-3">
+                <div class="card-body d-flex justify-content-between align-items-center">
+                    <div>
+                        <h6 class="mb-1 fw-semibold">Revisiones Realizadas</h6>
+                        <h3 class="fw-bold">{{ $totalRevisiones }}</h3>
+                    </div>
+                    <i class="fas fa-check-circle fa-3x opacity-75"></i>
                 </div>
             </div>
         </div>
-        <div class="col-xl-3 col-md-6">
-            <div class="card bg-success text-white mb-4">
-                <div class="card-body">Guías Sin Daño</div>
-                <div class="card-footer d-flex align-items-center justify-content-between">
-                    <a class="small text-white stretched-link" href="#">View Details</a>
-                    <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+
+        <div class="col-md-3">
+            <div class="card text-white bg-gradient-success shadow-sm rounded-3">
+                <div class="card-body d-flex justify-content-between align-items-center">
+                    <div>
+                        <h6 class="mb-1 fw-semibold">Guías Sin Daño</h6>
+                        <h3 class="fw-bold">{{ $guiasSinDanio }}</h3>
+                    </div>
+                    <i class="fas fa-shield-alt fa-3x opacity-75"></i>
                 </div>
             </div>
         </div>
-        <div class="col-xl-3 col-md-6">
-            <div class="card bg-danger text-white mb-4">
-                <div class="card-body">Guías Con Daño</div>
-                <div class="card-footer d-flex align-items-center justify-content-between">
-                    <a class="small text-white stretched-link" href="#">View Details</a>
-                    <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+
+        <div class="col-md-3">
+            <div class="card text-white bg-gradient-danger shadow-sm rounded-3">
+                <div class="card-body d-flex justify-content-between align-items-center">
+                    <div>
+                        <h6 class="mb-1 fw-semibold">Guías Con Daño</h6>
+                        <h3 class="fw-bold">{{ $guiasConDanio }}</h3>
+                    </div>
+                    <i class="fas fa-exclamation-triangle fa-3x opacity-75"></i>
                 </div>
             </div>
         </div>
     </div>
-    <div class="row">
-        <div class="col-xl-6">
-            <div class="card mb-4">
-                <div class="card-header">
-                    <i class="fas fa-chart-area me-1"></i>
-                    Area Chart Últimas Guías Emitidas
-                </div>
-                <div class="card-body"><canvas id="myAreaChart" width="100%" height="40"></canvas></div>
-            </div>
+
+    <!-- Gráfico ancho -->
+    <div class="card mb-4 shadow-sm rounded-3">
+        <div class="card-header bg-light fw-semibold d-flex align-items-center">
+            <i class="fas fa-chart-area me-2"></i> Últimas Guías Emitidas
         </div>
-        <div class="col-xl-6">
-            <div class="card mb-4">
-                <div class="card-header">
-                    <i class="fas fa-chart-bar me-1"></i>
-                    Bar Chart Ultimas Guías Emitidas
-                </div>
-                <div class="card-body"><canvas id="myBarChart" width="100%" height="40"></canvas></div>
-            </div>
+        <div class="card-body p-3">
+            <canvas id="myAreaChart" style="width: 100%; height: 350px;"></canvas>
+            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
         </div>
     </div>
-    <div class="card mb-4">
-        <div class="card-header">
-            <i class="fas fa-table me-1"></i>
-            DataTable Discrepancias
+
+    <!-- Tabla principal -->
+    <div class="card mb-5 shadow-sm rounded-3">
+        <div class="card-header bg-light fw-semibold d-flex align-items-center">
+            <i class="fas fa-exclamation-circle me-2"></i> Tabla de Discrepancias en Guías
         </div>
-        <div class="card-body">
-            <table id="datatablesSimple">
-                <thead>
-                    <tr>
-                        <th>EAN/SKU</th>
-                        <th>Descripción</th>
-                        <th>Estado</th>
-                        <th>Cantidad</th>
-                        <th>Fecha de entrega</th>
-                        <th>Salary</th>
-                    </tr>
+        <div class="card-body p-3">
+            <table id="datatablesSimple" class="table table-striped table-hover align-middle">
+                <thead class="table-primary">
+                <tr>
+                    <th>EAN/SKU</th>
+                    <th>Descripción</th>
+                    <th>Estado</th>
+                    <th>Cantidad</th>
+                    <th>Fecha de entrega</th>
+                </tr>
                 </thead>
-                <tfoot>
-                    <tr>
-                        <th>EAN/SKU</th>
-                        <th>Descripción</th>
-                        <th>Estado</th>
-                        <th>Cantidad</th>
-                        <th>Fecha de entrega</th>
-                        <th>Salary</th>
-                    </tr>
-                </tfoot>
                 <tbody>
-                    <tr>
-                        <td>Tiger Nixon</td>
-                        <td>System Architect</td>
-                        <td>Edinburgh</td>
-                        <td>61</td>
-                        <td>2011/04/25</td>
-                        <td>$320,800</td>
-                    </tr>
-                    <tr>
-                        <td>Garrett Winters</td>
-                        <td>Accountant</td>
-                        <td>Tokyo</td>
-                        <td>63</td>
-                        <td>2011/07/25</td>
-                        <td>$170,750</td>
-                    </tr>
-                    <tr>
-                        <td>Ashton Cox</td>
-                        <td>Junior Technical Author</td>
-                        <td>San Francisco</td>
-                        <td>66</td>
-                        <td>2009/01/12</td>
-                        <td>$86,000</td>
-                    </tr>
-                    <tr>
-                        <td>Cedric Kelly</td>
-                        <td>Senior Javascript Developer</td>
-                        <td>Edinburgh</td>
-                        <td>22</td>
-                        <td>2012/03/29</td>
-                        <td>$433,060</td>
-                    </tr>
-                    <tr>
-                        <td>Airi Satou</td>
-                        <td>Accountant</td>
-                        <td>Tokyo</td>
-                        <td>33</td>
-                        <td>2008/11/28</td>
-                        <td>$162,700</td>
-                    </tr>
-                    <tr>
-                        <td>Brielle Williamson</td>
-                        <td>Integration Specialist</td>
-                        <td>New York</td>
-                        <td>61</td>
-                        <td>2012/12/02</td>
-                        <td>$372,000</td>
-                    </tr>
-                    <tr>
-                        <td>Herrod Chandler</td>
-                        <td>Sales Assistant</td>
-                        <td>San Francisco</td>
-                        <td>59</td>
-                        <td>2012/08/06</td>
-                        <td>$137,500</td>
-                    </tr>
-                    <tr>
-                        <td>Rhona Davidson</td>
-                        <td>Integration Specialist</td>
-                        <td>Tokyo</td>
-                        <td>55</td>
-                        <td>2010/10/14</td>
-                        <td>$327,900</td>
-                    </tr>
-                    <tr>
-                        <td>Colleen Hurst</td>
-                        <td>Javascript Developer</td>
-                        <td>San Francisco</td>
-                        <td>39</td>
-                        <td>2009/09/15</td>
-                        <td>$205,500</td>
-                    </tr>
-                    <tr>
-                        <td>Sonya Frost</td>
-                        <td>Software Engineer</td>
-                        <td>Edinburgh</td>
-                        <td>23</td>
-                        <td>2008/12/13</td>
-                        <td>$103,600</td>
-                    </tr>
-                    <tr>
-                        <td>Jena Gaines</td>
-                        <td>Office Manager</td>
-                        <td>London</td>
-                        <td>30</td>
-                        <td>2008/12/19</td>
-                        <td>$90,560</td>
-                    </tr>
-                    <tr>
-                        <td>Quinn Flynn</td>
-                        <td>Support Lead</td>
-                        <td>Edinburgh</td>
-                        <td>22</td>
-                        <td>2013/03/03</td>
-                        <td>$342,000</td>
-                    </tr>
-                    <tr>
-                        <td>Charde Marshall</td>
-                        <td>Regional Director</td>
-                        <td>San Francisco</td>
-                        <td>36</td>
-                        <td>2008/10/16</td>
-                        <td>$470,600</td>
-                    </tr>
-                    <tr>
-                        <td>Haley Kennedy</td>
-                        <td>Senior Marketing Designer</td>
-                        <td>London</td>
-                        <td>43</td>
-                        <td>2012/12/18</td>
-                        <td>$313,500</td>
-                    </tr>
-                    <tr>
-                        <td>Tatyana Fitzpatrick</td>
-                        <td>Regional Director</td>
-                        <td>London</td>
-                        <td>19</td>
-                        <td>2010/03/17</td>
-                        <td>$385,750</td>
-                    </tr>
-                    <tr>
-                        <td>Michael Silva</td>
-                        <td>Marketing Designer</td>
-                        <td>London</td>
-                        <td>66</td>
-                        <td>2012/11/27</td>
-                        <td>$198,500</td>
-                    </tr>
-                    <tr>
-                        <td>Paul Byrd</td>
-                        <td>Chief Financial Officer (CFO)</td>
-                        <td>New York</td>
-                        <td>64</td>
-                        <td>2010/06/09</td>
-                        <td>$725,000</td>
-                    </tr>
-                    <tr>
-                        <td>Gloria Little</td>
-                        <td>Systems Administrator</td>
-                        <td>New York</td>
-                        <td>59</td>
-                        <td>2009/04/10</td>
-                        <td>$237,500</td>
-                    </tr>
-                    <tr>
-                        <td>Bradley Greer</td>
-                        <td>Software Engineer</td>
-                        <td>London</td>
-                        <td>41</td>
-                        <td>2012/10/13</td>
-                        <td>$132,000</td>
-                    </tr>
-                    <tr>
-                        <td>Dai Rios</td>
-                        <td>Personnel Lead</td>
-                        <td>Edinburgh</td>
-                        <td>35</td>
-                        <td>2012/09/26</td>
-                        <td>$217,500</td>
-                    </tr>
-                    <tr>
-                        <td>Jenette Caldwell</td>
-                        <td>Development Lead</td>
-                        <td>New York</td>
-                        <td>30</td>
-                        <td>2011/09/03</td>
-                        <td>$345,000</td>
-                    </tr>
-                    <tr>
-                        <td>Yuri Berry</td>
-                        <td>Chief Marketing Officer (CMO)</td>
-                        <td>New York</td>
-                        <td>40</td>
-                        <td>2009/06/25</td>
-                        <td>$675,000</td>
-                    </tr>
-                    <tr>
-                        <td>Caesar Vance</td>
-                        <td>Pre-Sales Support</td>
-                        <td>New York</td>
-                        <td>21</td>
-                        <td>2011/12/12</td>
-                        <td>$106,450</td>
-                    </tr>
-                    <tr>
-                        <td>Doris Wilder</td>
-                        <td>Sales Assistant</td>
-                        <td>Sidney</td>
-                        <td>23</td>
-                        <td>2010/09/20</td>
-                        <td>$85,600</td>
-                    </tr>
-                    <tr>
-                        <td>Angelica Ramos</td>
-                        <td>Chief Executive Officer (CEO)</td>
-                        <td>London</td>
-                        <td>47</td>
-                        <td>2009/10/09</td>
-                        <td>$1,200,000</td>
-                    </tr>
-                    <tr>
-                        <td>Gavin Joyce</td>
-                        <td>Developer</td>
-                        <td>Edinburgh</td>
-                        <td>42</td>
-                        <td>2010/12/22</td>
-                        <td>$92,575</td>
-                    </tr>
-                    <tr>
-                        <td>Jennifer Chang</td>
-                        <td>Regional Director</td>
-                        <td>Singapore</td>
-                        <td>28</td>
-                        <td>2010/11/14</td>
-                        <td>$357,650</td>
-                    </tr>
-                    <tr>
-                        <td>Brenden Wagner</td>
-                        <td>Software Engineer</td>
-                        <td>San Francisco</td>
-                        <td>28</td>
-                        <td>2011/06/07</td>
-                        <td>$206,850</td>
-                    </tr>
-                    <tr>
-                        <td>Fiona Green</td>
-                        <td>Chief Operating Officer (COO)</td>
-                        <td>San Francisco</td>
-                        <td>48</td>
-                        <td>2010/03/11</td>
-                        <td>$850,000</td>
-                    </tr>
-                    <tr>
-                        <td>Shou Itou</td>
-                        <td>Regional Marketing</td>
-                        <td>Tokyo</td>
-                        <td>20</td>
-                        <td>2011/08/14</td>
-                        <td>$163,000</td>
-                    </tr>
-                    <tr>
-                        <td>Michelle House</td>
-                        <td>Integration Specialist</td>
-                        <td>Sidney</td>
-                        <td>37</td>
-                        <td>2011/06/02</td>
-                        <td>$95,400</td>
-                    </tr>
-                    <tr>
-                        <td>Suki Burks</td>
-                        <td>Developer</td>
-                        <td>London</td>
-                        <td>53</td>
-                        <td>2009/10/22</td>
-                        <td>$114,500</td>
-                    </tr>
-                    <tr>
-                        <td>Prescott Bartlett</td>
-                        <td>Technical Author</td>
-                        <td>London</td>
-                        <td>27</td>
-                        <td>2011/05/07</td>
-                        <td>$145,000</td>
-                    </tr>
-                    <tr>
-                        <td>Gavin Cortez</td>
-                        <td>Team Leader</td>
-                        <td>San Francisco</td>
-                        <td>22</td>
-                        <td>2008/10/26</td>
-                        <td>$235,500</td>
-                    </tr>
-                    <tr>
-                        <td>Martena Mccray</td>
-                        <td>Post-Sales support</td>
-                        <td>Edinburgh</td>
-                        <td>46</td>
-                        <td>2011/03/09</td>
-                        <td>$324,050</td>
-                    </tr>
-                    <tr>
-                        <td>Unity Butler</td>
-                        <td>Marketing Designer</td>
-                        <td>San Francisco</td>
-                        <td>47</td>
-                        <td>2009/12/09</td>
-                        <td>$85,675</td>
-                    </tr>
-                    <tr>
-                        <td>Howard Hatfield</td>
-                        <td>Office Manager</td>
-                        <td>San Francisco</td>
-                        <td>51</td>
-                        <td>2008/12/16</td>
-                        <td>$164,500</td>
-                    </tr>
-                    <tr>
-                        <td>Hope Fuentes</td>
-                        <td>Secretary</td>
-                        <td>San Francisco</td>
-                        <td>41</td>
-                        <td>2010/02/12</td>
-                        <td>$109,850</td>
-                    </tr>
-                    <tr>
-                        <td>Vivian Harrell</td>
-                        <td>Financial Controller</td>
-                        <td>San Francisco</td>
-                        <td>62</td>
-                        <td>2009/02/14</td>
-                        <td>$452,500</td>
-                    </tr>
-                    <tr>
-                        <td>Timothy Mooney</td>
-                        <td>Office Manager</td>
-                        <td>London</td>
-                        <td>37</td>
-                        <td>2008/12/11</td>
-                        <td>$136,200</td>
-                    </tr>
-                    <tr>
-                        <td>Jackson Bradshaw</td>
-                        <td>Director</td>
-                        <td>New York</td>
-                        <td>65</td>
-                        <td>2008/09/26</td>
-                        <td>$645,750</td>
-                    </tr>
-                    <tr>
-                        <td>Olivia Liang</td>
-                        <td>Support Engineer</td>
-                        <td>Singapore</td>
-                        <td>64</td>
-                        <td>2011/02/03</td>
-                        <td>$234,500</td>
-                    </tr>
-                    <tr>
-                        <td>Bruno Nash</td>
-                        <td>Software Engineer</td>
-                        <td>London</td>
-                        <td>38</td>
-                        <td>2011/05/03</td>
-                        <td>$163,500</td>
-                    </tr>
-                    <tr>
-                        <td>Sakura Yamamoto</td>
-                        <td>Support Engineer</td>
-                        <td>Tokyo</td>
-                        <td>37</td>
-                        <td>2009/08/19</td>
-                        <td>$139,575</td>
-                    </tr>
-                    <tr>
-                        <td>Thor Walton</td>
-                        <td>Developer</td>
-                        <td>New York</td>
-                        <td>61</td>
-                        <td>2013/08/11</td>
-                        <td>$98,540</td>
-                    </tr>
-                    <tr>
-                        <td>Finn Camacho</td>
-                        <td>Support Engineer</td>
-                        <td>San Francisco</td>
-                        <td>47</td>
-                        <td>2009/07/07</td>
-                        <td>$87,500</td>
-                    </tr>
-                    <tr>
-                        <td>Serge Baldwin</td>
-                        <td>Data Coordinator</td>
-                        <td>Singapore</td>
-                        <td>64</td>
-                        <td>2012/04/09</td>
-                        <td>$138,575</td>
-                    </tr>
-                    <tr>
-                        <td>Zenaida Frank</td>
-                        <td>Software Engineer</td>
-                        <td>New York</td>
-                        <td>63</td>
-                        <td>2010/01/04</td>
-                        <td>$125,250</td>
-                    </tr>
-                    <tr>
-                        <td>Zorita Serrano</td>
-                        <td>Software Engineer</td>
-                        <td>San Francisco</td>
-                        <td>56</td>
-                        <td>2012/06/01</td>
-                        <td>$115,000</td>
-                    </tr>
-                    <tr>
-                        <td>Jennifer Acosta</td>
-                        <td>Junior Javascript Developer</td>
-                        <td>Edinburgh</td>
-                        <td>43</td>
-                        <td>2013/02/01</td>
-                        <td>$75,650</td>
-                    </tr>
-                    <tr>
-                        <td>Cara Stevens</td>
-                        <td>Sales Assistant</td>
-                        <td>New York</td>
-                        <td>46</td>
-                        <td>2011/12/06</td>
-                        <td>$145,600</td>
-                    </tr>
-                    <tr>
-                        <td>Hermione Butler</td>
-                        <td>Regional Director</td>
-                        <td>London</td>
-                        <td>47</td>
-                        <td>2011/03/21</td>
-                        <td>$356,250</td>
-                    </tr>
-                    <tr>
-                        <td>Lael Greer</td>
-                        <td>Systems Administrator</td>
-                        <td>London</td>
-                        <td>21</td>
-                        <td>2009/02/27</td>
-                        <td>$103,500</td>
-                    </tr>
-                    <tr>
-                        <td>Jonas Alexander</td>
-                        <td>Developer</td>
-                        <td>San Francisco</td>
-                        <td>30</td>
-                        <td>2010/07/14</td>
-                        <td>$86,500</td>
-                    </tr>
-                    <tr>
-                        <td>Shad Decker</td>
-                        <td>Regional Director</td>
-                        <td>Edinburgh</td>
-                        <td>51</td>
-                        <td>2008/11/13</td>
-                        <td>$183,000</td>
-                    </tr>
-                    <tr>
-                        <td>Michael Bruce</td>
-                        <td>Javascript Developer</td>
-                        <td>Singapore</td>
-                        <td>29</td>
-                        <td>2011/06/27</td>
-                        <td>$183,000</td>
-                    </tr>
-                    <tr>
-                        <td>Donna Snider</td>
-                        <td>Customer Support</td>
-                        <td>New York</td>
-                        <td>27</td>
-                        <td>2011/01/25</td>
-                        <td>$112,000</td>
-                    </tr>
+                {{-- Ejemplo estático o dinámico --}}
+{{--                 @foreach($guiascondiscrepancias as $item)--}}
+{{--                 <tr>--}}
+{{--                    <td>{{ $item->sku }}</td>--}}
+{{--                    <td>{{ $item->descripcion }}</td>--}}
+{{--                    <td>{{ $item->estado }}</td>--}}
+{{--                    <td>{{ $item->cantidad }}</td>--}}
+{{--                    <td>{{ $item->fecha_entrega }}</td>--}}
+{{--                </tr>--}}
+{{--                 @endforeach--}}
                 </tbody>
             </table>
         </div>
     </div>
+
+
+    <!-- Nuevo apartado final: Dashboard adicional -->
+    <div class="row g-4">
+        <!-- Top 5 servicios más vendidos -->
+        <div class="col-lg-4">
+            <div class="card shadow-sm rounded-3 p-3">
+                <div class="text-center mb-3">
+{{--                    <button class="btn btn-outline-success btn-sm rounded-pill px-3 fw-semibold">--}}
+{{--                        Top 5 mayores discrepancias--}}
+{{--                    </button>--}}
+                </div>
+{{--                canvas para grafico pastel--}}
+                <div class="card mb-4 shadow-sm rounded-3">
+                    <div class="card-header bg-light fw-semibold d-flex align-items-center">
+                        <i class="fas fa-chart-pie me-2"></i> Estado de Guías (Sin Daño vs Con Daño)
+                    </div>
+                    <div class="card-body p-3">
+                        <canvas id="pieChart" style="width: 100%; height: 350px;"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Top 10 clientes con más suscripciones -->
+        <div class="col-lg-4">
+            <div class="card shadow-sm rounded-3 p-3">
+                <div class="text-center mb-3">
+                    <a>Top 10 guías con más discrepancias</a>
+                </div>
+                <div class="table-responsive" style="max-height: 320px; overflow-y: auto;">
+                    <table class="table table-sm table-striped align-middle mb-0">
+                        <thead class="table-success sticky-top">
+                        <tr>
+                            <th>N° Guía</th>
+                            <th>Cantidad de productos</th>
+                            <th>Cantidad de discrepancias</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <!-- filas dinámicas -->
+{{--                        <h3 class="fw-bold">{{ $totalGuiasEmitidas }}</h3>--}}
+{{--                        {{$guiascondiscrepancias}}--}}
+                        @foreach($guiascondiscrepancias as $guia)
+                            <tr>
+                                <td>{{ $guia->codigoguia }}</td>
+                                <td>{{ $guia->cantidad_productos }}</td>
+                                <td>{{ $guia->cantidad_discrepancias }}</td>
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
+                </div>
+                {{-- Gráfico 3: Top 5 guías con más discrepancias --}}
+                <div class="card mb-4 shadow-sm rounded-3">
+                    <div class="card-header bg-light fw-semibold d-flex align-items-center">
+                        <i class="fas fa-exclamation-triangle me-2"></i> Top 5 Guías con Más Discrepancias
+                    </div>
+                    <div class="card-body p-3">
+                        <canvas id="chartTopDiscrepancias" style="width: 100%; height: 300px;"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Top 10 clientes con más renovaciones -->
+        <div class="col-lg-4">
+            <div class="card shadow-sm rounded-3 p-3">
+                <div class="text-center mb-3">
+                    <button class="btn btn-outline-success btn-sm rounded-pill px-3 fw-semibold">
+                        Top 10 clientes con más renovaciones
+                    </button>
+                </div>
+                <div class="table-responsive" style="max-height: 320px; overflow-y: auto;">
+                    <table class="table table-sm table-striped align-middle mb-0">
+                        <thead class="table-success sticky-top">
+                        <tr>
+                            <th>N°</th>
+                            <th>Nombre</th>
+                            <th>Apellido</th>
+                            <th>Cantidad de renovaciones</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <!-- filas dinámicas -->
+                        <tr><td>1</td><td>M4 FERNANDO</td><td>Fernando</td><td>12</td></tr>
+                        <tr><td>2</td><td>Cliente 2</td><td>Apellido 2</td><td>9</td></tr>
+                        <tr><td>3</td><td>Cliente 3</td><td>Apellido 3</td><td>8</td></tr>
+                        <tr><td>4</td><td>Cliente 4</td><td>Apellido 4</td><td>7</td></tr>
+                        <tr><td>5</td><td>Cliente 5</td><td>Apellido 5</td><td>5</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
+{{-- Scripts para gráficos --}}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    // Gráfico Últimas Guías Emitidas
+    const ctxArea = document.getElementById('myAreaChart').getContext('2d');
+    new Chart(ctxArea, {
+        type: 'line',
+        data: {
+            labels: {!! json_encode($ultimasGuias->pluck('fecha')) !!},
+            datasets: [{
+                label: 'Guías Emitidas',
+                data: {!! json_encode($ultimasGuias->pluck('total')) !!},
+                fill: true,
+                borderColor: 'rgba(54, 162, 235, 1)',
+                backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                tension: 0.3
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: { beginAtZero: true }
+            }
+        }
+    });
+
+    // Gráfico Pie: Estado de Guías
+    const ctxPie = document.getElementById('pieChart').getContext('2d');
+    new Chart(ctxPie, {
+        type: 'pie',
+        data: {
+            labels: ['Guías Sin Daño', 'Guías Con Daño'],
+            datasets: [{
+                label: 'Cantidad de Guías',
+                data: [{{ $guiasSinDanio }}, {{ $guiasConDanio }}],
+                backgroundColor: [
+                    'rgba(40, 167, 69, 0.7)', // verde
+                    'rgba(220, 53, 69, 0.7)'  // rojo
+                ],
+                borderColor: [
+                    'rgba(40, 167, 69, 1)',
+                    'rgba(220, 53, 69, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: { position: 'bottom', labels: { font: { size: 14 } } }
+            }
+        }
+    });
+
+    // Gráfico barras: Top 10 guías con más discrepancias
+    const ctxBar = document.getElementById('chartTopDiscrepancias').getContext('2d');
+    new Chart(ctxBar, {
+        type: 'bar',
+        data: {
+            labels: {!! json_encode($guiascondiscrepancias->pluck('codigoguia')) !!},
+            datasets: [{
+                label: 'Discrepancias',
+                data: {!! json_encode($guiascondiscrepancias->pluck('cantidad_discrepancias')) !!},
+                backgroundColor: 'rgba(220, 53, 69, 0.7)'
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    title: { display: true, text: 'Cantidad de Discrepancias' }
+                },
+                x: {
+                    title: { display: true, text: 'N° Guía' }
+                }
+            },
+            plugins: { legend: { display: false } }
+        }
+    });
+</script>
