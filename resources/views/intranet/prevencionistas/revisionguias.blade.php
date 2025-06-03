@@ -2,6 +2,7 @@
 @section('title', 'Validacion Guia Conteo')
 
 @section('content')
+    @vite('resources/css/views/prevencionistas/revisionguias.css')
     @if ($guia->estado == 'Confirmado')
         <div class="container py-5">
             <div class="row justify-content-center">
@@ -38,6 +39,18 @@
                         </div>
                     </div>
                 </div>
+            </div>
+{{--            retornar--}}
+            <div class="text-center mt-5">
+                <button onclick="window.location.href='/guiasremision'"
+                        class="btn btn-return btn-lg px-4 py-3 rounded-pill shadow-sm">
+                    <div class="d-flex align-items-center justify-content-center">
+                        <i class="fas fa-arrow-left me-3 fa-beat" style="--fa-animation-duration: 2s;"></i>
+                        <span class="position-relative">
+                Regresar al Inicio
+            </span>
+                    </div>
+                </button>
             </div>
         </div>
     @else
@@ -96,6 +109,13 @@
                                                 {{ $dt->codproducto ?? 'codigoproducto' }}</p>
                                         </div>
                                         <span class="badge bg-primary rounded-pill">{{ $dt->cant ?? 0 }}</span>
+{{--                                        boton de agregar--}}
+                                        <button class="btn btn-sm btn-outline-primary btn-seleccionar-producto"
+                                                data-codigo="{{ $dt->codproducto ?? '' }}"
+                                                data-nombre="{{ $dt->producto ?? '' }}"
+                                                data-id="{{ $dt->idproducto ?? '' }}">
+                                            <i class="fas fa-plus"></i>
+                                        </button>
                                     </li>
                                 @empty
                                     <li class="list-group-item text-center text-muted py-3">
@@ -490,6 +510,23 @@
 
             $('#btnguardar_guiarevision').click(function(e) {
                 validaarocurrencias();
+            });
+
+            // Evento para seleccionar producto desde la lista
+            $(document).on('click', '.btn-seleccionar-producto', function() {
+                const codigo = $(this).data('codigo');
+                const nombre = $(this).data('nombre');
+                const id = $(this).data('id');
+
+                $('#idtxtcodigoproducto_guiarevision').val(codigo);
+                $('#idtxtnombreproducto_guiarevision').val(nombre);
+                $('#idproductocarritogia_revision').val(id);
+
+                // Enfocar el campo de cantidad
+                $('#idtxtcantidadproducto_guiarevision').focus();
+
+                // Buscar automáticamente el producto (opcional)
+                buscarproductocodigo(codigo);
             });
         });
 

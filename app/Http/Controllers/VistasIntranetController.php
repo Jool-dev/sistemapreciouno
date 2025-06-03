@@ -39,6 +39,7 @@ class VistasIntranetController extends Controller
         if (!Auth::check()) {
             return redirect()->route('vistalogin');
         }
+
         return view('intranet.administrador.dashboard');
     }
 

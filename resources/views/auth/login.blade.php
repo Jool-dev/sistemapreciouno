@@ -89,7 +89,6 @@
                     <h3 class="mb-1">Bienvenido</h3>
                     <p class="mb-0 small">Ingresa tus credenciales para acceder</p>
                 </div>
-
                 <div class="card-body p-4">
                     <form id="formulariologin" method="POST">
                         @csrf

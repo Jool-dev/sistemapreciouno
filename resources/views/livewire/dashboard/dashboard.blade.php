@@ -8,7 +8,7 @@
                 <div class="card-body d-flex justify-content-between align-items-center">
                     <div>
                         <h6 class="mb-1 fw-semibold">Guías Emitidas</h6>
-                        <h3 class="fw-bold">1500</h3>
+                        <h3 class="fw-bold">{{ $totalGuiasEmitidas }}</h3>
                     </div>
                     <i class="fas fa-truck fa-3x opacity-75"></i>
                 </div>
@@ -20,7 +20,7 @@
                 <div class="card-body d-flex justify-content-between align-items-center">
                     <div>
                         <h6 class="mb-1 fw-semibold">Revisiones Realizadas</h6>
-                        <h3 class="fw-bold">1200</h3>
+                        <h3 class="fw-bold">{{ $totalRevisiones }}</h3>
                     </div>
                     <i class="fas fa-check-circle fa-3x opacity-75"></i>
                 </div>
@@ -32,7 +32,7 @@
                 <div class="card-body d-flex justify-content-between align-items-center">
                     <div>
                         <h6 class="mb-1 fw-semibold">Guías Sin Daño</h6>
-                        <h3 class="fw-bold">1100</h3>
+                        <h3 class="fw-bold">{{ $guiasSinDanio }}</h3>
                     </div>
                     <i class="fas fa-shield-alt fa-3x opacity-75"></i>
                 </div>
@@ -44,7 +44,7 @@
                 <div class="card-body d-flex justify-content-between align-items-center">
                     <div>
                         <h6 class="mb-1 fw-semibold">Guías Con Daño</h6>
-                        <h3 class="fw-bold">50</h3>
+                        <h3 class="fw-bold">{{ $guiasConDanio }}</h3>
                     </div>
                     <i class="fas fa-exclamation-triangle fa-3x opacity-75"></i>
                 </div>
@@ -59,13 +59,14 @@
         </div>
         <div class="card-body p-3">
             <canvas id="myAreaChart" style="width: 100%; height: 350px;"></canvas>
+            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
         </div>
     </div>
 
     <!-- Tabla principal -->
     <div class="card mb-5 shadow-sm rounded-3">
         <div class="card-header bg-light fw-semibold d-flex align-items-center">
-            <i class="fas fa-table me-2"></i> Tabla de Discrepancias
+            <i class="fas fa-exclamation-circle me-2"></i> Tabla de Discrepancias en Guías
         </div>
         <div class="card-body p-3">
             <table id="datatablesSimple" class="table table-striped table-hover align-middle">
@@ -76,28 +77,44 @@
                     <th>Estado</th>
                     <th>Cantidad</th>
                     <th>Fecha de entrega</th>
-                    <th>Salary</th>
                 </tr>
                 </thead>
                 <tbody>
-                <!-- filas aquí -->
+                {{-- Ejemplo estático o dinámico --}}
+{{--                 @foreach($guiascondiscrepancias as $item)--}}
+{{--                 <tr>--}}
+{{--                    <td>{{ $item->sku }}</td>--}}
+{{--                    <td>{{ $item->descripcion }}</td>--}}
+{{--                    <td>{{ $item->estado }}</td>--}}
+{{--                    <td>{{ $item->cantidad }}</td>--}}
+{{--                    <td>{{ $item->fecha_entrega }}</td>--}}
+{{--                </tr>--}}
+{{--                 @endforeach--}}
                 </tbody>
             </table>
         </div>
     </div>
 
+
     <!-- Nuevo apartado final: Dashboard adicional -->
     <div class="row g-4">
-
         <!-- Top 5 servicios más vendidos -->
         <div class="col-lg-4">
             <div class="card shadow-sm rounded-3 p-3">
                 <div class="text-center mb-3">
-                    <button class="btn btn-outline-success btn-sm rounded-pill px-3 fw-semibold">
-                        Top 5 servicios más vendidos
-                    </button>
+{{--                    <button class="btn btn-outline-success btn-sm rounded-pill px-3 fw-semibold">--}}
+{{--                        Top 5 mayores discrepancias--}}
+{{--                    </button>--}}
                 </div>
-                <canvas id="topServiciosChart" style="width: 100%; height: 300px;"></canvas>
+{{--                canvas para grafico pastel--}}
+                <div class="card mb-4 shadow-sm rounded-3">
+                    <div class="card-header bg-light fw-semibold d-flex align-items-center">
+                        <i class="fas fa-chart-pie me-2"></i> Estado de Guías (Sin Daño vs Con Daño)
+                    </div>
+                    <div class="card-body p-3">
+                        <canvas id="pieChart" style="width: 100%; height: 350px;"></canvas>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -105,28 +122,39 @@
         <div class="col-lg-4">
             <div class="card shadow-sm rounded-3 p-3">
                 <div class="text-center mb-3">
-                    <button class="btn btn-outline-success btn-sm rounded-pill px-3 fw-semibold">
-                        Top 10 clientes con más suscripciones
-                    </button>
+                    <a>Top 10 guías con más discrepancias</a>
                 </div>
                 <div class="table-responsive" style="max-height: 320px; overflow-y: auto;">
                     <table class="table table-sm table-striped align-middle mb-0">
                         <thead class="table-success sticky-top">
                         <tr>
-                            <th>N°</th>
-                            <th>Nombre</th>
-                            <th>Cantidad de suscripciones</th>
+                            <th>N° Guía</th>
+                            <th>Cantidad de productos</th>
+                            <th>Cantidad de discrepancias</th>
                         </tr>
                         </thead>
                         <tbody>
                         <!-- filas dinámicas -->
-                        <tr><td>1</td><td>M4 FERNANDO</td><td>5</td></tr>
-                        <tr><td>2</td><td>M35 NETFLIX COMPLETA</td><td>5</td></tr>
-                        <tr><td>3</td><td>M30 IPTV COMPLETA</td><td>5</td></tr>
-                        <tr><td>4</td><td>M17 ALDO</td><td>4</td></tr>
-                        <tr><td>5</td><td>M30 PRIME COMPLETO</td><td>3</td></tr>
+{{--                        <h3 class="fw-bold">{{ $totalGuiasEmitidas }}</h3>--}}
+{{--                        {{$guiascondiscrepancias}}--}}
+                        @foreach($guiascondiscrepancias as $guia)
+                            <tr>
+                                <td>{{ $guia->codigoguia }}</td>
+                                <td>{{ $guia->cantidad_productos }}</td>
+                                <td>{{ $guia->cantidad_discrepancias }}</td>
+                            </tr>
+                        @endforeach
                         </tbody>
                     </table>
+                </div>
+                {{-- Gráfico 3: Top 5 guías con más discrepancias --}}
+                <div class="card mb-4 shadow-sm rounded-3">
+                    <div class="card-header bg-light fw-semibold d-flex align-items-center">
+                        <i class="fas fa-exclamation-triangle me-2"></i> Top 5 Guías con Más Discrepancias
+                    </div>
+                    <div class="card-body p-3">
+                        <canvas id="chartTopDiscrepancias" style="width: 100%; height: 300px;"></canvas>
+                    </div>
                 </div>
             </div>
         </div>
@@ -161,6 +189,87 @@
                 </div>
             </div>
         </div>
-
     </div>
 </div>
+
+{{-- Scripts para gráficos --}}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    // Gráfico Últimas Guías Emitidas
+    const ctxArea = document.getElementById('myAreaChart').getContext('2d');
+    new Chart(ctxArea, {
+        type: 'line',
+        data: {
+            labels: {!! json_encode($ultimasGuias->pluck('fecha')) !!},
+            datasets: [{
+                label: 'Guías Emitidas',
+                data: {!! json_encode($ultimasGuias->pluck('total')) !!},
+                fill: true,
+                borderColor: 'rgba(54, 162, 235, 1)',
+                backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                tension: 0.3
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: { beginAtZero: true }
+            }
+        }
+    });
+
+    // Gráfico Pie: Estado de Guías
+    const ctxPie = document.getElementById('pieChart').getContext('2d');
+    new Chart(ctxPie, {
+        type: 'pie',
+        data: {
+            labels: ['Guías Sin Daño', 'Guías Con Daño'],
+            datasets: [{
+                label: 'Cantidad de Guías',
+                data: [{{ $guiasSinDanio }}, {{ $guiasConDanio }}],
+                backgroundColor: [
+                    'rgba(40, 167, 69, 0.7)', // verde
+                    'rgba(220, 53, 69, 0.7)'  // rojo
+                ],
+                borderColor: [
+                    'rgba(40, 167, 69, 1)',
+                    'rgba(220, 53, 69, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: { position: 'bottom', labels: { font: { size: 14 } } }
+            }
+        }
+    });
+
+    // Gráfico barras: Top 10 guías con más discrepancias
+    const ctxBar = document.getElementById('chartTopDiscrepancias').getContext('2d');
+    new Chart(ctxBar, {
+        type: 'bar',
+        data: {
+            labels: {!! json_encode($guiascondiscrepancias->pluck('codigoguia')) !!},
+            datasets: [{
+                label: 'Discrepancias',
+                data: {!! json_encode($guiascondiscrepancias->pluck('cantidad_discrepancias')) !!},
+                backgroundColor: 'rgba(220, 53, 69, 0.7)'
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    title: { display: true, text: 'Cantidad de Discrepancias' }
+                },
+                x: {
+                    title: { display: true, text: 'N° Guía' }
+                }
+            },
+            plugins: { legend: { display: false } }
+        }
+    });
+</script>
