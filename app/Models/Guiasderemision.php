@@ -7,7 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
-class Guiasderemision extends Model {
+class Guiasderemision extends Model
+{
     protected $table = 'guiaremision'; // Especifica el horaemision exacto de la tabla
     protected $primaryKey = 'idguia'; // Si tu clave primaria no se llama "id"
     public $timestamps = false; // Desactiva codigoguiaestamps si tu tabla no tiene created_at / updated_at
@@ -27,8 +28,9 @@ class Guiasderemision extends Model {
         'idconductor',
         'idtipoempresa',
     ];
-    public function mostrarguiasderemision(array $parametros = []): array {
-//        $query = DB::table('v_guiaremision');
+    public function mostrarguiasderemision(array $parametros = []): array
+    {
+        //        $query = DB::table('v_guiaremision');
         $query = DB::table('v_guiaremision')->where('estado', '!=', 'Eliminado');
 
         // Filtros condicionales
@@ -105,7 +107,8 @@ class Guiasderemision extends Model {
         );
     }
 
-    public function mostrardetalleguia(array $parametros = []): array {
+    public function mostrardetalleguia(array $parametros = []): array
+    {
         $query = DB::table('v_detalleguia');
 
         // Filtros condicionales
@@ -134,7 +137,8 @@ class Guiasderemision extends Model {
         );
     }
 
-    public function insertarguiaremision(array $data): array {
+    public function insertarguiaremision(array $data): array
+    {
         // Definir variables de salida
         DB::statement("SET @idguia = 0;");
         DB::statement("SET @success = 0;");
@@ -170,7 +174,8 @@ class Guiasderemision extends Model {
         );
     }
 
-    public function insertardetalleguiaremision(array $data): array {
+    public function insertardetalleguiaremision(array $data): array
+    {
         // Definir variables de salida
         DB::statement("SET @iddetalleguia = 0;");
         DB::statement("SET @success = 0;");
@@ -198,7 +203,8 @@ class Guiasderemision extends Model {
         );
     }
 
-    public function editarguia(array $datos): array {
+    public function editarguia(array $datos): array
+    {
         if (!isset($datos['idguia'])) {
             return GlobalModel::returnArray(false, 'idguia es obligatorio');
         }

@@ -104,7 +104,7 @@ class VistasIntranetController extends Controller
         $tipoempresa = TipoEmpresa::all();
         $productos = Productos::all();
 
-        return view('intranet.prevencionistas.addguiasremision', compact('transportes','conductores', 'tipoempresa', 'productos'));
+        return view('intranet.prevencionistas.addguiasremision', compact('transportes', 'conductores', 'tipoempresa', 'productos'));
     }
 
     public function vistadetalleguia($idguia = null)

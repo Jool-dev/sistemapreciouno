@@ -9,7 +9,8 @@ use Illuminate\Support\Facades\Auth;
 
 class UsuariosController extends Controller
 {
-    public function validarLogin(Request $request) {
+    public function validarLogin(Request $request)
+    {
 
         global $success, $message, $idrol;
 
@@ -23,7 +24,7 @@ class UsuariosController extends Controller
             if (Auth::attempt(['email' => $validated['email'], 'password' => $validated['password']])) {
                 $modeloUsuario = new User();
                 $usuario = $modeloUsuario->existeusuario($validated['email']);
-                if($usuario["data"] !== null){
+                if ($usuario["data"] !== null) {
                     // Guardar en sesión personalizada
                     session(['usuariologeado' => $usuario]);
                 }
@@ -40,18 +41,17 @@ class UsuariosController extends Controller
                 'message' => $message,
                 'idrol' => $idrol,
             ]);
-
-        }
-        catch (\Exception $ex) {
+        } catch (\Exception $ex) {
             return response()->json([
                 'success' => false,
-                'message' => 'Error en iniciar sesion: '.$ex->getMessage(),
+                'message' => 'Error en iniciar sesion: ' . $ex->getMessage(),
                 'error_details' => env('APP_DEBUG') ? $ex->getTrace() : null
             ], 500);
         }
     }
-    public function verificarusuario(Request $request) {
-        try{
+    public function verificarusuario(Request $request)
+    {
+        try {
             $validated = $request->validate([
                 "id" => "nullable",
                 'name' => 'required',
@@ -60,14 +60,13 @@ class UsuariosController extends Controller
             ]);
 
             $gestionusuario = new gestionusuario();
-            if($validated['id'] === null){
+            if ($validated['id'] === null) {
                 $usuario = $gestionusuario->insertarvehiculos([
                     "name" => $validated['name'],
                     "email" => $validated['email'],
                     "password" => $validated['password']
                 ]);
-            }
-            else{
+            } else {
                 $usuario = $gestionusuario->editarvehiculo([
                     "id" => $validated['id'],
                     "name" => $validated['name'],
@@ -76,7 +75,7 @@ class UsuariosController extends Controller
                 ]);
             }
 
-            if(!$usuario["success"]){
+            if (!$usuario["success"]) {
                 throw new Exception($usuario["message"]);
             }
 
@@ -84,17 +83,17 @@ class UsuariosController extends Controller
                 'success' => true,
                 'message' => $usuario["message"],
             ]);
-        }
-        catch (\Exception $ex){
+        } catch (\Exception $ex) {
             return response()->json([
                 'success' => false,
-                'message' => 'Error al guardar los datos: '.$ex->getMessage(),
+                'message' => 'Error al guardar los datos: ' . $ex->getMessage(),
                 'error_details' => env('APP_DEBUG') ? $ex->getTrace() : null
             ], 500);
         }
     }
 
-    public function eliminarusuario(Request $request) {
+    public function eliminarusuario(Request $request)
+    {
         try {
             $validated = $request->validate([
                 "id" => "nullable",
@@ -106,7 +105,7 @@ class UsuariosController extends Controller
                 "estado" => "Eliminado"
             ]);
 
-            if(!$usuario["success"]){
+            if (!$usuario["success"]) {
                 throw new Exception($usuario["message"]);
             }
 
@@ -114,11 +113,10 @@ class UsuariosController extends Controller
                 'success' => true,
                 'message' => "Eliminado correctamente",
             ]);
-        }
-        catch (\Exception $ex){
+        } catch (\Exception $ex) {
             return response()->json([
                 'success' => false,
-                'message' => 'Error al Eliminar los usuarios: '.$ex->getMessage(),
+                'message' => 'Error al Eliminar los usuarios: ' . $ex->getMessage(),
                 'error_details' => env('APP_DEBUG') ? $ex->getTrace() : null
             ], 500);
         }

@@ -16,10 +16,10 @@ class Conductoress extends Component
     public function render()
     {
         $modeloconductores = new Conductores();
-//      Obtener datos principales (sin cambiar tu lógica actual)
+        //      Obtener datos principales (sin cambiar tu lógica actual)
         $data = $modeloconductores->mostrarconductores();
 
-//      Obtener transportes y vehículos activos (nuevo)
+        //      Obtener transportes y vehículos activos (nuevo)
         $transportes = Transporte::where('estado', 'activo')->get();
         $vehiculos = Vehiculo::where('estado', 'activo')->get();
         return view('livewire.conductoress.conductoress', [

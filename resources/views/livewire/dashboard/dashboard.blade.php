@@ -52,15 +52,15 @@
     </div>
 
     <!-- Gráfico ancho -->
-{{--    <div class="card mb-4 shadow-sm rounded-3">--}}
-{{--        <div class="card-header bg-light fw-semibold d-flex align-items-center">--}}
-{{--            <i class="fas fa-chart-area me-2"></i> Últimas Guías Emitidas--}}
-{{--        </div>--}}
-{{--        <div class="card-body p-3">--}}
-{{--            <canvas id="myAreaChart" style="width: 100%; height: 350px;"></canvas>--}}
-{{--            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>--}}
-{{--        </div>--}}
-{{--    </div>--}}
+    {{--    <div class="card mb-4 shadow-sm rounded-3"> --}}
+    {{--        <div class="card-header bg-light fw-semibold d-flex align-items-center"> --}}
+    {{--            <i class="fas fa-chart-area me-2"></i> Últimas Guías Emitidas --}}
+    {{--        </div> --}}
+    {{--        <div class="card-body p-3"> --}}
+    {{--            <canvas id="myAreaChart" style="width: 100%; height: 350px;"></canvas> --}}
+    {{--            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> --}}
+    {{--        </div> --}}
+    {{--    </div> --}}
     <!-- Gráfico de líneas: Guías sin y con discrepancias -->
     <div class="card mb-4 shadow-sm rounded-3">
         <div class="card-header bg-light fw-semibold d-flex align-items-center">
@@ -79,25 +79,25 @@
         <div class="card-body p-3">
             <table id="datatablesSimple" class="table table-striped table-hover align-middle">
                 <thead class="table-primary">
-                <tr>
-                    <th>EAN/SKU</th>
-                    <th>Descripción</th>
-                    <th>Estado</th>
-                    <th>Cantidad</th>
-                    <th>Fecha de entrega</th>
-                </tr>
+                    <tr>
+                        <th>EAN/SKU</th>
+                        <th>Descripción</th>
+                        <th>Estado</th>
+                        <th>Cantidad</th>
+                        <th>Fecha de entrega</th>
+                    </tr>
                 </thead>
                 <tbody>
-                {{-- Ejemplo estático o dinámico --}}
-{{--                 @foreach($guiascondiscrepancias as $item)--}}
-{{--                 <tr>--}}
-{{--                    <td>{{ $item->sku }}</td>--}}
-{{--                    <td>{{ $item->descripcion }}</td>--}}
-{{--                    <td>{{ $item->estado }}</td>--}}
-{{--                    <td>{{ $item->cantidad }}</td>--}}
-{{--                    <td>{{ $item->fecha_entrega }}</td>--}}
-{{--                </tr>--}}
-{{--                 @endforeach--}}
+                    {{-- Ejemplo estático o dinámico --}}
+                    {{--                 @foreach ($guiascondiscrepancias as $item) --}}
+                    {{--                 <tr> --}}
+                    {{--                    <td>{{ $item->sku }}</td> --}}
+                    {{--                    <td>{{ $item->descripcion }}</td> --}}
+                    {{--                    <td>{{ $item->estado }}</td> --}}
+                    {{--                    <td>{{ $item->cantidad }}</td> --}}
+                    {{--                    <td>{{ $item->fecha_entrega }}</td> --}}
+                    {{--                </tr> --}}
+                    {{--                 @endforeach --}}
                 </tbody>
             </table>
         </div>
@@ -110,11 +110,11 @@
         <div class="col-lg-4">
             <div class="card shadow-sm rounded-3 p-3">
                 <div class="text-center mb-3">
-{{--                    <button class="btn btn-outline-success btn-sm rounded-pill px-3 fw-semibold">--}}
-{{--                        Top 5 mayores discrepancias--}}
-{{--                    </button>--}}
+                    {{--                    <button class="btn btn-outline-success btn-sm rounded-pill px-3 fw-semibold"> --}}
+                    {{--                        Top 5 mayores discrepancias --}}
+                    {{--                    </button> --}}
                 </div>
-{{--                canvas para grafico pastel--}}
+                {{--                canvas para grafico pastel --}}
                 <div class="card mb-4 shadow-sm rounded-3">
                     <div class="card-header bg-light fw-semibold d-flex align-items-center">
                         <i class="fas fa-chart-pie me-2"></i> Estado de Guías (Sin Daño vs Con Daño)
@@ -135,23 +135,23 @@
                 <div class="table-responsive" style="max-height: 320px; overflow-y: auto;">
                     <table class="table table-sm table-striped align-middle mb-0">
                         <thead class="table-success sticky-top">
-                        <tr>
-                            <th>N° Guía</th>
-                            <th>Cantidad de productos</th>
-                            <th>Cantidad de discrepancias</th>
-                        </tr>
+                            <tr>
+                                <th>N° Guía</th>
+                                <th>Cantidad de productos</th>
+                                <th>Cantidad de discrepancias</th>
+                            </tr>
                         </thead>
                         <tbody>
-                        <!-- filas dinámicas -->
-{{--                        <h3 class="fw-bold">{{ $totalGuiasEmitidas }}</h3>--}}
-{{--                        {{$guiascondiscrepancias}}--}}
-                        @foreach($guiascondiscrepancias as $guia)
-                            <tr>
-                                <td>{{ $guia->codigoguia }}</td>
-                                <td>{{ $guia->cantidad_productos }}</td>
-                                <td>{{ $guia->cantidad_discrepancias }}</td>
-                            </tr>
-                        @endforeach
+                            <!-- filas dinámicas -->
+                            {{--                        <h3 class="fw-bold">{{ $totalGuiasEmitidas }}</h3> --}}
+                            {{--                        {{$guiascondiscrepancias}} --}}
+                            @foreach ($guiascondiscrepancias as $guia)
+                                <tr>
+                                    <td>{{ $guia->codigoguia }}</td>
+                                    <td>{{ $guia->cantidad_productos }}</td>
+                                    <td>{{ $guia->cantidad_discrepancias }}</td>
+                                </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
@@ -178,20 +178,45 @@
                 <div class="table-responsive" style="max-height: 320px; overflow-y: auto;">
                     <table class="table table-sm table-striped align-middle mb-0">
                         <thead class="table-success sticky-top">
-                        <tr>
-                            <th>N°</th>
-                            <th>Nombre</th>
-                            <th>Apellido</th>
-                            <th>Cantidad de renovaciones</th>
-                        </tr>
+                            <tr>
+                                <th>N°</th>
+                                <th>Nombre</th>
+                                <th>Apellido</th>
+                                <th>Cantidad de renovaciones</th>
+                            </tr>
                         </thead>
                         <tbody>
-                        <!-- filas dinámicas -->
-                        <tr><td>1</td><td>M4 FERNANDO</td><td>Fernando</td><td>12</td></tr>
-                        <tr><td>2</td><td>Cliente 2</td><td>Apellido 2</td><td>9</td></tr>
-                        <tr><td>3</td><td>Cliente 3</td><td>Apellido 3</td><td>8</td></tr>
-                        <tr><td>4</td><td>Cliente 4</td><td>Apellido 4</td><td>7</td></tr>
-                        <tr><td>5</td><td>Cliente 5</td><td>Apellido 5</td><td>5</td></tr>
+                            <!-- filas dinámicas -->
+                            <tr>
+                                <td>1</td>
+                                <td>M4 FERNANDO</td>
+                                <td>Fernando</td>
+                                <td>12</td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>Cliente 2</td>
+                                <td>Apellido 2</td>
+                                <td>9</td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td>Cliente 3</td>
+                                <td>Apellido 3</td>
+                                <td>8</td>
+                            </tr>
+                            <tr>
+                                <td>4</td>
+                                <td>Cliente 4</td>
+                                <td>Apellido 4</td>
+                                <td>7</td>
+                            </tr>
+                            <tr>
+                                <td>5</td>
+                                <td>Cliente 5</td>
+                                <td>Apellido 5</td>
+                                <td>5</td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
@@ -204,34 +229,33 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
     // Gráfico Últimas Guías Emitidas
-    {{--const ctxArea = document.getElementById('myAreaChart').getContext('2d');--}}
-    {{--new Chart(ctxArea, {--}}
-    {{--    type: 'line',--}}
-    {{--    data: {--}}
-    {{--        labels: {!! json_encode($ultimasGuias->pluck('fecha')) !!},--}}
-    {{--        datasets: [{--}}
-    {{--            label: 'Guías Emitidas',--}}
-    {{--            data: {!! json_encode($ultimasGuias->pluck('total')) !!},--}}
-    {{--            fill: true,--}}
-    {{--            borderColor: 'rgba(54, 162, 235, 1)',--}}
-    {{--            backgroundColor: 'rgba(54, 162, 235, 0.2)',--}}
-    {{--            tension: 0.3--}}
-    {{--        }]--}}
-    {{--    },--}}
-    {{--    options: {--}}
-    {{--        responsive: true,--}}
-    {{--        scales: {--}}
-    {{--            y: { beginAtZero: true }--}}
-    {{--        }--}}
-    {{--    }--}}
-    {{--});--}}
+    {{-- const ctxArea = document.getElementById('myAreaChart').getContext('2d'); --}}
+    {{-- new Chart(ctxArea, { --}}
+    {{--    type: 'line', --}}
+    {{--    data: { --}}
+    {{--        labels: {!! json_encode($ultimasGuias->pluck('fecha')) !!}, --}}
+    {{--        datasets: [{ --}}
+    {{--            label: 'Guías Emitidas', --}}
+    {{--            data: {!! json_encode($ultimasGuias->pluck('total')) !!}, --}}
+    {{--            fill: true, --}}
+    {{--            borderColor: 'rgba(54, 162, 235, 1)', --}}
+    {{--            backgroundColor: 'rgba(54, 162, 235, 0.2)', --}}
+    {{--            tension: 0.3 --}}
+    {{--        }] --}}
+    {{--    }, --}}
+    {{--    options: { --}}
+    {{--        responsive: true, --}}
+    {{--        scales: { --}}
+    {{--            y: { beginAtZero: true } --}}
+    {{--        } --}}
+    {{--    } --}}
+    {{-- }); --}}
     const ctxGuias = document.getElementById('chartGuiasDiscrepancias').getContext('2d');
     new Chart(ctxGuias, {
         type: 'line',
         data: {
             labels: @json($fechas),
-            datasets: [
-                {
+            datasets: [{
                     label: 'Guías Sin Discrepancias',
                     data: @json($datosSinDiscrepancias),
                     borderColor: 'orange',
@@ -252,11 +276,20 @@
         options: {
             responsive: true,
             plugins: {
-                legend: { position: 'top' }
+                legend: {
+                    position: 'top'
+                }
             },
             scales: {
-                y: { beginAtZero: true },
-                x: { title: { display: true, text: 'Fecha de emisión' } }
+                y: {
+                    beginAtZero: true
+                },
+                x: {
+                    title: {
+                        display: true,
+                        text: 'Fecha de emisión'
+                    }
+                }
             }
         }
     });
@@ -272,7 +305,7 @@
                 data: [{{ $guiasSinDanio }}, {{ $guiasConDanio }}],
                 backgroundColor: [
                     'rgba(40, 167, 69, 0.7)', // verde
-                    'rgba(220, 53, 69, 0.7)'  // rojo
+                    'rgba(220, 53, 69, 0.7)' // rojo
                 ],
                 borderColor: [
                     'rgba(40, 167, 69, 1)',
@@ -284,7 +317,14 @@
         options: {
             responsive: true,
             plugins: {
-                legend: { position: 'bottom', labels: { font: { size: 14 } } }
+                legend: {
+                    position: 'bottom',
+                    labels: {
+                        font: {
+                            size: 14
+                        }
+                    }
+                }
             }
         }
     });
@@ -306,13 +346,23 @@
             scales: {
                 y: {
                     beginAtZero: true,
-                    title: { display: true, text: 'Cantidad de Discrepancias' }
+                    title: {
+                        display: true,
+                        text: 'Cantidad de Discrepancias'
+                    }
                 },
                 x: {
-                    title: { display: true, text: 'N° Guía' }
+                    title: {
+                        display: true,
+                        text: 'N° Guía'
+                    }
                 }
             },
-            plugins: { legend: { display: false } }
+            plugins: {
+                legend: {
+                    display: false
+                }
+            }
         }
     });
 </script>

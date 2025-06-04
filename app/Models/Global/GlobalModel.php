@@ -8,9 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Storage;
 
-class GlobalModel extends Model {
+class GlobalModel extends Model
+{
 
-    public static function eliminarFoto(?string $ruta): bool {
+    public static function eliminarFoto(?string $ruta): bool
+    {
         if (!$ruta) {
             return false; // No hay ruta proporcionada
         }
@@ -26,7 +28,8 @@ class GlobalModel extends Model {
         return false; // No se encontró el archivo
     }
 
-    public static function returnArray($success, $message, $data = "hola",  $parametros = []): array {
+    public static function returnArray($success, $message, $data = "hola",  $parametros = []): array
+    {
         $response = array(
             "success" => $success == null ? false : $success,
             "message" => $message == null ? "returnArray: no Enviada" : $message,
@@ -38,14 +41,15 @@ class GlobalModel extends Model {
             }
         }
 
-        if($data != "hola"){
+        if ($data != "hola") {
             $response["data"] = empty($data) ? null : $data;
         }
 
         return $response;
     }
 
-    public static function respuestaJson( bool $success, string $message, $data = null,  array $additionalParams = [], int $httpCode = 200): JsonResponse {
+    public static function respuestaJson(bool $success, string $message, $data = null,  array $additionalParams = [], int $httpCode = 200): JsonResponse
+    {
         // Estructura base de la respuesta
         $response = [
             'result' => [
@@ -72,7 +76,8 @@ class GlobalModel extends Model {
     /**
      * @throws Exception
      */
-    public static function traducirDiasSemana($fecha, $idiomaDestino = 'es'): array|string {
+    public static function traducirDiasSemana($fecha, $idiomaDestino = 'es'): array|string
+    {
         // Mapas de traducción de los días de la semana
         $diasSemana = [
             'en' => ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
@@ -99,12 +104,32 @@ class GlobalModel extends Model {
         // Mapas de traducción de los meses
         $meses = [
             'en' => [
-                'January', 'February', 'March', 'April', 'May', 'June',
-                'July', 'August', 'September', 'October', 'November', 'December'
+                'January',
+                'February',
+                'March',
+                'April',
+                'May',
+                'June',
+                'July',
+                'August',
+                'September',
+                'October',
+                'November',
+                'December'
             ],
             'es' => [
-                'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
-                'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'
+                'Enero',
+                'Febrero',
+                'Marzo',
+                'Abril',
+                'Mayo',
+                'Junio',
+                'Julio',
+                'Agosto',
+                'Septiembre',
+                'Octubre',
+                'Noviembre',
+                'Diciembre'
             ],
         ];
 
@@ -118,7 +143,8 @@ class GlobalModel extends Model {
         return $indice !== false ? $meses[$idiomaDestino][$indice] : $nombreMes;
     }
 
-    public static function formatearFecha($fecha): string {
+    public static function formatearFecha($fecha): string
+    {
         // Convertir la fecha en un objeto DateTime
         $date = new DateTime($fecha);
 
@@ -134,12 +160,12 @@ class GlobalModel extends Model {
         return strtoupper("$dia de $mesEspanol, $anio");
     }
 
-    public static function formatearHora($fecha): string {
+    public static function formatearHora($fecha): string
+    {
         // Convertir la fecha en un objeto DateTime
         try {
             $date = new DateTime($fecha);
         } catch (\DateMalformedStringException $e) {
-
         }
 
         // Obtener la hora en formato 12h con AM/PM

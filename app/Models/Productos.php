@@ -20,15 +20,16 @@ class Productos extends Model
         'fecharegistro',
     ];
 
-    public function mostraproducto(array $parametros = []): array {
+    public function mostraproducto(array $parametros = []): array
+    {
         $query = DB::table('v_producto');
 
         // Búsqueda
         if (!empty($parametros['search'])) {
             $searchTerm = $parametros['search'];
-            $query->where(function($q) use ($searchTerm) {
-                $q->where('nombre', 'like', '%'.$searchTerm.'%')
-                    ->orWhere('codigoproducto', 'like', '%'.$searchTerm.'%');
+            $query->where(function ($q) use ($searchTerm) {
+                $q->where('nombre', 'like', '%' . $searchTerm . '%')
+                    ->orWhere('codigoproducto', 'like', '%' . $searchTerm . '%');
             });
         }
 
@@ -91,7 +92,8 @@ class Productos extends Model
         );
     }
 
-    public function insertarproductos(array $data): array {
+    public function insertarproductos(array $data): array
+    {
         // Definir variables de salida
         DB::statement("SET @idproducto = 0;");
         DB::statement("SET @success = 0;");

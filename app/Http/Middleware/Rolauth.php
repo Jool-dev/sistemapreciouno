@@ -13,7 +13,8 @@ class Rolauth
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next, ...$roles): Response{
+    public function handle(Request $request, Closure $next, ...$roles): Response
+    {
         $usuario = session('usuariologeado');
 
         $rol = strtolower($usuario['data'][0]['rol']);

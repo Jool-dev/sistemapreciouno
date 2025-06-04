@@ -34,22 +34,24 @@
                         <td class="text-start text-wrap" style="max-width: 200px;">{{ $guia['observaciones'] }}</td>
                         <td>
                             <div class="d-flex justify-content-center gap-2 flex-wrap">
-                                <a href="{{ route('vistadetalleguia', ["idguia" => $guia['idguia']])}}" class="btn btn-sm btn-outline-info" title="Ver Detalle">
+                                <a href="{{ route('vistadetalleguia', ['idguia' => $guia['idguia']]) }}"
+                                    class="btn btn-sm btn-outline-info" title="Ver Detalle">
                                     <i class="fa-solid fa-circle-info"></i>
                                 </a>
                                 <!-- Botón Editar -->
-                                <button type="button" class="btn btn-sm btn-outline-warning btn-editarguia" title="Editar">
+                                <button type="button" class="btn btn-sm btn-outline-warning btn-editarguia"
+                                    title="Editar">
                                     <i class="fa-regular fa-pen-to-square"></i>
                                 </button>
                                 <!-- Botón Eliminar -->
                                 <button type="button" class="btn btn-sm btn-outline-danger btn-eliminarguia"
-                                        data-id="{{ $guia['idguia'] }}" title="Eliminar">
+                                    data-id="{{ $guia['idguia'] }}" title="Eliminar">
                                     <i class="fa-solid fa-trash"></i>
                                 </button>
 
-                                @if($guia['estado'] !== 'Confirmado')
-                                    <a href="{{ route('vistarevisionguias', ["idguia" => $guia['idguia']])}}"
-                                       class="btn btn-sm btn-outline-info" title="conteo">
+                                @if ($guia['estado'] !== 'Confirmado')
+                                    <a href="{{ route('vistarevisionguias', ['idguia' => $guia['idguia']]) }}"
+                                        class="btn btn-sm btn-outline-info" title="conteo">
                                         <i class="fa-solid fa-eye"></i>
                                     </a>
                                 @endif

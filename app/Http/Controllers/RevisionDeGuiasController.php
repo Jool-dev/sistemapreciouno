@@ -9,7 +9,8 @@ use Illuminate\Http\Request;
 
 class RevisionDeGuiasController extends Controller
 {
-    public function registrarguiarevicion_validacion(Request $request) {
+    public function registrarguiarevicion_validacion(Request $request)
+    {
         try {
             $validated = $request->validate([
                 'idguia' => 'nullable',
@@ -25,7 +26,7 @@ class RevisionDeGuiasController extends Controller
                     "cant" => $p["cantidad"]
                 ]);
 
-                if(!$detalleguiasremision["success"]) {
+                if (!$detalleguiasremision["success"]) {
                     throw new \Exception($detalleguiasremision["message"]);
                 }
             }
@@ -38,14 +39,15 @@ class RevisionDeGuiasController extends Controller
         } catch (\Exception $ex) {
             return response()->json([
                 'success' => false,
-                'message' => 'Error al registrar la guía de remisión: '.$ex->getMessage(),
+                'message' => 'Error al registrar la guía de remisión: ' . $ex->getMessage(),
                 'error_details' => env('APP_DEBUG') ? $ex->getTrace() : null
             ], 500);
         }
     }
 
-    protected function determinarCondicion($estado): int {
-        switch(strtolower($estado)) {
+    protected function determinarCondicion($estado): int
+    {
+        switch (strtolower($estado)) {
             case 'bueno':
             case '1':
                 return 1;

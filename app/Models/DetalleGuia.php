@@ -16,7 +16,8 @@ class DetalleGuia extends Model
         return $this->belongsTo(Guiasderemision::class, 'idguia');
     }
 
-    public function producto() {
+    public function producto()
+    {
         return $this->belongsTo(Productos::class, 'idproducto');
     }
 }

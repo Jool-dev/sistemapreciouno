@@ -21,17 +21,20 @@
                         <div class="card-body p-3">
                             <div class="mb-3">
                                 <label for="idtxtcodigoguia" class="form-label small fw-bold">N° Guía</label>
-                                <input type="text" class="form-control form-control-sm" id="idtxtcodigoguia" name="codigoguia" required>
+                                <input type="text" class="form-control form-control-sm" id="idtxtcodigoguia"
+                                    name="codigoguia" required>
                                 <div class="invalid-feedback">Ingrese el numero de la guia </div>
                             </div>
                             <div class="mb-3">
                                 <label for="idtxtnumerotrasladotim" class="form-label small fw-bold">N° TIM</label>
-                                <input type="text" class="form-control form-control-sm" id="idtxtnumerotrasladotim" name="numerotrasladotim" required>
+                                <input type="text" class="form-control form-control-sm" id="idtxtnumerotrasladotim"
+                                    name="numerotrasladotim" required>
                                 <div class="invalid-feedback">Ingrese el número de TIM</div>
                             </div>
                             <div class="mb-0">
                                 <label for="idtxtrazonsocialguia" class="form-label small fw-bold">Razón Social</label>
-                                <input type="text" class="form-control form-control-sm" id="idtxtrazonsocialguia" name="razonsocialguia" required>
+                                <input type="text" class="form-control form-control-sm" id="idtxtrazonsocialguia"
+                                    name="razonsocialguia" required>
                                 <div class="invalid-feedback">Ingrese la razón social</div>
                             </div>
                         </div>
@@ -46,7 +49,8 @@
                         <div class="card-body p-3">
                             <div class="mb-3">
                                 <label for="idselcetmotivotraslado" class="form-label small fw-bold">Motivo</label>
-                                <select class="form-select form-select-sm" id="idselcetmotivotraslado" name="motivotraslado" required>
+                                <select class="form-select form-select-sm" id="idselcetmotivotraslado" name="motivotraslado"
+                                    required>
                                     <option value="">Seleccionar...</option>
                                     <option value="Venta">Venta</option>
                                     <option value="Traslado entre almacenes">Traslado entre almacenes</option>
@@ -58,18 +62,22 @@
                             <div class="row g-2 mb-3">
                                 <div class="col-6">
                                     <label for="idtxtpesobrutototal" class="form-label small fw-bold">Peso (kg)</label>
-                                    <input type="number" step="0.01" class="form-control form-control-sm" id="idtxtpesobrutototal" name="pesobrutototal" required>
+                                    <input type="number" step="0.01" class="form-control form-control-sm"
+                                        id="idtxtpesobrutototal" name="pesobrutototal" required>
                                     <div class="invalid-feedback">Ingrese el peso bruto total</div>
                                 </div>
                                 <div class="col-6">
                                     <label for="idtxtvolumenproducto" class="form-label small fw-bold">Volumen (m³)</label>
-                                    <input type="number" step="0.01" class="form-control form-control-sm" id="idtxtvolumenproducto" name="volumenproducto" required>
+                                    <input type="number" step="0.01" class="form-control form-control-sm"
+                                        id="idtxtvolumenproducto" name="volumenproducto" required>
                                     <div class="invalid-feedback">Ingrese el volumen total</div>
                                 </div>
                             </div>
                             <div>
-                                <label for="idselectnumerobultopallet" class="form-label small fw-bold">N° Bultos/Pallets</label>
-                                <input type="number" class="form-control form-control-sm" id="idselectnumerobultopallet" name="numerobultopallet" required>
+                                <label for="idselectnumerobultopallet" class="form-label small fw-bold">N°
+                                    Bultos/Pallets</label>
+                                <input type="number" class="form-control form-control-sm" id="idselectnumerobultopallet"
+                                    name="numerobultopallet" required>
                                 <div class="invalid-feedback">Ingrese el número de bultos o pallets</div>
                             </div>
                         </div>
@@ -85,10 +93,12 @@
                         <div class="card-body p-3">
                             <div class="mb-3">
                                 <label for="idselecttransportista" class="form-label small fw-bold">Transportista</label>
-                                <select class="form-select form-select-sm" id="idselecttransportista" name="idtransportista" required>
+                                <select class="form-select form-select-sm" id="idselecttransportista" name="idtransportista"
+                                    required>
                                     <option value="">Seleccionar...</option>
                                     @forelse($transportes as $transporte)
-                                        <option value="{{ $transporte->idtransportista }}">{{ $transporte->nombre_razonsocial }}</option>
+                                        <option value="{{ $transporte->idtransportista }}">
+                                            {{ $transporte->nombre_razonsocial }}</option>
                                     @empty
                                         <option value="" disabled>No hay conductores</option>
                                     @endforelse
@@ -97,15 +107,16 @@
                             </div>
                             <div class="mb-3">
                                 <label for="idselectidconductor" class="form-label small fw-bold">Conductor</label>
-{{--                                <select class="form-select form-select-sm" id="idselectidconductor" name="idconductor" required>--}}
-{{--                                    <option value="">Seleccionar...</option>--}}
-{{--                                    @forelse($conductores as $conductor)--}}
-{{--                                        <option value="{{ $conductor->idconductor }}">{{ $conductor->nombre }}</option>--}}
-{{--                                    @empty--}}
-{{--                                        <option value="" disabled>No hay conductores</option>--}}
-{{--                                    @endforelse--}}
-{{--                                </select>--}}
-                                <select class="form-select form-select-sm" id="idselectidconductor" name="idconductor" required>
+                                {{--                                <select class="form-select form-select-sm" id="idselectidconductor" name="idconductor" required> --}}
+                                {{--                                    <option value="">Seleccionar...</option> --}}
+                                {{--                                    @forelse($conductores as $conductor) --}}
+                                {{--                                        <option value="{{ $conductor->idconductor }}">{{ $conductor->nombre }}</option> --}}
+                                {{--                                    @empty --}}
+                                {{--                                        <option value="" disabled>No hay conductores</option> --}}
+                                {{--                                    @endforelse --}}
+                                {{--                                </select> --}}
+                                <select class="form-select form-select-sm" id="idselectidconductor" name="idconductor"
+                                    required>
                                     <option value="">Seleccionar...</option>
                                     {{-- Opcional: cargar todos o dejar vacío --}}
                                     {{-- @foreach ($conductores as $conductor)
@@ -116,7 +127,8 @@
                             </div>
                             <div>
                                 <label for="idtxtobservaciones" class="form-label small fw-bold">Observaciones</label>
-                                <input type="text" class="form-control form-control-sm" id="idtxtobservaciones" name="observaciones">
+                                <input type="text" class="form-control form-control-sm" id="idtxtobservaciones"
+                                    name="observaciones">
                             </div>
                         </div>
                     </div>
@@ -129,8 +141,10 @@
                             <h6 class="mb-0 fw-semibold"><i class="fas fa-building me-2"></i>Empresa Receptora</h6>
                         </div>
                         <div class="card-body p-3">
-                            <label for="idselectidtipoempresa" class="form-label small fw-bold">Empresa que recibirá</label>
-                            <select class="form-select form-select-sm" id="idselectidtipoempresa" name="idtipoempresa" required>
+                            <label for="idselectidtipoempresa" class="form-label small fw-bold">Empresa que
+                                recibirá</label>
+                            <select class="form-select form-select-sm" id="idselectidtipoempresa" name="idtipoempresa"
+                                required>
                                 <option value="">Seleccionar...</option>
                                 @forelse($tipoempresa as $empresa)
                                     <option value="{{ $empresa->idtipoempresa }}">{{ $empresa->razonsocial }}</option>
@@ -141,7 +155,8 @@
                             <div class="invalid-feedback">Seleccione una empresa receptora</div>
                             <div class="mt-2">
                                 <label for="idtxtdireccionempresa" class="form-label small fw-bold">Dirección</label>
-                                <input type="text" class="form-control form-control-sm" id="idtxtdireccionempresa" name="direccionempresa" required>
+                                <input type="text" class="form-control form-control-sm" id="idtxtdireccionempresa"
+                                    name="direccionempresa" required>
                                 <div class="invalid-feedback">Ingrese la dirección de la empresa receptora</div>
                             </div>
                         </div>
@@ -154,7 +169,8 @@
             <br>
             <div class="card shadow-sm mb-3">
                 <div class="card-header bg-secondary bg-opacity-10 py-2 border-0">
-                    <h6 class="mb-0 text-secondary fw-bold"><i class="fas fa-boxes me-2"></i>Agrega los Productos al Carrito</h6>
+                    <h6 class="mb-0 text-secondary fw-bold"><i class="fas fa-boxes me-2"></i>Agrega los Productos al
+                        Carrito</h6>
                 </div>
 
                 <div class="card-body p-3">
@@ -163,7 +179,8 @@
                     <div class="row g-2 mb-3 align-items-end">
                         <!-- Nombre del Producto (select) -->
                         <div class="col-md-4">
-                            <label for="idselectnombreproducto" class="form-label small fw-bold">Nombre del Producto</label>
+                            <label for="idselectnombreproducto" class="form-label small fw-bold">Nombre del
+                                Producto</label>
                             <select class="form-select form-select-sm" id="idselectnombreproducto" required>
                                 <option value="">Seleccionar...</option>
                                 @foreach ($productos as $producto)
@@ -185,7 +202,8 @@
                         <!-- Cantidad -->
                         <div class="col-md-2">
                             <label for="idtxtcantidadproducto" class="form-label small fw-bold">Cantidad</label>
-                            <input type="number" class="form-control form-control-sm" id="idtxtcantidadproducto" required>
+                            <input type="number" class="form-control form-control-sm" id="idtxtcantidadproducto"
+                                required>
                         </div>
 
                         <!-- Estado -->

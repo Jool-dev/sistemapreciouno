@@ -7,7 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
-class Vehiculo extends Model {
+class Vehiculo extends Model
+{
     protected $table = 'vehiculos'; // Especifica el nombre exacto de la tabla
     protected $primaryKey = 'idvehiculo'; // Si tu clave primaria no se llama "id"
     public $timestamps = false; // Desactiva timestamps si tu tabla no tiene created_at / updated_at
@@ -18,8 +19,9 @@ class Vehiculo extends Model {
         "placasecundaria",
     ];
 
-    public function mostravehiculo(array $parametros = []): array {
-//        $query = DB::table('v_vehiculo');
+    public function mostravehiculo(array $parametros = []): array
+    {
+        //        $query = DB::table('v_vehiculo');
         $query = DB::table('v_vehiculo')->where('estado', '!=', 'Eliminado');
 
         // Filtros condicionales
@@ -43,7 +45,7 @@ class Vehiculo extends Model {
             );
         }
 
-//        Si no hay paginado, obtenertodo
+        //        Si no hay paginado, obtenertodo
         $vehiculo = $query->get()->map(fn($item) => (array) $item)->toArray();
         return GlobalModel::returnArray(
             !empty($vehiculo),
@@ -52,7 +54,8 @@ class Vehiculo extends Model {
         );
     }
 
-    public function insertarvehiculos(array $data): array {
+    public function insertarvehiculos(array $data): array
+    {
         // Definir variables de salida
         DB::statement("SET @idvehiculo = 0;");
         DB::statement("SET @success = 0;");
@@ -78,7 +81,8 @@ class Vehiculo extends Model {
         );
     }
 
-    public function editarvehiculo(array $datos): array {
+    public function editarvehiculo(array $datos): array
+    {
         if (!isset($datos['idvehiculo'])) {
             return GlobalModel::returnArray(false, 'idvehiculo es obligatorio');
         }

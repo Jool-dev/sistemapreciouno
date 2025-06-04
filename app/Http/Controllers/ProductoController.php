@@ -9,10 +9,11 @@ use Exception;
 class ProductoController extends Controller
 {
     //Para registrar el producto
-    public function registrarproducto(Request $request) {
-        try{
+    public function registrarproducto(Request $request)
+    {
+        try {
             $validated = $request->validate([
-//                "idvehiculo" => "nullable",
+                //                "idvehiculo" => "nullable",
                 'codigoproducto' => 'required',
                 'nombre' => 'required',
                 'tipoinventario' => 'required',
@@ -22,7 +23,7 @@ class ProductoController extends Controller
             $modeloproducto = new Productos();
             $producto = $modeloproducto->insertarproductos($validated);
 
-            if(!$producto["success"]){
+            if (!$producto["success"]) {
                 throw new Exception($producto["message"]);
             }
 
@@ -31,11 +32,10 @@ class ProductoController extends Controller
                 'message' => $producto["message"],
                 'data' => $producto["data"]
             ]);
-        }
-        catch (\Exception $ex){
+        } catch (\Exception $ex) {
             return response()->json([
                 'success' => false,
-                'message' => 'Error al registrar el producto: '.$ex->getMessage(),
+                'message' => 'Error al registrar el producto: ' . $ex->getMessage(),
                 'error_details' => env('APP_DEBUG') ? $ex->getTrace() : null
             ], 500);
         }
@@ -48,7 +48,7 @@ class ProductoController extends Controller
             $modelo = new Productos();
             $resultado = $modelo->eliminarproducto($id);
 
-            if(!$resultado["success"]){
+            if (!$resultado["success"]) {
                 throw new Exception($resultado["message"]);
             }
 
@@ -59,13 +59,14 @@ class ProductoController extends Controller
         } catch (\Exception $ex) {
             return response()->json([
                 'success' => false,
-                'message' => 'Error al eliminar el producto: '.$ex->getMessage()
+                'message' => 'Error al eliminar el producto: ' . $ex->getMessage()
             ], 500);
         }
     }
 
-    public function buscarproductocodigo(Request $request) {
-        try{
+    public function buscarproductocodigo(Request $request)
+    {
+        try {
             $validated = $request->validate([
                 'codigoproducto' => 'required',
             ]);
@@ -75,23 +76,23 @@ class ProductoController extends Controller
                 "codigoproducto" => $validated["codigoproducto"]
             ]);
 
-            if($producto["data"] === null){
+            if ($producto["data"] === null) {
                 return response()->json([
                     'success' => true,
                     "message" => "CodigoNo encontrado",
                     "data" => null
                 ]);
-            }else{
+            } else {
                 return response()->json([
                     'success' => true,
                     'message' => $producto["message"],
                     'data' => $producto["data"]
                 ]);
             }
-        }catch (\Exception $ex){
+        } catch (\Exception $ex) {
             return response()->json([
                 'success' => false,
-                'message' => 'Error al buscar por codigo el producto: '.$ex->getMessage(),
+                'message' => 'Error al buscar por codigo el producto: ' . $ex->getMessage(),
                 'error_details' => env('APP_DEBUG') ? $ex->getTrace() : null
             ], 500);
         }

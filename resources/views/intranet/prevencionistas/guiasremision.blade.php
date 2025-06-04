@@ -1,5 +1,5 @@
 @extends('intranet.prevencionistas.prevencionista')
-@section('title','Guiasderemision')
+@section('title', 'Guiasderemision')
 
 @section('content')
     <div class="container-fluid py-3">
@@ -22,7 +22,8 @@
                     <div class="col-md-6">
                         <div class="input-group">
                             <span class="input-group-text bg-transparent"><i class="fas fa-search"></i></span>
-                            <input type="text" class="form-control border-start-0" placeholder="Buscar por número, producto, cliente...">
+                            <input type="text" class="form-control border-start-0"
+                                placeholder="Buscar por número, producto, cliente...">
                             <button class="btn btn-primary" type="button">
                                 <i class="fas fa-filter me-1"></i> Filtrar
                             </button>

@@ -19,7 +19,8 @@ class GuiasRevision extends Model
         'estado'
     ];
 
-    public function mostraguia(array $parametros = []): array {
+    public function mostraguia(array $parametros = []): array
+    {
         $query = DB::table('v_detalle_guias');
 
         // Filtros condicionales
@@ -64,7 +65,8 @@ class GuiasRevision extends Model
         );
     }
 
-    public function insertarguiarevision(array $data): array {
+    public function insertarguiarevision(array $data): array
+    {
         // Definir variables de salida
         DB::statement("SET @iddetalleguia = 0;");
         DB::statement("SET @success = 0;");
@@ -92,7 +94,8 @@ class GuiasRevision extends Model
         );
     }
 
-    public function insertardetalleguiarevicion_validacion(array $data): array {
+    public function insertardetalleguiarevicion_validacion(array $data): array
+    {
         // Definir variables de salida
         DB::statement("SET @idvalidacionguia = 0;");
         DB::statement("SET @success = 0;");

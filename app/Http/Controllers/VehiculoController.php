@@ -6,9 +6,11 @@ use App\Models\Vehiculo;
 use Illuminate\Http\Request;
 use Exception;
 
-class VehiculoController extends Controller {
-    public function mantenimientovehiculo(Request $request) {
-        try{
+class VehiculoController extends Controller
+{
+    public function mantenimientovehiculo(Request $request)
+    {
+        try {
             $validated = $request->validate([
                 "idvehiculo" => "nullable",
                 'placa' => 'required',
@@ -16,13 +18,12 @@ class VehiculoController extends Controller {
             ]);
 
             $modelovehiculo = new Vehiculo();
-            if($validated['idvehiculo'] === null){
+            if ($validated['idvehiculo'] === null) {
                 $vehiculo = $modelovehiculo->insertarvehiculos([
                     "placa" => $validated['placa'],
                     "placasecundaria" => $validated['placasecundaria'],
                 ]);
-            }
-            else{
+            } else {
                 $vehiculo = $modelovehiculo->editarvehiculo([
                     "idvehiculo" => $validated['idvehiculo'],
                     "placa" => $validated['placa'],
@@ -30,25 +31,25 @@ class VehiculoController extends Controller {
                 ]);
             }
 
-            if(!$vehiculo["success"]){
-               throw new Exception($vehiculo["message"]);
+            if (!$vehiculo["success"]) {
+                throw new Exception($vehiculo["message"]);
             }
 
             return response()->json([
                 'success' => true,
                 'message' => $vehiculo["message"],
             ]);
-        }
-        catch (\Exception $ex){
+        } catch (\Exception $ex) {
             return response()->json([
                 'success' => false,
-                'message' => 'Error al registrar el vehiculo: '.$ex->getMessage(),
+                'message' => 'Error al registrar el vehiculo: ' . $ex->getMessage(),
                 'error_details' => env('APP_DEBUG') ? $ex->getTrace() : null
             ], 500);
         }
     }
 
-    public function eliminarvehiculo(Request $request) {
+    public function eliminarvehiculo(Request $request)
+    {
         try {
             $validated = $request->validate([
                 "idvehiculo" => "nullable",
@@ -60,7 +61,7 @@ class VehiculoController extends Controller {
                 "estado" => "Eliminado"
             ]);
 
-            if(!$vehiculo["success"]){
+            if (!$vehiculo["success"]) {
                 throw new Exception($vehiculo["message"]);
             }
 
@@ -68,11 +69,10 @@ class VehiculoController extends Controller {
                 'success' => true,
                 'message' => "Eliminado correctamente",
             ]);
-        }
-        catch (\Exception $ex){
+        } catch (\Exception $ex) {
             return response()->json([
                 'success' => false,
-                'message' => 'Error al eliminar el vehiculo: '.$ex->getMessage(),
+                'message' => 'Error al eliminar el vehiculo: ' . $ex->getMessage(),
                 'error_details' => env('APP_DEBUG') ? $ex->getTrace() : null
             ], 500);
         }

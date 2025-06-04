@@ -99,7 +99,6 @@ class Dashboard extends Component
             $this->datosSinDiscrepancias[] = $sinDiscrepancias[$fecha] ?? 0;
             $this->datosConDiscrepancias[] = $conDiscrepancias[$fecha] ?? 0;
         }
-
     }
 
     public function render()

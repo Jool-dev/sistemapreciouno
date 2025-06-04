@@ -6,8 +6,8 @@ if (typeof $ === 'undefined') {
     throw new Error('jQuery no está cargado. Verifica tus imports.');
 }
 
-$(document).ready(function() {
-    $("#formulariologin").submit(function(e) {
+$(document).ready(function () {
+    $("#formulariologin").submit(function (e) {
         e.preventDefault();
 
         // Desactivar inputs y botón
@@ -31,7 +31,7 @@ $(document).ready(function() {
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
-            success: function(response) {
+            success: function (response) {
                 $form.find(":input").prop("disabled", false);
                 if (response.idrol === null) {
                     Swal.fire({
@@ -41,10 +41,10 @@ $(document).ready(function() {
                         showConfirmButton: false
                     });
                     // throw new Error();
-                } else if(response.idrol === 1) {
+                } else if (response.idrol === 1) {
                     $form[0].reset();
                     window.location.replace('/dashboard');
-                } else if(response.idrol === 2){
+                } else if (response.idrol === 2) {
                     $form[0].reset();
                     window.location.replace('/guiasremision');
                 }
@@ -64,7 +64,7 @@ $(document).ready(function() {
                 // bootstrap.Modal.getInstance($('#idmodalvehiculo')[0]).hide();
 
             },
-            error: function(error) {
+            error: function (error) {
                 Swal.fire({
                     icon: 'error',
                     title: 'Error',
@@ -75,7 +75,7 @@ $(document).ready(function() {
         });
     });
 
-    $(document).on('click', '#btncerrarsesion', async function(e) {
+    $(document).on('click', '#btncerrarsesion', async function (e) {
         e.preventDefault();
 
         const csrfToken = $('meta[name="csrf-token"]').attr('content');

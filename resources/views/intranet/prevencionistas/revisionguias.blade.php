@@ -72,24 +72,24 @@
                             <!-- Pestaña de opciones -->
                             <div class="tab-pane fade show active p-3" id="options">
 
-                                    <ul class="class="list-group list-group-flush">
-                                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                                            <p>idguia</p>
-                                            <span>{{ $guia->idguia ?? 'N/A' }}</span>
-                                        </li>
-                                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                                            <p>Fecha Emision</p>
-                                            <span>{{ $guia->fechaemision ?? 'N/A' }}</span>
-                                        </li>
-                                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                                            <p>Hora Emision</p>
-                                            <span>{{ $guia->horaemision ?? 'N/A' }}</span>
-                                        </li>
-                                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                                            <p>Tim</p>
-                                            <span>{{ $guia->numerotrasladotim ?? 'N/A' }}</span>
-                                        </li>
-                                    </ul>
+                                <ul class="class="list-group list-group-flush">
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                        <p>idguia</p>
+                                        <span>{{ $guia->idguia ?? 'N/A' }}</span>
+                                    </li>
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                        <p>Fecha Emision</p>
+                                        <span>{{ $guia->fechaemision ?? 'N/A' }}</span>
+                                    </li>
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                        <p>Hora Emision</p>
+                                        <span>{{ $guia->horaemision ?? 'N/A' }}</span>
+                                    </li>
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                        <p>Tim</p>
+                                        <span>{{ $guia->numerotrasladotim ?? 'N/A' }}</span>
+                                    </li>
+                                </ul>
 
                             </div>
 
@@ -105,11 +105,10 @@
                                                 {{ $dt->codproducto ?? 'codigoproducto' }}</p>
                                         </div>
                                         <span class="badge bg-primary rounded-pill">{{ $dt->cant ?? 0 }}</span>
-{{--                                        boton de agregar--}}
+                                        {{--                                        boton de agregar --}}
                                         <button class="btn btn-sm btn-outline-primary btn-seleccionar-producto"
-                                                data-codigo="{{ $dt->codproducto ?? '' }}"
-                                                data-nombre="{{ $dt->producto ?? '' }}"
-                                                data-id="{{ $dt->idproducto ?? '' }}">
+                                            data-codigo="{{ $dt->codproducto ?? '' }}"
+                                            data-nombre="{{ $dt->producto ?? '' }}" data-id="{{ $dt->idproducto ?? '' }}">
                                             <i class="fas fa-plus"></i>
                                         </button>
                                     </li>

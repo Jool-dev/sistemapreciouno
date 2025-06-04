@@ -16,7 +16,6 @@ class Usuarios extends Component
     {
         $this->loadUsuarios();
         $this->role = 'prevencionista';
-
     }
 
     public function loadUsuarios()
