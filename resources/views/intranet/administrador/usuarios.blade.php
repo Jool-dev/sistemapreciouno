@@ -41,9 +41,9 @@
         <!-- Componente Livewire -->
         @livewire('usuarios.usuarios')
     </div>
+
     <!-- Modal -->
-    <div class="modal fade" id="#idmodalUsuarios" tabindex="-1" aria-labelledby="idlabeltitlemodalusuarios"
-        aria-hidden="true">
+    <div class="modal fade" id="#idmodalUsuarios" tabindex="-1" aria-labelledby="idlabeltitlemodalusuarios" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -56,8 +56,7 @@
                         <input type="hidden" id="idusuario" name="idusuario" value="">
                         <div class="mb-3">
                             <label for="codigousuario" class="form-label">Codigo usuario</label>
-                            <input type="text" class="form-control" id="idtxtcodigousuario" name="codigousuario"
-                                required>
+                            <input type="text" class="form-control" id="idtxtcodigousuario" name="codigousuario" required>
                         </div>
 
                         <div class="mb-3">
@@ -73,6 +72,8 @@
                                 <option value="Tottus">Tottus</option>
                             </select>
                         </div>
+
+                        
 
                         <div class="text-end">
                             <button type="submit" class="btn btn-primary">Guardar</button>
