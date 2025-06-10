@@ -66,12 +66,37 @@
                     <i class="fa-solid fa-bag-shopping me-2"></i>Productos
                 </a>
             </div>
+        @else (session('usuariologeado')["data"][0]['idrol'] == 3)
+            <div>
+                <a class="nav-link {{ request()->routeIs('vistadashboard') ? 'active' : '' }}" href="{{ route('vistadashboard') }}">
+                    <i class="fas fa-tachometer-alt me-2"></i>Dashboard
+                </a>
+            </div>
+            <div>
+                <a class="nav-link {{ request()->routeIs('vistausuarios') ? 'active' : '' }}" href="{{ route('vistausuarios') }}">
+                    <i class="fa-solid fa-user me-2"></i>Usuarios
+                </a>
+            </div>
+            <div>
+                <a class="nav-link {{ request()->routeIs('vistaconductor') ? 'active' : '' }}" href="{{ route('vistaconductor') }}">
+                    <i class="fa-solid fa-id-card me-2"></i>Conductores
+                </a>
+            </div>
+            <div>
+                <a class="nav-link {{ request()->routeIs('vistavehiculo') ? 'active' : '' }}" href="{{ route('vistavehiculo') }}">
+                    <i class="fa-solid fa-truck me-2"></i>Vehículos
+                </a>
+            </div>
+            <div>
+                <a class="nav-link {{ request()->routeIs('vistaproducto') ? 'active' : '' }}" href="{{ route('vistaproducto') }}">
+                    <i class="fa-solid fa-bag-shopping me-2"></i>Productos
+                </a>
+            </div>
             <div>
                 <a class="nav-link {{ request()->routeIs('vistaguiasderemisionadministrador') ? 'active' : '' }}" href="{{ route('vistaguiasderemisionadministrador') }}">
                     <i class="fa-solid fa-table-list me-2"></i>Guias de Remisión
                 </a>
             </div>
-        @else
         @endif
     </div>
     <!-- Menú de usuario -->
