@@ -6,22 +6,26 @@ use App\Models\Vehiculo;
 use Livewire\Attributes\On;
 use Livewire\Component;
 
-class Vechiculo extends Component {
+class Vechiculo extends Component
+{
     public array $vehiculos = [];
 
     #[On('listarvehiculoDesdeJS')]
-    public function listar(): void {
+    public function listar(): void
+    {
         $modelovecino = new Vehiculo();
         $data = $modelovecino->mostravehiculo();
         $this->vehiculos = $data["data"] == null ? [] : $data["data"];
         $this->render();
     }
 
-    public function mount(): void {
+    public function mount(): void
+    {
         $this->listar();
     }
 
-    public function render() {
+    public function render()
+    {
         return view('livewire.vehiculo.vechiculo', [
             'vehiculos' => $this->vehiculos
         ]);

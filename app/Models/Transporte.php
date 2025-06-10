@@ -19,8 +19,9 @@ class Transporte extends Model
         'modalidadtraslado',
     ];
 
-    public function mostrartransporte(array $parametros = []): array {
-//        $query = DB::table('v_transporte');
+    public function mostrartransporte(array $parametros = []): array
+    {
+        //        $query = DB::table('v_transporte');
         $query = DB::table('v_transporte')->where('estado', '!=', 'Eliminado');
 
         // Filtros condicionales
@@ -61,7 +62,8 @@ class Transporte extends Model
         );
     }
 
-    public function insertartransporte(array $data): array {
+    public function insertartransporte(array $data): array
+    {
         // Definir variables de salida
         DB::statement("SET @idtransportista = 0;");
         DB::statement("SET @success = 0;");

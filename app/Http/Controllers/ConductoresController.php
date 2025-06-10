@@ -10,8 +10,9 @@ use Illuminate\Support\Facades\DB;
 class ConductoresController extends Controller
 {
     //Para registrar el conductor
-    public function mantenimientoconductor(Request $request) {
-        try{
+    public function mantenimientoconductor(Request $request)
+    {
+        try {
             $validated = $request->validate([
                 "idconductor" => "nullable",
                 'nombre' => 'required',
@@ -30,16 +31,15 @@ class ConductoresController extends Controller
             }
 
             $modeloconductor = new Conductores();
-//            $conductor = $modeloconductor->insertarconductores($validated);
-            if($validated['idconductor'] === null){
+            //            $conductor = $modeloconductor->insertarconductores($validated);
+            if ($validated['idconductor'] === null) {
                 $conductor = $modeloconductor->insertarconductores([
                     "nombre" => $validated['nombre'],
                     "dni" => $validated['dni'],
                     "idtransportista" => $validated['idtransportista'],
                     "idvehiculo" => $validated['idvehiculo']
                 ]);
-            }
-            else{
+            } else {
                 $conductor = $modeloconductor->editarconductores([
                     "idconductor" => $validated['idconductor'],
                     "nombre" => $validated['nombre'],
@@ -48,7 +48,7 @@ class ConductoresController extends Controller
                     "idvehiculo" => $validated['idvehiculo']
                 ]);
             }
-            if(!$conductor["success"]){
+            if (!$conductor["success"]) {
                 throw new Exception($conductor["message"]);
             }
 
@@ -57,10 +57,10 @@ class ConductoresController extends Controller
                 'message' => $conductor["message"],
                 'data' => $conductor["data"]
             ]);
-        }catch (\Exception $ex){
+        } catch (\Exception $ex) {
             return response()->json([
                 'success' => false,
-                'message' => 'Error al registrar el conductor: '.$ex->getMessage(),
+                'message' => 'Error al registrar el conductor: ' . $ex->getMessage(),
                 'error_details' => env('APP_DEBUG') ? $ex->getTrace() : null
             ], 500);
         }
@@ -72,7 +72,7 @@ class ConductoresController extends Controller
             $modeloconductor = new Conductores();
             $resultado = $modeloconductor->editarconductores($id);
 
-            if(!$resultado["success"]){
+            if (!$resultado["success"]) {
                 throw new Exception($resultado["message"]);
             }
 
@@ -83,7 +83,7 @@ class ConductoresController extends Controller
         } catch (\Exception $ex) {
             return response()->json([
                 'success' => false,
-                'message' => 'Error al eliminar el Conductor: '.$ex->getMessage()
+                'message' => 'Error al eliminar el Conductor: ' . $ex->getMessage()
             ], 500);
         }
     }

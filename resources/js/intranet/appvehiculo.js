@@ -14,8 +14,8 @@ if (typeof $ === 'undefined') {
     throw new Error('jQuery no está cargado. Verifica tus imports.');
 }
 
-$(document).ready(function() {
-    $("#idformvechiculo").submit(function(e) {
+$(document).ready(function () {
+    $("#idformvechiculo").submit(function (e) {
         e.preventDefault();
 
         // Desactivar inputs y botón
@@ -40,7 +40,7 @@ $(document).ready(function() {
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
-            success: function(response) {
+            success: function (response) {
                 if (!response.success) {
                     console.log('Estructura de respuesta inválida');
                     // throw new Error();
@@ -80,7 +80,7 @@ $(document).ready(function() {
                 // const modalInstance = bootstrap.Modal.getInstance(modalElement) || new bootstrap.Modal(modalElement);
                 // modalInstance.hide();
             },
-            error: function(xhr) {
+            error: function (xhr) {
                 console.error('Error:', xhr.responseJSON);
                 Swal.fire({
                     icon: 'error',
@@ -107,7 +107,7 @@ $(document).ready(function() {
     });
 
     // Delegación de eventos mejorada
-    $(document).on('click', '.btn-editarvehiculo', function(e) {
+    $(document).on('click', '.btn-editarvehiculo', function (e) {
         e.preventDefault();
 
         // Obtener datos del TR actual (no del botón)
@@ -127,7 +127,7 @@ $(document).ready(function() {
         modal.show();
     });
 
-    $(document).on('click', '.btn-eliminarvehiculo', async function(e) {
+    $(document).on('click', '.btn-eliminarvehiculo', async function (e) {
         e.preventDefault();
 
         // const id = $(this).data('id'); // Obtener ID directamente del data-attribute

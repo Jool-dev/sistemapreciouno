@@ -18,7 +18,8 @@ class Gestionusuario extends Component
         'fecharegistro'
     ];
 
-    public function mostraproducto(array $parametros = []): array {
+    public function mostraproducto(array $parametros = []): array
+    {
         $query = DB::table('productos');
 
         // Filtros condicionales
@@ -63,7 +64,8 @@ class Gestionusuario extends Component
         );
     }
 
-    public function insertarproductos(array $data): array {
+    public function insertarproductos(array $data): array
+    {
         // Definir variables de salida
         DB::statement("SET @idproducto = 0;");
         DB::statement("SET @success = 0;");

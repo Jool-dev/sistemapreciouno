@@ -1,5 +1,5 @@
 @extends('intranet.prevencionistas.prevencionista')
-@section('title','Guiasderemision')
+@section('title', 'Guiasderemision')
 
 @section('contenido_prevencionista')
     <div class="container-fluid py-3">
@@ -17,7 +17,6 @@
                            placeholder="Filtrar por código, razón social o N° de pedido">
                 </div>
             </div>
-
             <!-- Selector de items por página -->
             <div class="col-md-3 mb-2 mb-md-0">
                 <div class="input-group">

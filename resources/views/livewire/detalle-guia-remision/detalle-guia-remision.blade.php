@@ -38,16 +38,16 @@
                     <div class="table-responsive">
                         <table class="table table-striped table-hover">
                             <thead class="table-dark">
-                            <tr>
-                                <th>CÓDIGO</th>
-                                <th>NOMBRE PRODUCTO</th>
-                                <th>CANTIDAD</th>
-                                <th>PESO UNITARIO (kg)</th>
-                                <th>ACCIONES</th>
-                            </tr>
+                                <tr>
+                                    <th>CÓDIGO</th>
+                                    <th>NOMBRE PRODUCTO</th>
+                                    <th>CANTIDAD</th>
+                                    <th>PESO UNITARIO (kg)</th>
+                                    <th>ACCIONES</th>
+                                </tr>
                             </thead>
                             <tbody>
-{{--                            agregar productos--}}
+                                {{--                            agregar productos --}}
                             </tbody>
                         </table>
                     </div>
@@ -76,12 +76,14 @@
 
                         <div class="col-md-2">
                             <label for="cantidadProducto" class="form-label">Cantidad</label>
-                            <input type="number" class="form-control" id="cantidadProducto" name="cantidad" min="1" required>
+                            <input type="number" class="form-control" id="cantidadProducto" name="cantidad"
+                                min="1" required>
                         </div>
 
                         <div class="col-md-2">
                             <label for="pesoProducto" class="form-label">Peso (kg)</label>
-                            <input type="number" step="0.01" class="form-control" id="pesoProducto" name="peso_unitario" required>
+                            <input type="number" step="0.01" class="form-control" id="pesoProducto"
+                                name="peso_unitario" required>
                         </div>
 
                         <div class="col-md-1">

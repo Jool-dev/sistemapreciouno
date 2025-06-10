@@ -23,8 +23,9 @@ class TipoEmpresa extends Model
         'codigoestablecimiento',
     ];
 
-    public function mostrartipoempresa(array $parametros = []): array {
-//        $query = DB::table('v_tipoempresa');
+    public function mostrartipoempresa(array $parametros = []): array
+    {
+        //        $query = DB::table('v_tipoempresa');
         $query = DB::table('v_tipoempresa')->where('estado', '!=', 'Eliminado');
 
         // Filtros condicionales
@@ -73,7 +74,8 @@ class TipoEmpresa extends Model
         );
     }
 
-    public function insertartipoempresa(array $data): array {
+    public function insertartipoempresa(array $data): array
+    {
         // Definir variables de salida
         DB::statement("SET @idtipoempresa = 0;");
         DB::statement("SET @success = 0;");

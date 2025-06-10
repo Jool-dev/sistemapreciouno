@@ -1,7 +1,7 @@
 import Swal from "sweetalert2";
 import $ from 'jquery';
 
-window.SweetAlertpreguntarSI_NO = function(titulo, mensaje = null, confirmButtonText = "Sí", cancelButtonText = "No") {
+window.SweetAlertpreguntarSI_NO = function (titulo, mensaje = null, confirmButtonText = "Sí", cancelButtonText = "No") {
     // const texto = mensaje || '¿Estás seguro de realizar esta acción?';
 
     // Obtener colores del tema actual
@@ -29,7 +29,7 @@ window.SweetAlertpreguntarSI_NO = function(titulo, mensaje = null, confirmButton
 };
 
 // Función para abrir el modal de carga
-window.SweetAlertProgressOpen1 = function(data = {}) {
+window.SweetAlertProgressOpen1 = function (data = {}) {
     // Configuración por defecto
     const defaults = {
         title: 'Procesando...',
@@ -38,7 +38,7 @@ window.SweetAlertProgressOpen1 = function(data = {}) {
     };
 
     // Combinar con configuración recibida
-    const config = Array.isArray(data) ? {...defaults, ...data[0]} : {...defaults, ...data};
+    const config = Array.isArray(data) ? { ...defaults, ...data[0] } : { ...defaults, ...data };
 
     return Swal.fire({
         title: config.title,
@@ -51,19 +51,19 @@ window.SweetAlertProgressOpen1 = function(data = {}) {
 }
 
 // Función para cerrar el modal de carga
-window.SweetAlertProgressClose1 = function() {
+window.SweetAlertProgressClose1 = function () {
     return Swal.close();
 }
 
-window.circuleProgressindicatorOpen = function (){
+window.circuleProgressindicatorOpen = function () {
     document.getElementById("idcirlculeprogresindicator").style.display = "flex";
 }
 
-window.circuleProgressindicatorClose = function (){
+window.circuleProgressindicatorClose = function () {
     document.getElementById("idcirlculeprogresindicator").style.display = "none";
 }
 
-window.validarcorreoglobal = function (input){
+window.validarcorreoglobal = function (input) {
     let vlidr = false;
     // const correoField = document.getElementById('correo');
     const correoRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -81,7 +81,7 @@ window.validarcorreoglobal = function (input){
     return vlidr;
 }
 
-window.SweetAlert2 = function(data) {
+window.SweetAlert2 = function (data) {
     const alertData = data[0];
 
     return Swal.fire({
@@ -98,20 +98,20 @@ window.SweetAlert2 = function(data) {
     });
 }
 
-window.mostrarProgresolineal = function (activar){
-    if(activar){
+window.mostrarProgresolineal = function (activar) {
+    if (activar) {
         document.getElementById("loaderLine").style.display = "block";
-    }else{
+    } else {
         document.getElementById("loaderLine").style.display = "none";
     }
 }
 
-window.mostrarErrorBoostrap = function (activar, mensaje = "Error Prueba"){
-    if(activar){
+window.mostrarErrorBoostrap = function (activar, mensaje = "Error Prueba") {
+    if (activar) {
         const errorDiv = document.getElementById("errorMensaje");
         errorDiv.textContent = mensaje;
         errorDiv.classList.remove("d-none");
-    }else{
+    } else {
         const errorDiv = document.getElementById("errorMensaje");
         errorDiv.classList.add("d-none");
         errorDiv.textContent = "";

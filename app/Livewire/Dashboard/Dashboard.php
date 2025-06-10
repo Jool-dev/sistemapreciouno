@@ -101,7 +101,6 @@ class Dashboard extends Component
             $this->datosSinDiscrepancias[] = $sinDiscrepancias[$fecha] ?? 0;
             $this->datosConDiscrepancias[] = $conDiscrepancias[$fecha] ?? 0;
         }
-
         //productos con discrepancias
         $this->productosConDiscrepancias = DB::table('validacion as v')
             ->join('detalleguia as d', function ($join) {

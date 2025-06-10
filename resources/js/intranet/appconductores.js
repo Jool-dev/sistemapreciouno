@@ -6,8 +6,8 @@ if (typeof $ === 'undefined') {
     throw new Error('jQuery no está cargado. Verifica tus imports.');
 }
 
-$(document).ready(function() {
-    $("#idformConductores").submit(function(e) {
+$(document).ready(function () {
+    $("#idformConductores").submit(function (e) {
         e.preventDefault();
 
         // Cerrar el modal
@@ -35,7 +35,7 @@ $(document).ready(function() {
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
-            success: function(response) {
+            success: function (response) {
                 if (!response.result) {
                     console.log('Estructura de respuesta inválida');
                     // throw new Error();
@@ -54,7 +54,7 @@ $(document).ready(function() {
                 // Limpiar el formulario (opcional)
                 $("#idformConductores")[0].reset();
             },
-            error: function(error) {
+            error: function (error) {
                 // alert("Error: " + xhr.responseJSON.message);
             }
         });

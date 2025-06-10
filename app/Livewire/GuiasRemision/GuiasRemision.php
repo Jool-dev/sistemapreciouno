@@ -14,7 +14,8 @@ class GuiasRemision extends Component
     #[On('listarGuiasRemisionDesdeJS')]
     public function listar() {}
 
-    public function render() {
+    public function render()
+    {
         $modeloguiaremision = new Guiasderemision();
         $data = $modeloguiaremision->mostrarguiasderemision();
 
@@ -28,5 +29,4 @@ class GuiasRemision extends Component
             'tipoempresa' => $tipoempresa,
         ]);
     }
-
 }

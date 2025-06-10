@@ -50,6 +50,16 @@
             </div>
         </div>
     </div>
+    <!-- Gráfico ancho -->
+    {{--    <div class="card mb-4 shadow-sm rounded-3"> --}}
+    {{--        <div class="card-header bg-light fw-semibold d-flex align-items-center"> --}}
+    {{--            <i class="fas fa-chart-area me-2"></i> Últimas Guías Emitidas --}}
+    {{--        </div> --}}
+    {{--        <div class="card-body p-3"> --}}
+    {{--            <canvas id="myAreaChart" style="width: 100%; height: 350px;"></canvas> --}}
+    {{--            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> --}}
+    {{--        </div> --}}
+    {{--    </div> --}}
     <!-- Gráfico de líneas: Guías sin y con discrepancias -->
     <div class="card mb-4 shadow-sm rounded-3">
         <div class="card-header bg-light fw-semibold d-flex align-items-center">
@@ -114,7 +124,6 @@
                 </div>
             </div>
         </div>
-
         {{-- NUEVO CARD UNIFICADO: Guías con discrepancias + gráfico --}}
         <div class="card shadow-sm rounded-3 p-3 mb-4">
             <div class="card-header bg-light fw-semibold d-flex align-items-center mb-3">
@@ -152,8 +161,6 @@
                 </div>
             </div>
         </div>
-
-
         {{-- NUEVO CARD: Productos con más discrepancias --}}
         <div class="card shadow-sm rounded-3 p-3">
             <div class="card-header bg-light fw-semibold d-flex align-items-center mb-3">
@@ -190,13 +197,34 @@
 {{-- Scripts para gráficos --}}
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
+    // Gráfico Últimas Guías Emitidas
+    {{-- const ctxArea = document.getElementById('myAreaChart').getContext('2d'); --}}
+    {{-- new Chart(ctxArea, { --}}
+    {{--    type: 'line', --}}
+    {{--    data: { --}}
+    {{--        labels: {!! json_encode($ultimasGuias->pluck('fecha')) !!}, --}}
+    {{--        datasets: [{ --}}
+    {{--            label: 'Guías Emitidas', --}}
+    {{--            data: {!! json_encode($ultimasGuias->pluck('total')) !!}, --}}
+    {{--            fill: true, --}}
+    {{--            borderColor: 'rgba(54, 162, 235, 1)', --}}
+    {{--            backgroundColor: 'rgba(54, 162, 235, 0.2)', --}}
+    {{--            tension: 0.3 --}}
+    {{--        }] --}}
+    {{--    }, --}}
+    {{--    options: { --}}
+    {{--        responsive: true, --}}
+    {{--        scales: { --}}
+    {{--            y: { beginAtZero: true } --}}
+    {{--        } --}}
+    {{--    } --}}
+    {{-- }); --}}
     const ctxGuias = document.getElementById('chartGuiasDiscrepancias').getContext('2d');
     new Chart(ctxGuias, {
         type: 'line',
         data: {
             labels: @json($fechas),
-            datasets: [
-                {
+            datasets: [{
                     label: 'Guías Sin Discrepancias',
                     data: @json($datosSinDiscrepancias),
                     borderColor: 'orange',
@@ -217,11 +245,20 @@
         options: {
             responsive: true,
             plugins: {
-                legend: { position: 'top' }
+                legend: {
+                    position: 'top'
+                }
             },
             scales: {
-                y: { beginAtZero: true },
-                x: { title: { display: true, text: 'Fecha de emisión' } }
+                y: {
+                    beginAtZero: true
+                },
+                x: {
+                    title: {
+                        display: true,
+                        text: 'Fecha de emisión'
+                    }
+                }
             }
         }
     });
@@ -237,7 +274,7 @@
                 data: [{{ $guiasSinDanio }}, {{ $guiasConDanio }}],
                 backgroundColor: [
                     'rgba(40, 167, 69, 0.7)', // verde
-                    'rgba(220, 53, 69, 0.7)'  // rojo
+                    'rgba(220, 53, 69, 0.7)' // rojo
                 ],
                 borderColor: [
                     'rgba(40, 167, 69, 1)',
@@ -249,7 +286,14 @@
         options: {
             responsive: true,
             plugins: {
-                legend: { position: 'bottom', labels: { font: { size: 14 } } }
+                legend: {
+                    position: 'bottom',
+                    labels: {
+                        font: {
+                            size: 14
+                        }
+                    }
+                }
             }
         }
     });
@@ -271,13 +315,23 @@
             scales: {
                 y: {
                     beginAtZero: true,
-                    title: { display: true, text: 'Cantidad de Discrepancias' }
+                    title: {
+                        display: true,
+                        text: 'Cantidad de Discrepancias'
+                    }
                 },
                 x: {
-                    title: { display: true, text: 'N° Guía' }
+                    title: {
+                        display: true,
+                        text: 'N° Guía'
+                    }
                 }
             },
-            plugins: { legend: { display: false } }
+            plugins: {
+                legend: {
+                    display: false
+                }
+            }
         }
     });
 </script>

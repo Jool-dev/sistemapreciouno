@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
@@ -24,11 +25,12 @@
         'resources/js/demo/chart-bar-demo.js',
         //'resources/js/demo/chart-pie-demo.js',
         //'resources/js/demo/datatables-demo.js',
-        'resources/js/demo/datatables-simple-demo.js' ,
+        'resources/js/demo/datatables-simple-demo.js',
         'resources/js/demo/scripts.js',
     ])
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
 </head>
+
 <body class="sb-nav-fixed">
 <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
     <!-- Menú principal horizontal -->

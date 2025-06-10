@@ -8,22 +8,19 @@
             <!-- Campo de búsqueda -->
             <div class="col-md-5 mb-2 mb-md-0">
                 <div class="input-group">
-            <span class="input-group-text">
-                <i class="fas fa-search"></i>
-            </span>
-                    <input type="text"
-                           class="form-control"
-                           placeholder="Buscar por nombre o código..."
-                           wire:model.live.debounce.500ms="search"
-                           aria-label="Buscar usuarios">
+                    <span class="input-group-text">
+                        <i class="fas fa-search"></i>
+                    </span>
+                    <input type="text" class="form-control" placeholder="Buscar por nombre o código..."
+                        wire:model.live.debounce.500ms="search" aria-label="Buscar usuarios">
                 </div>
             </div>
             <!-- Selector de items por página -->
             <div class="col-md-3 mb-2 mb-md-0">
                 <div class="input-group">
-            <span class="input-group-text">
-                <i class="fas fa-list-ol"></i>
-            </span>
+                    <span class="input-group-text">
+                        <i class="fas fa-list-ol"></i>
+                    </span>
                     <select class="form-select" wire:model.live="perPage" aria-label="Items por página">
                         <option value="10">10 por página</option>
                         <option value="25">25 por página</option>
@@ -34,10 +31,8 @@
             </div>
             <!-- Botón de agregar -->
             <div class="col-md-4 text-md-end">
-                <button type="button"
-                        class="btn btn-primary w-40 w-md-auto"
-                        data-bs-toggle="modal"
-                        data-bs-target="#idmodalUsuarios">
+                <button type="button" class="btn btn-primary w-40 w-md-auto" data-bs-toggle="modal"
+                    data-bs-target="#idmodalUsuarios">
                     <i class="fa-solid fa-plus me-2"></i>
                     Nuevo Usuario
                 </button>
@@ -46,6 +41,7 @@
         <!-- Componente Livewire -->
         @livewire('usuarios.usuarios')
     </div>
+
     <!-- Modal -->
     <div class="modal fade" id="#idmodalUsuarios" tabindex="-1" aria-labelledby="idlabeltitlemodalusuarios" aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -77,6 +73,8 @@
                             </select>
                         </div>
 
+                        
+
                         <div class="text-end">
                             <button type="submit" class="btn btn-primary">Guardar</button>
                             <button type="reset" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
@@ -90,7 +88,7 @@
 
 @push('scripts')
     <script>
-        document.addEventListener('livewire:load', function () {
+        document.addEventListener('livewire:load', function() {
             window.livewire.on('closeModal', () => {
                 // Aquí puedes agregar lógica para cerrar modales si usas alguno
             });

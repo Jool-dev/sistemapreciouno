@@ -8,22 +8,19 @@
             <!-- Campo de búsqueda -->
             <div class="col-md-5 mb-2 mb-md-0">
                 <div class="input-group">
-            <span class="input-group-text">
-                <i class="fas fa-search"></i>
-            </span>
-                    <input type="text"
-                           class="form-control"
-                           placeholder="Buscar por nombre o código..."
-                           wire:model.live.debounce.500ms="search"
-                           aria-label="Buscar productos">
+                    <span class="input-group-text">
+                        <i class="fas fa-search"></i>
+                    </span>
+                    <input type="text" class="form-control" placeholder="Buscar por nombre o código..."
+                        wire:model.live.debounce.500ms="search" aria-label="Buscar productos">
                 </div>
             </div>
             <!-- Selector de items por página -->
             <div class="col-md-3 mb-2 mb-md-0">
                 <div class="input-group">
-            <span class="input-group-text">
-                <i class="fas fa-list-ol"></i>
-            </span>
+                    <span class="input-group-text">
+                        <i class="fas fa-list-ol"></i>
+                    </span>
                     <select class="form-select" wire:model.live="perPage" aria-label="Items por página">
                         <option value="10">10 por página</option>
                         <option value="25">25 por página</option>
@@ -34,10 +31,8 @@
             </div>
             <!-- Botón de agregar -->
             <div class="col-md-4 text-md-end">
-                <button type="button"
-                        class="btn btn-primary w-40 w-md-auto"
-                        data-bs-toggle="modal"
-                        data-bs-target="#idmodalConductoress">
+                <button type="button" class="btn btn-primary w-40 w-md-auto" data-bs-toggle="modal"
+                    data-bs-target="#idmodalConductoress">
                     <i class="fa-solid fa-plus me-2"></i>
                     Nuevo Conductor
                 </button>
@@ -77,7 +72,8 @@
                                         <option value="">Seleccione un transporte...</option>
                                         @forelse($transportes as $transporte)
                                             <option value="{{ $transporte['idtransportista'] }}">
-                                                {{ $transporte['ruc_transportista'] }} - {{ $transporte['nombre_razonsocial'] }}
+                                                {{ $transporte['ruc_transportista'] }} -
+                                                {{ $transporte['nombre_razonsocial'] }}
                                             </option>
                                         @empty
                                             <option value="" disabled>No hay transportes disponibles</option>
@@ -94,7 +90,7 @@
                                                 {{ $vehiculo['placa'] }} - {{ $vehiculo['marca'] }}
                                             </option>
                                         @empty
-                                                <option value="" disabled>No hay vehiculos disponibles</option>
+                                            <option value="" disabled>No hay vehiculos disponibles</option>
                                         @endforelse
                                     </select>
                                 </div>

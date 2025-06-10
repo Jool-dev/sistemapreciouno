@@ -20,8 +20,9 @@ class Conductores extends Model
         'idvehiculo',
     ];
 
-    public function mostrarconductores(array $parametros = []): array {
-//        $query = DB::table('v_conductores');
+    public function mostrarconductores(array $parametros = []): array
+    {
+        //        $query = DB::table('v_conductores');
         $query = DB::table('v_conductores')->where('estado', '!=', 'Eliminado');
 
         // Filtros condicionales
@@ -66,7 +67,8 @@ class Conductores extends Model
         );
     }
 
-    public function insertarconductores(array $data): array {
+    public function insertarconductores(array $data): array
+    {
         // Definir variables de salida
         DB::statement("SET @idconductor = 0;");
         DB::statement("SET @success = 0;");
