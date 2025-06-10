@@ -13,6 +13,7 @@
     @livewireStyles
     @vite([
         'resources/css/demo/styles.css',
+        'resources/css/views/layout.css',
         'resources/js/appglobal.js',
         'resources/js/applogin.js',
         'resources/js/intranet/appguiasremision.js',
@@ -24,32 +25,25 @@
 <body class="sb-nav-fixed">
     <<nav class="sb-topnav navbar navbar-expand-lg navbar-dark bg-dark">
         <!-- Navbar Brand -->
-        <a class="navbar-brand ps-3" href="{{route('vistaguiasderemision')}}">Prevencionista</a>
-
-        <!-- Navbar Toggle (hamburguesa) -->
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive"
-            aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <!-- Navbar content collapsible -->
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-            <!-- User dropdown -->
-            <ul class="navbar-nav ms-auto me-3 me-lg-4">
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button"
-                        data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="fas fa-user fa-fw"></i>
-                    </a>
-                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="#!">Configuración</a></li>
-{{--                        <li><a class="dropdown-item" href="#!">Activity Log</a></li>--}}
-                        <li><hr class="dropdown-divider" /></li>
-                        <li><a class="dropdown-item" href="#!" id="btncerrarsesion">Cerrar Sesión</a></li>
-                    </ul>
-                </li>
-            </ul>
+        <div class="navbar-nav me-auto">
+            <div>
+                <a class="nav-link {{ request()->routeIs('vistaguiasderemision') ? 'active' : '' }}" href="{{ route('vistaguiasderemision') }}">
+                    <i class="fa-solid fa-table-list me-2"></i>Guías de Remisión
+                </a>
+            </div>
         </div>
+        <!-- Menú de usuario -->
+        <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown"
+                   aria-expanded="false">Bienvenido {{ Auth::user()->name }}<i class="fas fa-user fa-fw"></i></a>
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                    <li><a class="dropdown-item" href="#!">Configuración</a></li>
+                    <li><hr class="dropdown-divider" /></li>
+                    <li><a class="dropdown-item" href="#!" id="btncerrarsesion">Cerrar Sesión</a></li>
+                </ul>
+            </li>
+        </ul>
     </nav>
 
     <!-- Main content -->

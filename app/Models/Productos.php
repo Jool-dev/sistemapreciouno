@@ -53,24 +53,12 @@ class Productos extends Model
             $query->where('fecharegistro', $parametros['fecharegistro']);
         }
 
-        // Verificar si se pide paginación
-        if (isset($parametros['paginado']) && $parametros['paginado'] === true) {
-            $porPagina = $parametros['porPagina'] ?? 10;
-            $producto = $query->orderByDesc('idproducto')->paginate($porPagina);
-
-            return GlobalModel::returnArray(
-                $producto->count() > 0,
-                $producto->count() === 0 ? "No hay productos registrados" : "OK",
-                $producto // Retorna el paginador
-            );
-        }
-
-        // Ordenamiento
+        // Ordenamiento (se aplica antes de paginar o get)
         $orderBy = $parametros['orderBy'] ?? 'idproducto';
         $orderDirection = $parametros['orderDirection'] ?? 'asc';
         $query->orderBy($orderBy, $orderDirection);
 
-        // Paginación
+        // Si se solicita paginación
         if (isset($parametros['paginado']) && $parametros['paginado'] === true) {
             $porPagina = $parametros['porPagina'] ?? 10;
             $paginator = $query->paginate($porPagina);
@@ -81,6 +69,7 @@ class Productos extends Model
                 $paginator
             );
         }
+
 
         // Sin paginación
         $resultados = $query->get();

@@ -13,8 +13,8 @@ class Productoslive extends Component
 
     public $search = '';
     public $perPage = 10;
-    public $sortField = 'idproducto'; // Añade esta propiedad
-    public $sortDirection = 'asc';    // Añade esta propiedad
+    public $sortField = 'idproducto';
+    public $sortDirection = 'asc';
 
     protected $paginationTheme = 'bootstrap';
 
@@ -22,7 +22,7 @@ class Productoslive extends Component
         'search' => ['except' => ''],
         'perPage' => ['except' => 10],
         'sortField' => ['except' => 'idproducto'],
-        'sortDirection' => ['except' => 'asc']
+        'sortDirection' => ['except' => 'asc'],
     ];
 
     #[On('listarproductoDesdeJS')]
@@ -41,15 +41,16 @@ class Productoslive extends Component
         $this->resetPage();
     }
 
-    // Método para ordenar
     public function sortBy($field)
     {
         if ($this->sortField === $field) {
             $this->sortDirection = $this->sortDirection === 'asc' ? 'desc' : 'asc';
         } else {
-            $this->sortDirection = 'asc';
             $this->sortField = $field;
+            $this->sortDirection = 'asc';
         }
+
+        $this->resetPage();
     }
 
     public function render()
@@ -61,7 +62,7 @@ class Productoslive extends Component
             'porPagina' => $this->perPage,
             'paginado' => true,
             'orderBy' => $this->sortField,
-            'orderDirection' => $this->sortDirection
+            'orderDirection' => $this->sortDirection,
         ]);
 
         return view('livewire.producto.productoslive', [

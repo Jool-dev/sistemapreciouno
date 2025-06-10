@@ -68,24 +68,12 @@
             </div>
             <div>
                 <a class="nav-link {{ request()->routeIs('vistaguiasderemisionadministrador') ? 'active' : '' }}" href="{{ route('vistaguiasderemisionadministrador') }}">
-                    <i class="fa-solid fa-table-list me-2"></i>Guias de Carga
+                    <i class="fa-solid fa-table-list me-2"></i>Guias de Remisión
                 </a>
             </div>
         @else
         @endif
     </div>
-    <!-- Barra de búsqueda (derecha) -->
-{{--    <div class="ms-auto d-flex">--}}
-{{--        <form class="d-flex align-items-center me-3">--}}
-{{--            <div class="input-group">--}}
-{{--                <input class="form-control form-control-sm" type="text" placeholder="Ingrese su busqueda..."--}}
-{{--                       aria-label="Buscar" style="width: 200px;">--}}
-{{--                <button class="btn btn-sm btn-primary" type="submit">--}}
-{{--                    <i class="fas fa-search"></i>--}}
-{{--                </button>--}}
-{{--            </div>--}}
-{{--        </form>--}}
-{{--    </div>--}}
     <!-- Menú de usuario -->
     <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
         <li class="nav-item dropdown">

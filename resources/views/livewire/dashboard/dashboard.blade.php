@@ -190,28 +190,6 @@
 {{-- Scripts para gráficos --}}
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-    // Gráfico Últimas Guías Emitidas
-    {{--const ctxArea = document.getElementById('myAreaChart').getContext('2d');--}}
-    {{--new Chart(ctxArea, {--}}
-    {{--    type: 'line',--}}
-    {{--    data: {--}}
-    {{--        labels: {!! json_encode($ultimasGuias->pluck('fecha')) !!},--}}
-    {{--        datasets: [{--}}
-    {{--            label: 'Guías Emitidas',--}}
-    {{--            data: {!! json_encode($ultimasGuias->pluck('total')) !!},--}}
-    {{--            fill: true,--}}
-    {{--            borderColor: 'rgba(54, 162, 235, 1)',--}}
-    {{--            backgroundColor: 'rgba(54, 162, 235, 0.2)',--}}
-    {{--            tension: 0.3--}}
-    {{--        }]--}}
-    {{--    },--}}
-    {{--    options: {--}}
-    {{--        responsive: true,--}}
-    {{--        scales: {--}}
-    {{--            y: { beginAtZero: true }--}}
-    {{--        }--}}
-    {{--    }--}}
-    {{--});--}}
     const ctxGuias = document.getElementById('chartGuiasDiscrepancias').getContext('2d');
     new Chart(ctxGuias, {
         type: 'line',

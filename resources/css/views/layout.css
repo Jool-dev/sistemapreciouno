@@ -40,3 +40,27 @@ html, body {
 .dropdown-menu {
     border: 1px solid rgba(255, 255, 255, 0.1);
 }
+
+.table-container-sticky {
+    max-height: 600px;
+    overflow-y: auto;
+    position: relative;
+}
+
+.scrollable-tbody {
+    max-height: 400px;
+}
+
+.sticky-top {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background-color: #212529;
+    color: #fff;
+}
+
+.sticky-footer {
+    position: sticky;
+    bottom: 0;
+    z-index: 10;
+}

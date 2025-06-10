@@ -30,6 +30,7 @@
                         <option value="50">50 por página</option>
                         <option value="100">100 por página</option>
                     </select>
+
                 </div>
             </div>
             <!-- Botón de agregar -->
@@ -43,9 +44,10 @@
                 </button>
             </div>
         </div>
-
-        <!-- Tabla (el ordenamiento va dentro del componente Livewire) -->
-        @livewire('producto.productoslive')
+        <div class="enable-scroll">
+            <!-- Tabla (el ordenamiento va dentro del componente Livewire) -->
+            @livewire('producto.productoslive')
+        </div>
     </div>
 
     <!-- Modal -->

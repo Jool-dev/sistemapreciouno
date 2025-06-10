@@ -1,37 +1,17 @@
-<div class="table-responsive">
+<div class="table-container-sticky">
     <table class="table table-bordered">
-        <thead class="table-dark">
+        <thead class="table-dark sticky-top">
         <tr>
-            <th wire:click="sortBy('codigoproducto')" style="cursor: pointer;" class="text-center align-middle">
-                Código Producto
-                @if($sortField === 'codigoproducto')
-                    <i class="bi bi-arrow-{{ $sortDirection === 'asc' ? 'up' : 'down' }}"></i>
-                @endif
-            </th>
-            <th wire:click="sortBy('nombre')" style="cursor: pointer;" class="text-center align-middle">
-                Nombre Del Producto
-                @if($sortField === 'nombre')
-                    <i class="bi bi-arrow-{{ $sortDirection === 'asc' ? 'up' : 'down' }}"></i>
-                @endif
-            </th>
+            <th class="text-center align-middle">Codigo Producto</th>
+            <th class="text-center align-middle">Nombre Del Producto</th>
             <th class="text-center align-middle">Tipo Cod Producto</th>
-            <th wire:click="sortBy('tipoinventario')" style="cursor: pointer;" class="text-center align-middle">
-                Tipo Inventario
-                @if($sortField === 'tipoinventario')
-                    <i class="bi bi-arrow-{{ $sortDirection === 'asc' ? 'up' : 'down' }}"></i>
-                @endif
-            </th>
+            <th class="text-center align-middle">Tipo Inventario</th>
             <th class="text-center align-middle">Estado</th>
-            <th wire:click="sortBy('fecharegistro')" style="cursor: pointer;" class="text-center align-middle">
-                Fecha de registro
-                @if($sortField === 'fecharegistro')
-                    <i class="bi bi-arrow-{{ $sortDirection === 'asc' ? 'up' : 'down' }}"></i>
-                @endif
-            </th>
+            <th class="text-center align-middle">Fecha de Registro</th>
             <th class="text-center align-middle">Acciones</th>
         </tr>
         </thead>
-        <tbody>
+        <tbody class="scrollable-tbody">
         @forelse($data as $producto)
             <tr>
                 <td class="text-center align-middle"><strong>{{ $producto->codigoproducto }}</strong></td>
@@ -64,9 +44,9 @@
         @endforelse
         </tbody>
     </table>
-
     @if($data->total() > 0)
-        <div class="d-flex justify-content-between align-items-center mt-3">
+        <!-- Footer fijo -->
+        <div class="sticky-footer d-flex justify-content-between align-items-center px-3 py-2 bg-white border-top">
             <div class="text-muted">
                 Mostrando {{ $data->firstItem() }} a {{ $data->lastItem() }} de {{ $data->total() }} registros
             </div>

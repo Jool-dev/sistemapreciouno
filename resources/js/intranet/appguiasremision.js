@@ -139,6 +139,62 @@ $(document).ready(function () {
             }
         });
     });
+    // Botón Eliminar guía desde tabla
+    $(document).on('click', '.btn-eliminarguia', async function(e) {
+        e.preventDefault();
+
+        const id = $(this).data('id');
+        const csrfToken = $('meta[name="csrf-token"]').attr('content');
+
+        if (!csrfToken || !id) {
+            console.log('ID o token CSRF faltante');
+            return;
+        }
+
+        const pregunta = await window.SweetAlertpreguntarSI_NO("¿Estás seguro de eliminar?");
+
+        if (!pregunta) return;
+
+        try {
+            const response = await $.ajax({
+                url: "/estadoguia",
+                type: "POST",
+                data: {
+                    idguia: id,
+                    _token: csrfToken
+                },
+                headers: {
+                    'X-CSRF-TOKEN': csrfToken,
+                    'Accept': 'application/json'
+                },
+                dataType: 'json'
+            });
+
+            if (response.success) {
+                Livewire.dispatch("listarGuiasRemisionDesdeJS");
+                Swal.fire({
+                    icon: 'success',
+                    title: response.message,
+                    timer: 1500,
+                    showConfirmButton: false
+                });
+            } else {
+                throw new Error(response.message || 'Error en la operación');
+            }
+        } catch (error) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: error.responseJSON?.message || 'No se pudo completar la eliminación'
+            });
+        }
+    });
+
+// Botón Editar guía desde tabla
+    $('.btn-editarguia').on('click', function () {
+        const idguia = $(this).closest('tr').attr('wire:key').split('-')[1];
+        window.location.href = `/crearguiaremision?idguia=${idguia}`;
+    });
 });
 
 function agregarProductoAlCarrito() {

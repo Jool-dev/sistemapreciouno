@@ -79,13 +79,34 @@ class GuiasRemisionController extends Controller
         }
     }
 
-    public function vistaguias()
+//    public function vistaguias()
+//    {
+//        $conductores = Conductores::all();
+//        $tipoempresa = TipoEmpresa::all();
+//        $productos = Productos::all();
+//
+//        return view('intranet.prevencionistas.addguiasremision', compact('conductores', 'tipoempresa', 'productos'));
+//    }
+
+    public function vistaguias(Request $request)
     {
+        $idguia = $request->query('idguia');
+
         $conductores = Conductores::all();
         $tipoempresa = TipoEmpresa::all();
         $productos = Productos::all();
+//        $transportes = Transportistas::all(); // si lo usas también
 
-        return view('intranet.prevencionistas.addguiasremision', compact('conductores', 'tipoempresa', 'productos'));
+        $guia = null;
+        if ($idguia) {
+            $modeloguiaremision = new Guiasderemision();
+            $guiaData = $modeloguiaremision->mostrarguiaremisionporid($idguia); // Asegúrate que retorne la guía como array
+            $guia = $guiaData['data'][0] ?? null;
+        }
+
+        return view('intranet.prevencionistas.addguiasremision', compact(
+            'conductores', 'tipoempresa', 'productos', 'guia'
+        ));
     }
 
     public function eliminarguia(Request $request)
@@ -117,4 +138,5 @@ class GuiasRemisionController extends Controller
             ], 500);
         }
     }
+
 }
