@@ -1,7 +1,7 @@
 @extends('intranet.prevencionistas.prevencionista')
 @section('title','Guiasderemision')
 
-@section('content')
+@section('contenido_prevencionista')
     <div class="container-fluid py-3">
         <!-- Barra de búsqueda y acciones -->
         <div class="row mb-4 align-items-center">
