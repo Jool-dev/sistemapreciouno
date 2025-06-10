@@ -18,11 +18,11 @@ class VistasIntranetController extends Controller
     public function vistalogin()
     {
         if (session()->has('usuariologeado')) {
-            $rol = strtolower(session('usuariologeado')['data'][0]['rol']);
+            $rol = strtolower(session('usuariologeado')['data'][0]['rol'] ?? '');
 
-            // Redirigir según el rol
             switch ($rol) {
                 case 'administrador':
+                case 'superadmin':
                     return redirect()->route('vistadashboard');
                 case 'prevencionista':
                     return redirect()->route('vistaguiasderemision');

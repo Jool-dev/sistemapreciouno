@@ -50,7 +50,6 @@
             </div>
         </div>
     </div>
-
     <!-- Gráfico ancho -->
     {{--    <div class="card mb-4 shadow-sm rounded-3"> --}}
     {{--        <div class="card-header bg-light fw-semibold d-flex align-items-center"> --}}
@@ -70,7 +69,6 @@
             <canvas id="chartGuiasDiscrepancias" style="width: 100%; height: 350px;"></canvas>
         </div>
     </div>
-
     <!-- Tabla principal -->
     <div class="card mb-5 shadow-sm rounded-3">
         <div class="card-header bg-light fw-semibold d-flex align-items-center">
@@ -79,30 +77,34 @@
         <div class="card-body p-3">
             <table id="datatablesSimple" class="table table-striped table-hover align-middle">
                 <thead class="table-primary">
-                    <tr>
-                        <th>EAN/SKU</th>
-                        <th>Descripción</th>
-                        <th>Estado</th>
-                        <th>Cantidad</th>
-                        <th>Fecha de entrega</th>
-                    </tr>
+                <tr>
+                    <th>EAN/SKU</th>
+                    <th>Descripción</th>
+                    <th>Estado</th>
+                    <th>Total enviado</th>
+                    <th>Total recibido con discrepancia</th>
+                    <th>Fecha de entrega</th>
+                </tr>
                 </thead>
                 <tbody>
-                    {{-- Ejemplo estático o dinámico --}}
-                    {{--                 @foreach ($guiascondiscrepancias as $item) --}}
-                    {{--                 <tr> --}}
-                    {{--                    <td>{{ $item->sku }}</td> --}}
-                    {{--                    <td>{{ $item->descripcion }}</td> --}}
-                    {{--                    <td>{{ $item->estado }}</td> --}}
-                    {{--                    <td>{{ $item->cantidad }}</td> --}}
-                    {{--                    <td>{{ $item->fecha_entrega }}</td> --}}
-                    {{--                </tr> --}}
-                    {{--                 @endforeach --}}
+                @forelse($productosConDiscrepancias as $item)
+                    <tr>
+                        <td>{{ $item->codproducto }}</td>
+                        <td>{{ $item->nombre }}</td>
+                        <td>{{ $item->estado }}</td>
+                        <td>{{ $item->cantrecibida }}</td>
+                        <td>{{ $item->cantrecibidarevision }}</td>
+                        <td>{{ \Carbon\Carbon::parse($item->fecha)->format('d/m/Y') }}</td>
+                    </tr>
+                @empty
+                    <tr>
+                        No se encontraron productos con discrepancias
+                    </tr>
+                @endforelse
                 </tbody>
             </table>
         </div>
     </div>
-
 
     <!-- Nuevo apartado final: Dashboard adicional -->
     <div class="row g-4">
@@ -110,11 +112,8 @@
         <div class="col-lg-4">
             <div class="card shadow-sm rounded-3 p-3">
                 <div class="text-center mb-3">
-                    {{--                    <button class="btn btn-outline-success btn-sm rounded-pill px-3 fw-semibold"> --}}
-                    {{--                        Top 5 mayores discrepancias --}}
-                    {{--                    </button> --}}
                 </div>
-                {{--                canvas para grafico pastel --}}
+                {{--                Canvas para grafico pastel--}}
                 <div class="card mb-4 shadow-sm rounded-3">
                     <div class="card-header bg-light fw-semibold d-flex align-items-center">
                         <i class="fas fa-chart-pie me-2"></i> Estado de Guías (Sin Daño vs Con Daño)
@@ -125,101 +124,71 @@
                 </div>
             </div>
         </div>
-
-        <!-- Top 10 clientes con más suscripciones -->
-        <div class="col-lg-4">
-            <div class="card shadow-sm rounded-3 p-3">
-                <div class="text-center mb-3">
-                    <a>Top 10 guías con más discrepancias</a>
-                </div>
-                <div class="table-responsive" style="max-height: 320px; overflow-y: auto;">
-                    <table class="table table-sm table-striped align-middle mb-0">
-                        <thead class="table-success sticky-top">
+        {{-- NUEVO CARD UNIFICADO: Guías con discrepancias + gráfico --}}
+        <div class="card shadow-sm rounded-3 p-3 mb-4">
+            <div class="card-header bg-light fw-semibold d-flex align-items-center mb-3">
+                <i class="fas fa-exclamation-circle me-2"></i> Top 10 Guías con Más Discrepancias
+            </div>
+            <div class="row g-3 align-items-stretch">
+                <div class="col-md-6">
+                    <div class="table-responsive" style="max-height: 320px; overflow-y: auto;">
+                        <table class="table table-sm table-striped align-middle mb-0">
+                            <thead class="table-success sticky-top">
                             <tr>
                                 <th>N° Guía</th>
                                 <th>Cantidad de productos</th>
                                 <th>Cantidad de discrepancias</th>
                             </tr>
-                        </thead>
-                        <tbody>
-                            <!-- filas dinámicas -->
-                            {{--                        <h3 class="fw-bold">{{ $totalGuiasEmitidas }}</h3> --}}
-                            {{--                        {{$guiascondiscrepancias}} --}}
-                            @foreach ($guiascondiscrepancias as $guia)
+                            </thead>
+                            <tbody>
+                            @foreach($guiascondiscrepancias as $guia)
                                 <tr>
                                     <td>{{ $guia->codigoguia }}</td>
                                     <td>{{ $guia->cantidad_productos }}</td>
                                     <td>{{ $guia->cantidad_discrepancias }}</td>
                                 </tr>
                             @endforeach
-                        </tbody>
-                    </table>
-                </div>
-                {{-- Gráfico 3: Top 5 guías con más discrepancias --}}
-                <div class="card mb-4 shadow-sm rounded-3">
-                    <div class="card-header bg-light fw-semibold d-flex align-items-center">
-                        <i class="fas fa-exclamation-triangle me-2"></i> Top 5 Guías con Más Discrepancias
+                            </tbody>
+                        </table>
                     </div>
-                    <div class="card-body p-3">
-                        <canvas id="chartTopDiscrepancias" style="width: 100%; height: 300px;"></canvas>
+                </div>
+                <div class="col-md-6 d-flex">
+                    <div class="card flex-fill shadow-sm rounded-3 w-100">
+                        <div class="card-body p-3">
+                            <canvas id="chartTopDiscrepancias" style="width: 100%; height: 300px;"></canvas>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-
-        <!-- Top 10 clientes con más renovaciones -->
-        <div class="col-lg-4">
-            <div class="card shadow-sm rounded-3 p-3">
-                <div class="text-center mb-3">
-                    <button class="btn btn-outline-success btn-sm rounded-pill px-3 fw-semibold">
-                        Top 10 clientes con más renovaciones
-                    </button>
-                </div>
-                <div class="table-responsive" style="max-height: 320px; overflow-y: auto;">
-                    <table class="table table-sm table-striped align-middle mb-0">
-                        <thead class="table-success sticky-top">
-                            <tr>
-                                <th>N°</th>
-                                <th>Nombre</th>
-                                <th>Apellido</th>
-                                <th>Cantidad de renovaciones</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <!-- filas dinámicas -->
-                            <tr>
-                                <td>1</td>
-                                <td>M4 FERNANDO</td>
-                                <td>Fernando</td>
-                                <td>12</td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>Cliente 2</td>
-                                <td>Apellido 2</td>
-                                <td>9</td>
-                            </tr>
-                            <tr>
-                                <td>3</td>
-                                <td>Cliente 3</td>
-                                <td>Apellido 3</td>
-                                <td>8</td>
-                            </tr>
-                            <tr>
-                                <td>4</td>
-                                <td>Cliente 4</td>
-                                <td>Apellido 4</td>
-                                <td>7</td>
-                            </tr>
-                            <tr>
-                                <td>5</td>
-                                <td>Cliente 5</td>
-                                <td>Apellido 5</td>
-                                <td>5</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+        {{-- NUEVO CARD: Productos con más discrepancias --}}
+        <div class="card shadow-sm rounded-3 p-3">
+            <div class="card-header bg-light fw-semibold d-flex align-items-center mb-3">
+                <i class="fas fa-box-open me-2"></i> Top 10 Productos con Más Discrepancias
+            </div>
+            <div class="table-responsive" style="max-height: 320px; overflow-y: auto;">
+                <table class="table table-sm table-striped align-middle mb-0">
+                    <thead class="table-success sticky-top">
+                    <tr>
+                        <th>SKU</th>
+                        <th>Nombre</th>
+                        <th>Estado</th>
+                        <th>Total entregado / Revisado</th>
+                        <th>Fecha</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @foreach($productosConDiscrepancias as $item)
+                        <tr>
+                            <td>{{ $item->codproducto }}</td>
+                            <td>{{ $item->nombre }}</td>
+                            <td>{{ $item->estado }}</td>
+                            <td>{{ $item->cantrecibida }} / {{ $item->cantrecibidarevision }}</td>
+                            <td>{{ \Carbon\Carbon::parse($item->fecha)->format('d/m/Y') }}</td>
+                        </tr>
+                    @endforeach
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>

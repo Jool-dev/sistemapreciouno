@@ -16,6 +16,8 @@ class Dashboard extends Component
     public $fechas;
     public $datosSinDiscrepancias;
     public $datosConDiscrepancias;
+    public $productosConDiscrepancias;
+
 
     public function mount()
     {
@@ -99,6 +101,26 @@ class Dashboard extends Component
             $this->datosSinDiscrepancias[] = $sinDiscrepancias[$fecha] ?? 0;
             $this->datosConDiscrepancias[] = $conDiscrepancias[$fecha] ?? 0;
         }
+        //productos con discrepancias
+        $this->productosConDiscrepancias = DB::table('validacion as v')
+            ->join('detalleguia as d', function ($join) {
+                $join->on('v.idguia', '=', 'd.idguia')
+                    ->on('v.idproducto', '=', 'd.idproducto');
+            })
+            ->join('productos as p', 'v.idproducto', '=', 'p.idproducto')
+            ->join('guiaremision as g', 'g.idguia', '=', 'v.idguia')
+            ->select(
+                'p.codigoproducto as codproducto',
+                'p.nombre',
+                'v.estado',
+                'd.cantrecibida',
+                'v.cantrecibidarevision',
+                'g.fechaemision as fecha'
+            )
+            ->where('v.idtipocondicion', '!=', 1) // sólo discrepancias
+            ->where('g.estado', '!=', 'Eliminado')
+            ->limit(30)
+            ->get();
     }
 
     public function render()

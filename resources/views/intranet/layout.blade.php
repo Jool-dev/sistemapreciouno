@@ -32,96 +32,92 @@
 </head>
 
 <body class="sb-nav-fixed">
-    <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-        <!-- Navbar Brand-->
-        {{--    <a class="navbar-brand" href="{{ route('vistadashboard') }}"> --}}
-        {{--        <img src="{{ asset('storage/img/Hiperbodega_Precio_Uno.svg') }}" --}}
-        {{--             alt="Logo" --}}
-        {{--             class="img-fluid me-2 d-none d-sm-inline" --}}
-        {{--             style="max-height: 30px; width: auto;"> --}}
-        {{--    </a> --}}
-        <!-- Menú principal horizontal -->
-        <div class="navbar-nav me-auto">
-            @if (session('usuariologeado')['data'][0]['idrol'] == 1)
-                <div>
-                    <a class="nav-link {{ request()->routeIs('vistadashboard') ? 'active' : '' }}"
-                        href="{{ route('vistadashboard') }}">
-                        <i class="fas fa-tachometer-alt me-2"></i>Dashboard
-                    </a>
-                </div>
-                <div>
-                    <a class="nav-link {{ request()->routeIs('vistausuarios') ? 'active' : '' }}"
-                        href="{{ route('vistausuarios') }}">
-                        <i class="fa-solid fa-user me-2"></i>Usuarios
-                    </a>
-                </div>
-                <div>
-                    <a class="nav-link {{ request()->routeIs('vistaconductor') ? 'active' : '' }}"
-                        href="{{ route('vistaconductor') }}">
-                        <i class="fa-solid fa-id-card me-2"></i>Conductores
-                    </a>
-                </div>
-                <div>
-                    <a class="nav-link {{ request()->routeIs('vistavehiculo') ? 'active' : '' }}"
-                        href="{{ route('vistavehiculo') }}">
-                        <i class="fa-solid fa-truck me-2"></i>Vehículos
-                    </a>
-                </div>
-                <div>
-                    <a class="nav-link {{ request()->routeIs('vistaproducto') ? 'active' : '' }}"
-                        href="{{ route('vistaproducto') }}">
-                        <i class="fa-solid fa-bag-shopping me-2"></i>Productos
-                    </a>
-                </div>
-                <div>
-                    <a class="nav-link {{ request()->routeIs('vistaguiasderemisionadministrador') ? 'active' : '' }}"
-                        href="{{ route('vistaguiasderemisionadministrador') }}">
-                        <i class="fa-solid fa-table-list me-2"></i>Guias de Carga
-                    </a>
-                </div>
-            @else
-            @endif
-        </div>
-        <!-- Barra de búsqueda (derecha) -->
-        {{--    <div class="ms-auto d-flex"> --}}
-        {{--        <form class="d-flex align-items-center me-3"> --}}
-        {{--            <div class="input-group"> --}}
-        {{--                <input class="form-control form-control-sm" type="text" placeholder="Ingrese su busqueda..." --}}
-        {{--                       aria-label="Buscar" style="width: 200px;"> --}}
-        {{--                <button class="btn btn-sm btn-primary" type="submit"> --}}
-        {{--                    <i class="fas fa-search"></i> --}}
-        {{--                </button> --}}
-        {{--            </div> --}}
-        {{--        </form> --}}
-        {{--    </div> --}}
-        <!-- Menú de usuario -->
-        <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button"
-                    data-bs-toggle="dropdown" aria-expanded="false">Bienvenido {{ Auth::user()->name }}<i
-                        class="fas fa-user fa-fw"></i></a>
-                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                    <li><a class="dropdown-item" href="#!">Configuración</a></li>
-                    <li>
-                        <hr class="dropdown-divider" />
-                    </li>
-                    <li><a class="dropdown-item" id="btncerrarsesion">Cerrar Sesión</a></li>
-                </ul>
-            </li>
-        </ul>
-    </nav>
-    {{-- contenido vistas --}}
-    <div class="container-fluid mt-5 pt-3" class="@if (Request::is('dashboard')) enable-scroll @endif">
-        <main>
-            @yield('content')
-        </main>
+<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+    <!-- Menú principal horizontal -->
+    <div class="navbar-nav me-auto">
+        @if (session('usuariologeado')["data"][0]['idrol'] == 1)
+            <div>
+                <a class="nav-link {{ request()->routeIs('vistadashboard') ? 'active' : '' }}" href="{{ route('vistadashboard') }}">
+                    <i class="fas fa-tachometer-alt me-2"></i>Dashboard
+                </a>
+            </div>
+            <div>
+                <a class="nav-link {{ request()->routeIs('vistausuarios') ? 'active' : '' }}" href="{{ route('vistausuarios') }}">
+                    <i class="fa-solid fa-user me-2"></i>Usuarios
+                </a>
+            </div>
+            <div>
+                <a class="nav-link {{ request()->routeIs('vistaconductor') ? 'active' : '' }}" href="{{ route('vistaconductor') }}">
+                    <i class="fa-solid fa-id-card me-2"></i>Conductores
+                </a>
+            </div>
+            <div>
+                <a class="nav-link {{ request()->routeIs('vistavehiculo') ? 'active' : '' }}" href="{{ route('vistavehiculo') }}">
+                    <i class="fa-solid fa-truck me-2"></i>Vehículos
+                </a>
+            </div>
+            <div>
+                <a class="nav-link {{ request()->routeIs('vistaproducto') ? 'active' : '' }}" href="{{ route('vistaproducto') }}">
+                    <i class="fa-solid fa-bag-shopping me-2"></i>Productos
+                </a>
+            </div>
+        @elseif (session('usuariologeado')["data"][0]['idrol'] == 3)
+            <div>
+                <a class="nav-link {{ request()->routeIs('vistadashboard') ? 'active' : '' }}" href="{{ route('vistadashboard') }}">
+                    <i class="fas fa-tachometer-alt me-2"></i>Dashboard
+                </a>
+            </div>
+            <div>
+                <a class="nav-link {{ request()->routeIs('vistausuarios') ? 'active' : '' }}" href="{{ route('vistausuarios') }}">
+                    <i class="fa-solid fa-user me-2"></i>Usuarios
+                </a>
+            </div>
+            <div>
+                <a class="nav-link {{ request()->routeIs('vistaconductor') ? 'active' : '' }}" href="{{ route('vistaconductor') }}">
+                    <i class="fa-solid fa-id-card me-2"></i>Conductores
+                </a>
+            </div>
+            <div>
+                <a class="nav-link {{ request()->routeIs('vistavehiculo') ? 'active' : '' }}" href="{{ route('vistavehiculo') }}">
+                    <i class="fa-solid fa-truck me-2"></i>Vehículos
+                </a>
+            </div>
+            <div>
+                <a class="nav-link {{ request()->routeIs('vistaproducto') ? 'active' : '' }}" href="{{ route('vistaproducto') }}">
+                    <i class="fa-solid fa-bag-shopping me-2"></i>Productos
+                </a>
+            </div>
+            <div>
+                <a class="nav-link {{ request()->routeIs('vistaguiasderemision') ? 'active' : '' }}" href="{{ route('vistaguiasderemision') }}">
+                    <i class="fa-solid fa-table-list me-2"></i>Guias de Remisión
+                </a>
+            </div>
+        @else
+        @endif
     </div>
-    @livewireScripts
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous">
-    </script>
+    <!-- Menú de usuario -->
+    <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown"
+               aria-expanded="false">Bienvenido {{ Auth::user()->name }}<i class="fas fa-user fa-fw"></i></a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                <li><a class="dropdown-item" href="#!">Configuración</a></li>
+                <li><hr class="dropdown-divider" /></li>
+                <li><a class="dropdown-item" href="#!" id="btncerrarsesion">Cerrar Sesión</a></li>
+            </ul>
+        </li>
+    </ul>
+</nav>
+{{--contenido vistas--}}
+<div class="container-fluid mt-5 pt-3" class="@if(Request::is('dashboard')) enable-scroll @endif">
+    <main>
+        @yield('content')
+    </main>
+</div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js"
-        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
+    @livewireScripts
+    @yield('scripts')
 </body>
-
 </html>

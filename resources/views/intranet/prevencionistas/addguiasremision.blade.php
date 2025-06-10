@@ -6,7 +6,6 @@
         <h5 class="modal-title mb-3 fw-bold text-primary" id="idmodalguiasremision">
             <i class="fas fa-file-import me-2"></i>Agregar Guía de Remisión
         </h5>
-
         <form id="idformaddguiasremision" class="needs-validation" novalidate>
             @csrf
             <input type="hidden" id="idguia" name="idguia" value="">

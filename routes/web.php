@@ -18,7 +18,7 @@ Route::get('/', function () {
 //Rutas para la web Publicas
 //Rutas get
 Route::get('/login', [VistasIntranetController::class, 'vistalogin'])->name('vistalogin');
-Route::middleware(['auth', 'role:administrador'])->group(function () {
+Route::middleware(['auth', 'role:administrador,superadmin'])->group(function () {
     Route::get('/dashboard', [VistasIntranetController::class, 'vistadashboard'])->name('vistadashboard');
 
     //usuarios
@@ -37,13 +37,13 @@ Route::middleware(['auth', 'role:administrador'])->group(function () {
     Route::get('/producto', [VistasIntranetController::class, 'vistaproducto'])->name('vistaproducto');
     Route::post('/registrarproducto', [ProductoController::class, 'registrarproducto'])->name('api.registrarproducto');
     Route::post('/eliminarproducto', [ProductoController::class, 'eliminarproducto'])->name('api.eliminarproducto');
-    //
+    //guiasderemisionvistas por el administrador
     Route::get('/guiasremisionadministrador', [VistasIntranetController::class, 'vistaguiasderemisionadministrador'])->name('vistaguiasderemisionadministrador');
 });
 
 
 //Vista para prevencionista
-Route::middleware(['auth', 'role:prevencionista'])->group(function () {
+Route::middleware(['auth', 'role:prevencionista,superadmin'])->group(function () {
     Route::get('/guiasremision', [VistasIntranetController::class, 'vistaguiasderemision'])->name('vistaguiasderemision');
     Route::get('/vistadetalleguia/{idguia?}', [VistasIntranetController::class, 'vistadetalleguia'])->name('vistadetalleguia');
     Route::get('/crearguiaremision', [VistasIntranetController::class, 'vistaaddguiaremision'])->name('vistaaddguiaremision');
