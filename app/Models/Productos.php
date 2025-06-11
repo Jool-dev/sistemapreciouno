@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\Global\GlobalModel;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
 
 class Productos extends Model
 {
@@ -107,6 +108,40 @@ class Productos extends Model
                     "idproducto" => $result[0]->idproducto
                 ]
             ]
+        );
+    }
+
+    //
+    public function editarproducto(array $datos): array
+    {
+        if (!isset($datos['idproducto'])) {
+            return GlobalModel::returnArray(false, 'idproducto es obligatorio');
+        }
+
+        $id = $datos['idproducto'];
+        unset($datos['idproducto']); // No queremos actualizar la PK
+
+        if (empty($datos)) {
+            return GlobalModel::returnArray(false, 'No hay datos para actualizar');
+        }
+
+        $producto = self::find($id);
+        if (!$producto) {
+            return GlobalModel::returnArray(false, 'Producto no encontrado');
+        }
+
+        // Llenamos solo los campos que existan
+        foreach ($datos as $key => $value) {
+            if (Schema::hasColumn('productos', $key) && !is_null($value)) {
+                $producto->$key = $value;
+            }
+        }
+
+        $producto->save();
+        return GlobalModel::returnArray(
+            true,
+            'Producto Editado correctamente',
+            $producto
         );
     }
 }

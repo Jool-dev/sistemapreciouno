@@ -67,4 +67,55 @@ $(document).ready(function () {
             }
         });
     });
+
+    // Botón Eliminar Producto
+    $(document).on('click', '.btn-eliminarproducto', async function (e) {
+        e.preventDefault();
+
+        const id = $(this).data('id'); // ✅ Obtenemos el ID desde el botón
+        const csrfToken = $('meta[name="csrf-token"]').attr('content');
+
+        if (!csrfToken || !id) {
+            console.log('ID o token CSRF faltante');
+            return;
+        }
+
+        const pregunta = await window.SweetAlertpreguntarSI_NO("¿Estás seguro de eliminar este producto?");
+
+        if (!pregunta) return;
+
+        try {
+            const response = await $.ajax({
+                url: "/eliminarproducto",
+                type: "POST",
+                data: {
+                    idproducto: id,
+                    _token: csrfToken
+                },
+                headers: {
+                    'X-CSRF-TOKEN': csrfToken,
+                    'Accept': 'application/json'
+                },
+                dataType: 'json'
+            });
+
+            if (response.success) {
+                Livewire.dispatch("listarproductoDesdeJS");
+                Swal.fire({
+                    icon: 'success',
+                    title: response.message,
+                    timer: 1500,
+                    showConfirmButton: false
+                });
+            } else {
+                throw new Error(response.message || 'Error en la operación');
+            }
+        } catch (error) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: error.responseJSON?.message || 'No se pudo completar la eliminación'
+            });
+        }
+    });
 });

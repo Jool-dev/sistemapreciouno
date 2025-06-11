@@ -1,4 +1,4 @@
-@extends('intranet.prevencionistas.prevencionista')
+@extends('intranet/layout')
 @section('title', 'Agregar Guía de Remisión')
 
 @section('content')
@@ -224,7 +224,6 @@
                         </div>
                     </div>
 
-
                     <!-- Tabla de productos agregados -->
                     <div class="table-responsive">
                         <table class="table table-sm table-bordered table-hover" id="tablaProductos">
@@ -244,9 +243,6 @@
                     </div>
                 </div>
             </div>
-
-            <!-- Botones de acción - ahora fuera del grid -->
-            <!-- Botones de acción alineados a la derecha -->
             <div class="d-flex justify-content-end mt-3 gap-2">
                 <a href="{{ route('vistaguiasderemision') }}" class="btn btn-outline-danger btn-sm px-3">
                     <i class="fas fa-times-circle me-1"></i> Cancelar
