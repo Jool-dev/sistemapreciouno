@@ -23,6 +23,7 @@ Route::middleware(['auth', 'role:administrador,superadmin'])->group(function () 
 
     //usuarios
     Route::get('/usuarios', [VistasIntranetController::class, 'vistausuarios'])->name('vistausuarios');
+    Route::post('/registrarusuario', [ProductoController::class, 'registrarusuario'])->name('api.registrarusuario');
 
     //conductores
     Route::get('/conductor', [VistasIntranetController::class, 'vistaconductor'])->name('vistaconductor');
@@ -37,6 +38,7 @@ Route::middleware(['auth', 'role:administrador,superadmin'])->group(function () 
     Route::get('/producto', [VistasIntranetController::class, 'vistaproducto'])->name('vistaproducto');
     Route::post('/registrarproducto', [ProductoController::class, 'registrarproducto'])->name('api.registrarproducto');
     Route::post('/eliminarproducto', [ProductoController::class, 'eliminarproducto'])->name('api.eliminarproducto');
+
     //guiasderemisionvistas por el administrador
     Route::get('/guiasremisionadministrador', [VistasIntranetController::class, 'vistaguiasderemisionadministrador'])->name('vistaguiasderemisionadministrador');
 });
@@ -48,7 +50,7 @@ Route::middleware(['auth', 'role:prevencionista,superadmin'])->group(function ()
     Route::get('/vistadetalleguia/{idguia?}', [VistasIntranetController::class, 'vistadetalleguia'])->name('vistadetalleguia');
     Route::get('/crearguiaremision', [VistasIntranetController::class, 'vistaaddguiaremision'])->name('vistaaddguiaremision');
     Route::post('/registrarguiaremision', [GuiasRemisionController::class, 'registrarguiaremision'])->name('api.registrarguiaremision');
-    Route::post('/estadoguia', [GuiasRemisionController::class, 'eliminarguia'])->name('api.eliminarguia');
+    Route::post('/estadoguia/{id}', [GuiasRemisionController::class, 'eliminarguia'])->name('api.eliminarguia');
     Route::post('/registrarvalidacionguia', [RevisionDeGuiasController::class, 'registrarguiarevicion_validacion'])->name('registrarguiarevicion_validacion');
     Route::get('/conductores-por-empresa/{idtransportista}', [ConductoresController::class, 'getConductoresPorEmpresa']);
     Route::get('/revisionguias/{idguia?}', [VistasIntranetController::class, 'vistarevisionguias'])->name('vistarevisionguias');

@@ -1,4 +1,4 @@
-@extends('intranet.prevencionistas.prevencionista')
+@extends('intranet/layout')
 @section('title', 'Validacion Guia Conteo')
 
 @section('content')

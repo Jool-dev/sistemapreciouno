@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Livewire\Usuarios\Gestionusuario;
 use App\Models\User;
+use App\Models\Gestionusuarios;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -91,6 +92,42 @@ class UsuariosController extends Controller
             ], 500);
         }
     }
+
+    // Para registrar el usuario
+    public function registrarusuario(Request $request)
+    {
+        try {
+            $validated = $request->validate([
+                'name' => 'required|string|max:255',
+                'email' => 'required|email|unique:usuarios,email',
+                'password' => 'required|min:6',
+                'idrol' => 'required|integer'
+            ]);
+
+            // Encriptar la contraseña antes de guardar
+            $validated['password'] = bcrypt($validated['password']);
+
+            $modelousuario = new Usuarios();
+            $usuario = $modelousuario->insertarusuarios($validated);
+
+            if (!$usuario["success"]) {
+                throw new Exception($usuario["message"]);
+            }
+
+            return response()->json([
+                'success' => true,
+                'message' => $usuario["message"],
+                'data' => $usuario["data"]
+            ]);
+        } catch (\Exception $ex) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Error al registrar el usuario: ' . $ex->getMessage(),
+                'error_details' => env('APP_DEBUG') ? $ex->getTrace() : null
+            ], 500);
+        }
+    }
+
 
     public function eliminarusuario(Request $request)
     {

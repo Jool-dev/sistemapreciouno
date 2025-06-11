@@ -19,10 +19,10 @@
                     <td class="text-center align-middle"><strong>{{ $conductor['idtransportista'] }}</strong></td>
                     <td class="text-center align-middle"><strong>{{ $conductor['idvehiculo'] }}</strong></td>
                     <td class="text-center align-middle">
-                        <button type="button" class="btn btn-sm btn-warning btn-editarproducto">
+                        <button type="button" class="btn btn-sm btn-warning btn-editarconductor">
                             <i class="bi bi-pencil-square"></i> Editar
                         </button>
-                        <button type="button" class="btn btn-sm btn-danger btn-eliminarproducto">
+                        <button type="button" class="btn btn-sm btn-danger btn-eliminarconductor">
                             {{--                            data-id="{{ $productos['idproducto'] }}"> --}}
                             <i class="bi bi-trash"></i> Eliminar
                         </button>

@@ -42,24 +42,54 @@ class ProductoController extends Controller
     }
 
     //Para eliminar el producto
-    public function eliminarproducto($id)
+//    public function eliminarproducto($id)
+//    {
+//        try {
+//            $modelo = new Productos();
+//            $resultado = $modelo->eliminarproducto($id);
+//
+//            if (!$resultado["success"]) {
+//                throw new Exception($resultado["message"]);
+//            }
+//
+//            return response()->json([
+//                'success' => true,
+//                'message' => $resultado["message"]
+//            ]);
+//        } catch (\Exception $ex) {
+//            return response()->json([
+//                'success' => false,
+//                'message' => 'Error al eliminar el producto: ' . $ex->getMessage()
+//            ], 500);
+//        }
+//    }
+
+    public function eliminarproducto(Request $request)
     {
         try {
-            $modelo = new Productos();
-            $resultado = $modelo->eliminarproducto($id);
+            $validated = $request->validate([
+                "idproducto" => "nullable",
+            ]);
 
-            if (!$resultado["success"]) {
-                throw new Exception($resultado["message"]);
+            $modeloelimiarproducto = new Productos();
+            $productoelim = $modeloelimiarproducto->editarproducto([
+                "idproducto" => $validated['idproducto'],
+                "estado" => "Eliminado"
+            ]);
+
+            if (!$productoelim["success"]) {
+                throw new Exception($productoelim["message"]);
             }
 
             return response()->json([
                 'success' => true,
-                'message' => $resultado["message"]
+                'message' => "Eliminado correctamente",
             ]);
         } catch (\Exception $ex) {
             return response()->json([
                 'success' => false,
-                'message' => 'Error al eliminar el producto: ' . $ex->getMessage()
+                'message' => 'Error al eliminar el producto: ' . $ex->getMessage(),
+                'error_details' => env('APP_DEBUG') ? $ex->getTrace() : null
             ], 500);
         }
     }
@@ -79,7 +109,7 @@ class ProductoController extends Controller
             if ($producto["data"] === null) {
                 return response()->json([
                     'success' => true,
-                    "message" => "CodigoNo encontrado",
+                    "message" => "Codigo No encontrado",
                     "data" => null
                 ]);
             } else {

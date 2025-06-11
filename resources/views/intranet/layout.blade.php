@@ -15,9 +15,11 @@
     @vite([
         'resources/css/demo/styles.css',
         'resources/css/views/layout.css',
+        'resources/js/intranet/usuarios.js',
         'resources/js/intranet/appproducto.js',
         'resources/js/intranet/appvehiculo.js',
         'resources/js/intranet/appconductores.js',
+        'resources/js/intranet/appguiasremision.js',
         'resources/js/appglobal.js',
         'resources/js/applogin.js',
         'resources/js/bootstrap.js',
@@ -59,6 +61,12 @@
             <div>
                 <a class="nav-link {{ request()->routeIs('vistaproducto') ? 'active' : '' }}" href="{{ route('vistaproducto') }}">
                     <i class="fa-solid fa-bag-shopping me-2"></i>Productos
+                </a>
+            </div>
+        @elseif (session('usuariologeado')["data"][0]['idrol'] == 2)
+            <div>
+                <a class="nav-link {{ request()->routeIs('vistaguiasderemision') ? 'active' : '' }}" href="{{ route('vistaguiasderemision') }}">
+                    <i class="fa-solid fa-table-list me-2"></i>Guias de Remisión
                 </a>
             </div>
         @elseif (session('usuariologeado')["data"][0]['idrol'] == 3)
@@ -118,6 +126,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
     @livewireScripts
+<!-- Asegúrate que esta línea esté presente -->
+    @stack('scripts')
     @yield('scripts')
 </body>
 </html>

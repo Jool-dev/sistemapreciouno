@@ -2,94 +2,74 @@
 
 namespace App\Livewire\Usuarios;
 
+use App\Models\User;  // Usaremos el modelo de usuarios de Laravel
+use Livewire\Attributes\On;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class Gestionusuario extends Component
 {
-    protected $table = 'users'; // Especifica el nombre exacto de la tabla
-    protected $primaryKey = 'id'; // Si tu clave primaria no se llama "id"
-    public $timestamps = false; // Desactiva timestamps si tu tabla no tiene created_at / updated_at
+    use WithPagination;
 
-    // Opcional: si quieres proteger o permitir ciertas columnas
-    protected $fillable = [
-        'name',
-        'sku',
-        'estado',
-        'fecharegistro'
+    public $search = '';        // Filtro de búsqueda
+    public $perPage = 10;       // Número de registros por página
+    public $sortField = 'id';   // Campo por el cual se ordena
+    public $sortDirection = 'asc'; // Dirección del orden (asc/desc)
+
+    protected $paginationTheme = 'bootstrap'; // Usar el tema de Bootstrap para la paginación
+
+    protected $queryString = [
+        'search' => ['except' => ''],
+        'perPage' => ['except' => 10],
+        'sortField' => ['except' => 'id'],
+        'sortDirection' => ['except' => 'asc'],
     ];
 
-    public function mostraproducto(array $parametros = []): array
+    // Método para actualizar la lista cuando se cambia el filtro
+    #[On('listarusuariosDesdeJS')]
+    public function refreshList()
     {
-        $query = DB::table('productos');
-
-        // Filtros condicionales
-        if (isset($parametros['idproducto'])) {
-            $query->where('idproducto', $parametros['idproducto']);
-        }
-
-        if (isset($parametros['nombre'])) {
-            $query->where('nombre', $parametros['nombre']);
-        }
-
-        if (isset($parametros['sku'])) {
-            $query->where('sku', $parametros['sku']);
-        }
-
-        if (isset($parametros['estado'])) {
-            $query->where('estado', $parametros['estado']);
-        }
-
-        if (isset($parametros['fecharegistro'])) {
-            $query->where('fecharegistro', $parametros['fecharegistro']);
-        }
-
-        // Verificar si se pide paginación
-        if (isset($parametros['paginado']) && $parametros['paginado'] === true) {
-            $porPagina = $parametros['porPagina'] ?? 10;
-            $producto = $query->orderByDesc('idproducto')->paginate($porPagina);
-
-            return GlobalModel::returnArray(
-                $producto->count() > 0,
-                $producto->count() === 0 ? "No hay productos registrados" : "OK",
-                $producto // Retorna el paginador
-            );
-        }
-
-        // Si no hay paginado, obtener todo
-        $producto = $query->get()->map(fn($item) => (array) $item)->toArray();
-        return GlobalModel::returnArray(
-            !empty($producto),
-            empty($producto) ? "No hay productos registrados" : "OK",
-            $producto
-        );
+        $this->resetPage(); // Resetear la paginación
     }
 
-    public function insertarproductos(array $data): array
+    // Método para limpiar el filtro de búsqueda
+    public function updatingSearch()
     {
-        // Definir variables de salida
-        DB::statement("SET @idproducto = 0;");
-        DB::statement("SET @success = 0;");
-        DB::statement("SET @message = '';");
+        $this->resetPage(); // Resetear la paginación cuando cambia la búsqueda
+    }
 
-        // Llamar al SP con parámetros IN + OUT
-        DB::statement("CALL sp_productosinsertar(?, ?, ?, ?, @idproducto, @success, @message)", [
-            isset($data['nombre']) ? $data['nombre'] : null,
-            isset($data['sku']) ? $data['sku'] : null,
-            isset($data['estado']) ? $data['estado'] : null,
-            isset($data['fecharegistro']) ? $data['fecharegistro'] : null
+    // Método para actualizar la cantidad de elementos por página
+    public function updatingPerPage()
+    {
+        $this->resetPage(); // Resetear la paginación cuando cambia la cantidad de registros por página
+    }
+
+    // Método para ordenar por una columna
+    public function sortBy($field)
+    {
+        if ($this->sortField === $field) {
+            $this->sortDirection = $this->sortDirection === 'asc' ? 'desc' : 'asc';
+        } else {
+            $this->sortField = $field;
+            $this->sortDirection = 'asc';
+        }
+
+        $this->resetPage();
+    }
+
+    // Metodo para obtener usuarios con filtrado y paginación
+    public function render()
+    {
+        $usuarios = User::query()
+            ->when($this->search, function ($query) {
+                $query->where('name', 'like', '%' . $this->search . '%')
+                    ->orWhere('email', 'like', '%' . $this->search . '%');
+            })
+            ->orderBy($this->sortField, $this->sortDirection)
+            ->paginate($this->perPage);
+
+        return view('livewire.usuarios.gestionusuario', [
+            'data' => $usuarios,   // Paginación de usuarios
         ]);
-
-
-        // Obtener resultados de las variables OUT
-        $result = DB::select("SELECT @idproducto as idproducto, @success as success, @message as message");
-        return GlobalModel::returnArray(
-            $result[0]->success == 1,
-            $result[0]->message,
-            [
-                [
-                    "idproducto" => $result[0]->idproducto
-                ]
-            ]
-        );
     }
 }
