@@ -2,7 +2,7 @@
 @section('title', 'Agregar Guía de Remisión')
 
 @section('content')
-    <div class="container-fluid py-2">
+    <div class="container-fluid py-2" style="overflow-y: auto; max-height: 90vh;">
         <h5 class="modal-title mb-3 fw-bold text-primary" id="idmodalguiasremision">
             <i class="fas fa-file-import me-2"></i>Agregar Guía de Remisión
         </h5>
@@ -225,8 +225,8 @@
                     </div>
 
                     <!-- Tabla de productos agregados -->
-                    <div class="table-responsive">
-                        <table class="table table-sm table-bordered table-hover" id="tablaProductos">
+                    <div class="border rounded overflow-y-auto" style="max-height:500px ;overflow-y: auto; border: 1px solid red;">
+                        <table class="table table-sm table-bordered table-hover " id="tablaProductos">
                             <thead class="table-light">
                                 <tr>
                                     <th width="15%">Código</th>
@@ -238,6 +238,16 @@
                             </thead>
                             <tbody>
                                 <!-- Los productos se agregarán aquí dinámicamente -->
+                                {{--  @for ($i = 0; $i < 20; $i++)
+                                    <tr>
+                                        <td>123456</td>
+                                        <td>Producto largo con nombre</td>
+                                        <td>10</td>
+                                        <td>Bueno</td>
+                                        <td><button class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></button>
+                                        </td>
+                                    </tr>
+                                @endfor  --}}
                             </tbody>
                         </table>
                     </div>

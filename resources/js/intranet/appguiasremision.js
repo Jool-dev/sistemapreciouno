@@ -157,7 +157,7 @@ $(document).ready(function () {
 
         try {
             const response = await $.ajax({
-                url: "/estadoguia",
+                url: "/estadoguia/{id}",
                 type: "POST",
                 data: {
                     idguia: id,
