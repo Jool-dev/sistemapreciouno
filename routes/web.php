@@ -48,7 +48,7 @@ Route::middleware(['auth', 'role:administrador,superadmin'])->group(function () 
 Route::middleware(['auth', 'role:prevencionista,superadmin'])->group(function () {
     Route::get('/guiasremision', [VistasIntranetController::class, 'vistaguiasderemision'])->name('vistaguiasderemision');
     Route::get('/vistadetalleguia/{idguia?}', [VistasIntranetController::class, 'vistadetalleguia'])->name('vistadetalleguia');
-    Route::get('/crearguiaremision', [VistasIntranetController::class, 'vistaaddguiaremision'])->name('vistaaddguiaremision');
+    Route::get('/crearguiaremision', [GuiasRemisionController::class, 'vistaguias'])->name('vistaaddguiaremision');
     Route::post('/registrarguiaremision', [GuiasRemisionController::class, 'registrarguiaremision'])->name('api.registrarguiaremision');
     Route::post('/estadoguia/{id}', [GuiasRemisionController::class, 'eliminarguia'])->name('api.eliminarguia');
     Route::post('/registrarvalidacionguia', [RevisionDeGuiasController::class, 'registrarguiarevicion_validacion'])->name('registrarguiarevicion_validacion');

@@ -44,7 +44,7 @@ $(document).ready(function () {
 
         $('#idtxtcodigoproducto').val(codigo);
         $('#idproductocarritogiaremision').val(idproducto);
-        $('#idtxtnombreproducto').val(nombre); // <-- ESTA LÍNEA ES CLAVE
+        $('#idtxtnombreproducto').val(nombre);
     });
 
     $('#idbtnagregarproducto').click(agregarProductoAlCarrito);
@@ -139,6 +139,7 @@ $(document).ready(function () {
             }
         });
     });
+
     // Botón Eliminar guía desde tabla
     $(document).on('click', '.btn-eliminarguia', async function(e) {
         e.preventDefault();
@@ -157,7 +158,7 @@ $(document).ready(function () {
 
         try {
             const response = await $.ajax({
-                url: "/estadoguia/{id}",
+                url: "/estadoguia/" + id,
                 type: "POST",
                 data: {
                     idguia: id,
@@ -190,9 +191,23 @@ $(document).ready(function () {
         }
     });
 
-// Botón Editar guía desde tabla
-    $('.btn-editarguia').on('click', function () {
-        const idguia = $(this).closest('tr').attr('wire:key').split('-')[1];
+    // Botón Editar guía desde tabla - CORREGIDO
+    $(document).on('click', '.btn-editarguia', function(e) {
+        e.preventDefault();
+        
+        const idguia = $(this).data('id');
+        const codigo = $(this).data('codigo');
+        
+        if (!idguia) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'No se pudo obtener el ID de la guía'
+            });
+            return;
+        }
+        
+        // Redirigir a la página de edición con el ID de la guía
         window.location.href = `/crearguiaremision?idguia=${idguia}`;
     });
 });
@@ -251,12 +266,11 @@ function agregarProductoAlCarrito() {
 
     $('#idselectnombreproducto').val('');
     $('#idtxtcodigoproducto').val('').focus();
-    // $('#idtxtnombreproducto').val('');
     $('#idtxtcantidadproducto').val('');
     $('#idproductocarritogiaremision').val('');
     $('#idselectestadoproducto').val('Bueno');
 }
-//Eliminar producto de la tabla
+
 function actualizarTablaProductos() {
     const tbody = $('#tablaProductos tbody').empty();
 
@@ -289,9 +303,7 @@ function limpiarValidaciones() {
 (function () {
     'use strict';
     window.addEventListener('load', function () {
-        // Obtener todos los formularios a validar
         var forms = document.getElementsByClassName('needs-validation');
-        // Validación al enviar
         Array.prototype.filter.call(forms, function (form) {
             form.addEventListener('submit', function (event) {
                 if (!form.checkValidity()) {
@@ -308,7 +320,6 @@ function validarFormulario() {
     let valido = true;
     let camposIncompletos = false;
 
-    // Validar campos requeridos
     const camposRequeridos = [
         '#idtxtcodigoguia',
         '#idtxtnumerotrasladotim',
@@ -320,8 +331,6 @@ function validarFormulario() {
         '#idselectidtipoempresa',
         '#idselectidconductor'
     ];
-
-    // $(camposRequeridos.join(',')).removeClass('is-invalid');
 
     camposRequeridos.forEach(selector => {
         const $campo = $(selector);
@@ -358,5 +367,4 @@ function validarFormulario() {
     }
 
     return true;
-
 }

@@ -9,7 +9,7 @@ use Exception;
 use App\Models\Conductores;
 use App\Models\TipoEmpresa;
 use App\Models\Productos;
-
+use App\Models\Transporte;
 
 class GuiasRemisionController extends Controller
 {
@@ -17,7 +17,6 @@ class GuiasRemisionController extends Controller
     {
         try {
             $validated = $request->validate([
-                //                'idguia' => 'nullable',
                 'codigoguia' => 'required',
                 'fechaemision' => 'required',
                 'horaemision' => 'required',
@@ -48,6 +47,7 @@ class GuiasRemisionController extends Controller
                 "idconductor" => $validated['idconductor'],
                 "idtipoempresa" => $validated['idtipoempresa'],
             ]);
+            
             if ($guiasremision["data"] === null) {
                 throw new Exception($guiasremision["message"]);
             }
@@ -79,15 +79,6 @@ class GuiasRemisionController extends Controller
         }
     }
 
-//    public function vistaguias()
-//    {
-//        $conductores = Conductores::all();
-//        $tipoempresa = TipoEmpresa::all();
-//        $productos = Productos::all();
-//
-//        return view('intranet.prevencionistas.addguiasremision', compact('conductores', 'tipoempresa', 'productos'));
-//    }
-
     public function vistaguias(Request $request)
     {
         $idguia = $request->query('idguia');
@@ -95,17 +86,25 @@ class GuiasRemisionController extends Controller
         $conductores = Conductores::all();
         $tipoempresa = TipoEmpresa::all();
         $productos = Productos::all();
-//        $transportes = Transportistas::all(); // si lo usas también
+        $transportes = Transporte::all();
 
         $guia = null;
+        $detalleGuia = [];
+        
         if ($idguia) {
             $modeloguiaremision = new Guiasderemision();
-            $guiaData = $modeloguiaremision->mostrarguiaremisionporid($idguia); // Asegúrate que retorne la guía como array
+            $guiaData = $modeloguiaremision->mostrarguiasderemision(['idguia' => $idguia]);
             $guia = $guiaData['data'][0] ?? null;
+            
+            // Obtener el detalle de la guía para edición
+            if ($guia) {
+                $detalleData = $modeloguiaremision->mostrardetalleguia(['idguia' => $idguia]);
+                $detalleGuia = $detalleData['data'] ?? [];
+            }
         }
 
         return view('intranet.prevencionistas.addguiasremision', compact(
-            'conductores', 'tipoempresa', 'productos', 'guia'
+            'conductores', 'tipoempresa', 'productos', 'transportes', 'guia', 'detalleGuia'
         ));
     }
 
@@ -113,7 +112,7 @@ class GuiasRemisionController extends Controller
     {
         try {
             $validated = $request->validate([
-                "idguia" => "nullable",
+                "idguia" => "required",
             ]);
 
             $modeloguiaremision = new Guiasderemision();
@@ -138,5 +137,4 @@ class GuiasRemisionController extends Controller
             ], 500);
         }
     }
-
 }
